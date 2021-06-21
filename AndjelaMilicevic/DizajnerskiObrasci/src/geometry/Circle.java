@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 public class Circle extends AreaShape implements Cloneable{
 
+	private static final long serialVersionUID = 1L;
 	private int radius;
 	private Point center;
 	
@@ -17,21 +18,57 @@ public class Circle extends AreaShape implements Cloneable{
 		this.center = center;
 	}
 	
-	public Circle(int radius, Point center, boolean selected) {
+	public Circle(int radius, Point center, boolean selected, Color borderColor, Color areaColor) {
 		this(center,radius);
 		setSelected(selected);
+		setBorderColor(borderColor);
+		setAreaColor(areaColor);
 	}
 	
-	//CONTAINS
+	public void draw(Graphics graphics) {		
+		graphics.setColor(getBorderColor());
+		graphics.drawOval(this.getCenter().getXcoordinate() - this.getRadius(), this.getCenter().getYcoordinate() - this.getRadius(), this.getRadius()*2, this.getRadius()*2);
+		areaShape(graphics);
+		
+		if (isSelected())
+			drawSelection(graphics);
+	}
+
+	@Override
+	protected void areaShape(Graphics graphics) {
+		graphics.setColor(getAreaColor());
+
+		graphics.fillOval(center.getXcoordinate() - radius + 1, center.getYcoordinate() - radius + 1, 2 * radius - 2,
+				2 * radius - 2);
+	}
+	
+	@Override
+	protected void drawSelection(Graphics graphics) {
+		graphics.setColor(getSelectionColor());
+		int xCoordinate = center.getXcoordinate();
+		int yCoordinate = center.getYcoordinate();
+		int radius = getRadius();
+
+		graphics.drawRect(xCoordinate - SELECT_RECTANGLE_GAP, yCoordinate - SELECT_RECTANGLE_GAP,
+				SELECT_RECTANGLE_SIDE_LENGTH, SELECT_RECTANGLE_SIDE_LENGTH);
+
+		graphics.drawRect(xCoordinate + radius - SELECT_RECTANGLE_GAP, yCoordinate - SELECT_RECTANGLE_GAP,
+				SELECT_RECTANGLE_SIDE_LENGTH, SELECT_RECTANGLE_SIDE_LENGTH);
+
+		graphics.drawRect(xCoordinate - radius - SELECT_RECTANGLE_GAP, yCoordinate - SELECT_RECTANGLE_GAP,
+				SELECT_RECTANGLE_SIDE_LENGTH, SELECT_RECTANGLE_SIDE_LENGTH);
+
+		graphics.drawRect(xCoordinate - SELECT_RECTANGLE_GAP, yCoordinate + radius - SELECT_RECTANGLE_GAP,
+				SELECT_RECTANGLE_SIDE_LENGTH, SELECT_RECTANGLE_SIDE_LENGTH);
+
+		graphics.drawRect(xCoordinate - SELECT_RECTANGLE_GAP, yCoordinate - radius - SELECT_RECTANGLE_GAP,
+				SELECT_RECTANGLE_SIDE_LENGTH, SELECT_RECTANGLE_SIDE_LENGTH);
+	}
+
 	public boolean contains (int x, int y) {
 		return center.calculateDistance(x, y) <= radius;
 	}
-	
-	public boolean contains (Point p) {
-		return center.calculateDistance(p.getXcoordinate(), p.getYcoordinate()) <= radius;
-	}
-	
-	//EQUALS
+
 	public boolean equals (Object o) {
 		if (o instanceof Circle) {
 			Circle c = (Circle)o;
@@ -42,30 +79,22 @@ public class Circle extends AreaShape implements Cloneable{
 		}
 	}
 	
-	public void draw(Graphics graphic) {
-		///pogledaj dodeljivanje boje
-		if(getAreaColor() != null) {
-			graphic.setColor(getAreaColor());
-			//oval boji krug koji je opisan u kvardat koji nastaje levom tackom i sirina visina se proseldjuju 
-			graphic.fillOval(this.getCenter().getXcoordinate()-this.getRadius(), this.getCenter().getYcoordinate()-this.getRadius(), this.getRadius()*2, this.getRadius()*2);
+	public Circle clone() {
+		Circle newCircle = new Circle();
+		newCircle.setFields(this);
+		return newCircle;
+	}
+	
+	public String toString() {
+		String selected;
+		if(this.isSelected()) {
+			selected = "selected";
+		} else {
+			selected = "unselected";
 		}
-		if(getBorderColor() != null)
-			graphic.setColor(getBorderColor());
-		else
-			graphic.setColor(Color.BLACK);
-		
-			
-		graphic.drawOval(this.getCenter().getXcoordinate() - this.getRadius(), this.getCenter().getYcoordinate() - this.getRadius(), this.getRadius()*2, this.getRadius()*2);
-		
-		if (isSelected()) {
-			graphic.setColor(Color.BLUE);
-			graphic.drawRect(this.getCenter().getXcoordinate() + getRadius() - 3, this.getCenter().getYcoordinate()-3, 6, 6);
-			graphic.drawRect(this.getCenter().getXcoordinate() - radius - 3, this.getCenter().getYcoordinate()-3, 6, 6);
-			graphic.drawRect(this.getCenter().getXcoordinate() - 3, this.getCenter().getYcoordinate() + getRadius() -3, 6, 6);
-			graphic.drawRect(this.getCenter().getXcoordinate()  - 3, this.getCenter().getYcoordinate() - getRadius() -3, 6, 6);
-			graphic.drawRect(this.getCenter().getXcoordinate() - 3, this.getCenter().getYcoordinate() - 3, 6, 6);
-		
-		}
+		return "Circle: Center(" + this.getCenter().getXcoordinate()+","+this.getCenter().getYcoordinate()+") "
+				+ "Radius:"+this.getRadius()+", Border color:(" + getBorderColor().getRGB()
+				+"), " + "Fill color:("+ getAreaColor().getRGB() + "), " + selected;
 	}
 	
 	public void moveBy(int xCoordinate, int yCoordinate) {
@@ -80,43 +109,6 @@ public class Circle extends AreaShape implements Cloneable{
 			return 0;
 	}
 	
-	public double area() {
-		return radius*radius*Math.PI;
-	}
-	
-	
-	//Getters and setters
-	public int getRadius() {
-		return radius;
-	}
-	public void setRadius(int radius) {
-		this.radius = radius;
-	}
-	public Point getCenter() {
-		return center;
-	}
-	public void setCenter(Point center) {
-		this.center = center;
-	}
-
-	public String toString() {
-		int innerRed = this.getAreaColor().getRed();
-		int innerGreen = this.getAreaColor().getGreen();
-		int innerBlue = this.getAreaColor().getBlue();
-		int outerRed = this.getBorderColor().getRed();
-		int outerGreen = this.getBorderColor().getGreen();
-		int outerBlue = this.getBorderColor().getBlue();
-		String selected;
-		if(this.isSelected()) {
-			selected = "selected";
-		} else {
-			selected = "unselected";
-		}
-		return "Circle:(" + this.getCenter().getXcoordinate()+","+this.getCenter().getYcoordinate()+") "
-				+ "R:"+this.getRadius()+", BC("+outerRed+","+outerGreen+","+outerBlue+"), "
-						+ "FC("+innerRed+","+innerGreen+","+innerBlue+"), " + selected;
-	}
-
 	@Override
 	public void setFields(Shape shape) {
 		if(shape instanceof Circle) {
@@ -130,11 +122,20 @@ public class Circle extends AreaShape implements Cloneable{
 		}
 		
 	}
-	
-	public Circle clone() {
-		Circle newCircle = new Circle();
-		newCircle.setFields(this);
-		return newCircle;
-	}
 
+	public int getRadius() {
+		return radius;
+	}
+	
+	public Point getCenter() {
+		return center;
+	}
+	
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+	
+	public void setCenter(Point center) {
+		this.center = center;
+	}	
 }

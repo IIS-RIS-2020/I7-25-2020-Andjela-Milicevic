@@ -3,10 +3,15 @@ package geometry;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import org.w3c.dom.ls.LSOutput;
+
 public class Point extends Shape implements Cloneable {
 
+	private static final long serialVersionUID = 1L;
 	private int xCoordinate;
 	private int yCoordinate;
+	private final int POINT_CLICK_THRESHOLD = 3;
+	private final int POINT_LINE_GAP = 2;
 	
 	public Point() {
 		
@@ -16,43 +21,62 @@ public class Point extends Shape implements Cloneable {
 		this.yCoordinate = yCoordinate;
 	}
 	
-	public Point(int xCoordinate, int yCoordinate, boolean selected) {
+	public Point(int xCoordinate, int yCoordinate, boolean selected, Color borderColor) {
 		this(xCoordinate, yCoordinate);
 		setSelected(selected);
+		setBorderColor(borderColor);
 	}
 	
-	
-	//DISTANCE
-	public double calculateDistance (int xCoordinate, int yCoordinate) {
-		int distanceXsquare=this.xCoordinate - xCoordinate;
-		int distanceYsquare=this.yCoordinate - yCoordinate;
-		return Math.sqrt((double)(distanceXsquare * distanceXsquare + distanceYsquare * distanceYsquare));
+	public void draw(Graphics graphics) {
+		System.out.println("draw for point");
+		graphics.setColor(getBorderColor());
+		System.out.println("U draw point x je " + xCoordinate + " y je " + yCoordinate);
+		graphics.drawLine(this.xCoordinate - POINT_LINE_GAP, yCoordinate, this.xCoordinate + POINT_LINE_GAP, yCoordinate);
+		graphics.drawLine(xCoordinate, this.yCoordinate - POINT_LINE_GAP, xCoordinate, this.yCoordinate + POINT_LINE_GAP);
+		
+		if (isSelected()) {
+			graphics.setColor(getSelectionColor());
+			drawSelection(graphics);
+		}
+	}
+	@Override
+	protected void drawSelection(Graphics graphics) {
+		graphics.drawRect(xCoordinate - SELECT_RECTANGLE_GAP, yCoordinate - SELECT_RECTANGLE_GAP,
+				SELECT_RECTANGLE_SIDE_LENGTH, SELECT_RECTANGLE_SIDE_LENGTH);
 	}
 	
 	//DA LI SADRZI TACKU
-	public boolean contains(int xCoordinate, int yCoordinate) {
-		if(this.calculateDistance(xCoordinate, yCoordinate) <= 3)
-			return true;
-		return false;
+		public boolean contains(int xCoordinate, int yCoordinate) {
+			if(this.calculateDistance(xCoordinate, yCoordinate) <= POINT_CLICK_THRESHOLD)
+				return true;
+			return false;
+		}
+
+	//DISTANCE
+	public double calculateDistance (int xCoordinate, int yCoordinate) {
+		int distanceXsquare = this.xCoordinate - xCoordinate;
+		int distanceYsquare = this.yCoordinate - yCoordinate;
+		return Math.sqrt((double)(distanceXsquare * distanceXsquare + distanceYsquare * distanceYsquare));
 	}
 	
 	//EQUALS da li je tacka jednaka sa drugom 
-	public boolean equals(Object o) {
-		//prvo moramo da ispitamo da li je instanca tacka da bismo uporedjivali
-		if(o instanceof Point) {
-			//kastovanje 
-			Point p = (Point)o;
-			if(this.xCoordinate == p.xCoordinate && this.yCoordinate == p.yCoordinate ) {
-				if(getBorderColor() != null) {
-					//u slucaju ispitivanja tacke kao centra krofne ili start point, end point linije
-					//getBorderColor() daje null jer nije postavljeno
-					//TODO provera da li se jos negde to desava
-					if(p.getBorderColor()!= null && p.getBorderColor().equals(getBorderColor()) 
-							&& p.isSelected() == isSelected()) {
+	public boolean equals(Object object) {
+		// prvo moramo da ispitamo da li je instanca tacka da bismo uporedjivali
+		if (object instanceof Point) {
+			// kastovanje
+			Point point = (Point) object;
+			if (this.xCoordinate == point.xCoordinate && this.yCoordinate == point.yCoordinate) {
+				if (getBorderColor() != null) {
+					// u slucaju ispitivanja tacke kao centra krofne ili start point, end point
+					// linije
+					// getBorderColor() daje null jer nije postavljeno
+					// TODO provera da li se jos negde to desava
+					if (point.getBorderColor() != null && point.getBorderColor().equals(getBorderColor())
+							&& point.isSelected() == isSelected()) {
 						return true;
-					}else {
+					} else {
 						return false;
-					}					
+					}
 				}
 				return true;
 			} else {
@@ -62,23 +86,21 @@ public class Point extends Shape implements Cloneable {
 		return false;
 	}
 	
-	public void draw(Graphics graphic) {
-		System.out.println("draw for point");
-		if (getBorderColor() != null){
-			graphic.setColor(getBorderColor());
-		}			
-		else {
-			graphic.setColor(Color.BLACK);
+	public Point clone() {
+		Point newPoint = new Point();
+		newPoint.setFields(this);
+		return newPoint;
+	}
+	
+	@Override
+	public String toString() {
+		String selected;
+		if(this.isSelected()) {
+			selected = "selected";
+		} else {
+			selected = "unselected";
 		}
-		System.out.println("u draw point x je "+xCoordinate+" y je "+yCoordinate);
-		graphic.drawLine(this.xCoordinate - 2, yCoordinate, this.xCoordinate + 2, yCoordinate);
-		graphic.drawLine(xCoordinate, this.yCoordinate - 2, xCoordinate, this.yCoordinate + 2);
-		
-		if (isSelected()) {
-			graphic.setColor(Color.BLUE);
-			graphic.drawRect(this.getXcoordinate() - 3, this.yCoordinate - 3, 6, 6);
-
-		}
+		return "(x: " + xCoordinate + " , y: " + yCoordinate + " , Border color: " + getBorderColor().getRGB() + " ) " + selected;
 	}
 	
 	public void moveBy(int xCoordinate, int yCoordinate) {
@@ -96,37 +118,6 @@ public class Point extends Shape implements Cloneable {
 			return 0;
 	}
 	
-	//Getters and setters
-	
-	public int getXcoordinate() {
-		return xCoordinate;
-	}
-
-	public void setXcoordinate(int xCoordinate){
-		this.xCoordinate = xCoordinate;
-	}
-
-		public int getYcoordinate() {
-		return yCoordinate;
-	}
-
-	public void setYcoordinate(int yCoordinate) {
-		this.yCoordinate = yCoordinate;
-	}
-
-	public String toString() {
-		int outr = this.getBorderColor().getRed();
-		int outg = this.getBorderColor().getGreen();
-		int outb = this.getBorderColor().getBlue();
-		String selected;
-		if(this.isSelected()) {
-			selected = "selected";
-		} else {
-			selected = "unselected";
-		}
-		return "Point:(" + this.getXcoordinate()+","+this.getYcoordinate()+") "
-				+"BC("+outr+","+outg+","+outb+") "+ selected;
-	}
 	@Override
 	public void setFields(Shape shape) {
 		if(shape instanceof Point) {
@@ -137,11 +128,21 @@ public class Point extends Shape implements Cloneable {
 			this.setSelected(getPoint.isSelected());
 		}
 	}
-	
-	public Point clone() {
-		Point newPoint = new Point();
-		newPoint.setFields(this);
-		return newPoint;
+
+	//Getters and setters	
+	public int getXcoordinate() {
+		return xCoordinate;
+	}
+
+	public int getYcoordinate() {
+		return yCoordinate;
 	}
 	
+	public void setXcoordinate(int xCoordinate){
+		this.xCoordinate = xCoordinate;
+	}
+
+	public void setYcoordinate(int yCoordinate) {
+		this.yCoordinate = yCoordinate;
+	}	
 }

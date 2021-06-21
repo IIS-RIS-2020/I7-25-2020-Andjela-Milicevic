@@ -1194,9 +1194,10 @@ public class DrawingController {
 		} else {
 			selected = false;
 		}
-		Rectangle rect = new Rectangle(p, h, w, selected);
+		Rectangle rect = new Rectangle(p, h, w, selected, borderColor, areaColor);
 		rect.setBorderColor(border);
 		rect.setAreaColor(fill);
+		//dodaj za boje
 		return rect;
 		
 	}

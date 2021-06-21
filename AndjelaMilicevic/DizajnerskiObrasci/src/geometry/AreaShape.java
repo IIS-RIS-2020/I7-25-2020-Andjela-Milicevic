@@ -1,13 +1,17 @@
 package geometry;
 
-import java.awt.Color;
+import java.awt.*;
 
 public abstract class AreaShape extends Shape {
-
+	private static final long serialVersionUID = 1L;
 	private Color areaColor; 
 	
-	abstract double area();
+	public AreaShape() {
+	}
 
+//	abstract double area();
+	protected abstract void areaShape(Graphics graphics);
+	
 	public Color getAreaColor() {
 		return areaColor;
 	}

@@ -18,10 +18,10 @@ public abstract class Shape implements Moveable, Comparable, Serializable {
 	
 	//public abstract boolean equals(Object o);
 	
-	 public abstract void draw(Graphics g);
+	 public abstract void draw(Graphics graphics);
 
 	
-	public abstract boolean contains(int x, int y);
+	public abstract boolean contains(int xCoordinate, int yCoordinate);
 	public abstract void setFields(Shape shape);
 	
 	public boolean isSelected() {

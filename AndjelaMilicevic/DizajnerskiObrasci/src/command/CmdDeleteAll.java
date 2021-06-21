@@ -36,8 +36,8 @@ public class CmdDeleteAll implements Command, Serializable {
 			deleteCommand.unexecute();
 		}
 	}
-	
-	public void add(CmdDelete cmd) {
+	//add
+	public void addDeletedCommand(CmdDelete cmd) {
 		listOfDeleteCommands.add(cmd);
 	}
 

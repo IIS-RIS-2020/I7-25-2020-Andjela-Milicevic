@@ -3,5 +3,5 @@ package mvc;
 
 public interface Saving {
 
-	void save();
+	void saveDrawingOrLog();
 }

@@ -17,10 +17,10 @@ public class HexagonAdapter extends AreaShape {
 		this.center = center;
 		this.radius = r;
 		
-		this.hexagon = new Hexagon(center.getX(), center.getY(), r);
+		this.hexagon = new Hexagon(center.getXcoordinate(), center.getYcoordinate(), r);
 		hexagon.setR(radius);
-		hexagon.setX(center.getX());
-		hexagon.setY(center.getY());
+		hexagon.setX(center.getXcoordinate());
+		hexagon.setY(center.getYcoordinate());
 		hexagon.setBorderColor(getBorderColor());
 		hexagon.setAreaColor(getAreaColor());
 		hexagon.setSelected(isSelected());
@@ -43,7 +43,7 @@ public class HexagonAdapter extends AreaShape {
 	}
 
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics graphics) {
 		hexagon.setSelected(isSelected());
 		if(this.getAreaColor()!= null) {
 			hexagon.setAreaColor(this.getAreaColor());
@@ -56,12 +56,12 @@ public class HexagonAdapter extends AreaShape {
 		} else {
 			hexagon.setBorderColor(Color.BLACK);
 		}
-		hexagon.paint(g);
+		hexagon.paint(graphics);
 	}
 
 	@Override
-	public boolean contains(int x, int y) {		
-		return hexagon.doesContain(x, y);
+	public boolean contains(int xCoordinate, int yCoordinate) {		
+		return hexagon.doesContain(xCoordinate, yCoordinate);
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class HexagonAdapter extends AreaShape {
 		} else {
 			selected = "unselected";
 		}
-		return "Hexagon:("+this.getCenter().getX()+","+this.getCenter().getY()+") "
+		return "Hexagon:("+this.getCenter().getXcoordinate()+","+this.getCenter().getYcoordinate()+") "
 				+ "R:"+this.getRadius()+", BC("+outr+","+outg+","+outb+"), "
 						+ "FC("+inr+","+ing+","+inb+"), "+selected;
 
@@ -132,8 +132,8 @@ public class HexagonAdapter extends AreaShape {
 		this.setAreaColor(getHexagon.getAreaColor());
 		this.setBorderColor(getHexagon.getBorderColor());
 		this.setSelected(getHexagon.isSelected());
-		this.getCenter().setX(getHexagon.getCenter().getX());
-		this.getCenter().setY(getHexagon.getCenter().getY());
+		this.getCenter().setXcoordinate(getHexagon.getCenter().getXcoordinate());
+		this.getCenter().setYcoordinate(getHexagon.getCenter().getYcoordinate());
 		this.setRadius(getHexagon.getRadius());
 		
 		this.getHexagon().setAreaColor(getHexagon.getHexagon().getAreaColor());

@@ -15,22 +15,22 @@ public class DrawingModel implements Serializable {
 		return shapes;
 	}
 	
-	public void add(Shape shape) {
+	public void addShape(Shape shape) {
 		shapes.add(shape);
 	}
 	
-	public void remove(Shape shape) {
+	public void removeShape(Shape shape) {
 		shapes.remove(shape);
 	}
-	public void add(int index, Shape shape) {
-		shapes.add(index, shape);
+	public void addShapeToIndex(int indexOfShape, Shape shape) {
+		shapes.add(indexOfShape, shape);
 	}
-
-	public int indexOf(Shape shape) {
+	//get
+	public int getIndexOfShape(Shape shape) {
 		return shapes.indexOf(shape);
 	}
-	
-	public int size() {
+	//size
+	public int getNumberOfShapes() {
 		return shapes.size();
 	}
 }

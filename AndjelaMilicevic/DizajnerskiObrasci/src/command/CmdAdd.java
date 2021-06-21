@@ -23,12 +23,12 @@ public class CmdAdd implements Command, Serializable {
 	public void execute() {
 		System.out.println("execute in cmdAdd");
 		System.out.println("shape: "+shape.toString());
-		model.add(shape);
+		model.addShape(shape);
 	}
 
 	@Override
 	public void unexecute() {
-		model.remove(shape);
+		model.removeShape(shape);
 	}
 	
 	public String toString() {

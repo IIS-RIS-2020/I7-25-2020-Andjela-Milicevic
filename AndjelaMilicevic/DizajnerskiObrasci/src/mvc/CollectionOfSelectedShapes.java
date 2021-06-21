@@ -16,7 +16,7 @@ public class CollectionOfSelectedShapes implements Subject {
 	public void notifyObservers() {
 		Iterator<Observer> it = observers.iterator();
 		while(it.hasNext()) {
-			it.next().update(selectedShapes.size());
+			it.next().updateSelectedShape(selectedShapes.size());
 		}
 	}
 
@@ -34,27 +34,27 @@ public class CollectionOfSelectedShapes implements Subject {
 		return selectedShapes;
 	}
 
-	public void add(Shape shape) {
+	public void addSelectedShape(Shape shape) {
 		selectedShapes.add(shape);
 		notifyObservers();
 	}
 	
-	public void remove(Shape shape) {
+	public void removeSelectedShape(Shape shape) {
 		selectedShapes.remove(shape);
 		notifyObservers();
 	}
 	
-	public void removeAll() {
+	public void removeAllSelectedShapes() {
 		selectedShapes.removeAll(selectedShapes);
 		notifyObservers();
 	}
-	
-	public int size() {
+	//size
+	public int getNumberOfSelectedShapes() {
 		return selectedShapes.size();
 	}
-	
-	public Shape get(int index) {
-		return selectedShapes.get(index);
+	//get
+	public Shape getSelectedShapeByIndex(int indexOfShape) {
+		return selectedShapes.get(indexOfShape);
 	}
 
 	public Iterator<Shape> iterator() {

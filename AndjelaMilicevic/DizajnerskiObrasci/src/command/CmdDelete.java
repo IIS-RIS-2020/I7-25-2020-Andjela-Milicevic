@@ -17,20 +17,20 @@ public class CmdDelete implements Command, Serializable{
 
 		this.shape = shape;
 		this.model = model;
-		this.index = this.model.indexOf(shape);
+		this.index = this.model.getIndexOfShape(shape);
 	}
 	
 	@Override
 	public void execute() {
 		System.out.println("index of shape:" + index);
-		this.model.remove(shape);
+		this.model.removeShape(shape);
 	}
 
 	@Override
 	public void unexecute() {
 		System.out.println("unexecute");
 		//problem ako pri execute deleteall pokusa da stavi na indeks 1 a size je nula
-		this.model.add(index, shape);
+		this.model.addShapeToIndex(index, shape);
 	}
 	
 	

@@ -25,16 +25,19 @@ public class Rectangle extends AreaShape implements Cloneable{
 	}
 	
 	//CONTAINS
-	public boolean contains (int x, int y) {
-		//moze i da premasi levu tacku i ode u negativne vrednosti van pravougaonika pa mora i upperx<x
-		return (upperLeftPoint.getX() <= x && upperLeftPoint.getY() <=y 
-				&& (x <width + upperLeftPoint.getX()) && (y < upperLeftPoint.getY() + height));
+	public boolean contains (int xCoordinate, int yCoordinate) {
+		//moze i da premasi levu tacku i ode u negativne vrednosti van pravougaonika pa mora i upperx<xCoordinate
+		return (upperLeftPoint.getXcoordinate() <= xCoordinate && upperLeftPoint.getYcoordinate() <=yCoordinate 
+				&& (xCoordinate <width + upperLeftPoint.getXcoordinate()) && (yCoordinate < upperLeftPoint.getYcoordinate() + height));
 	}
 	
-	public boolean contains (Point p) {
-		return (upperLeftPoint.getX() <= p.getX() && upperLeftPoint.getY() <= p.getY() 
-				&& (p.getX() < width + upperLeftPoint.getX()) && (p.getY() < upperLeftPoint.getY() + height));
-	}
+	/*
+	 * public boolean contains (Point p) { return (upperLeftPoint.getXcoordinate()
+	 * <= p.getXcoordinate() && upperLeftPoint.getYcoordinate() <=
+	 * p.getYcoordinate() && (p.getXcoordinate() < width +
+	 * upperLeftPoint.getXcoordinate()) && (p.getYcoordinate() <
+	 * upperLeftPoint.getYcoordinate() + height)); }
+	 */
 	
 	//EQUALS
 	public boolean equals(Object o) {
@@ -54,33 +57,33 @@ public class Rectangle extends AreaShape implements Cloneable{
 	
 	}
 
-	public void draw(Graphics g) {
+	public void draw(Graphics graphics) {
 		if(this.getAreaColor() != null) {
-			g.setColor(getAreaColor());
-			g.fillRect(this.getUpperLeftPoint().getX(), this.getUpperLeftPoint().getY(),
+			graphics.setColor(getAreaColor());
+			graphics.fillRect(this.getUpperLeftPoint().getXcoordinate(), this.getUpperLeftPoint().getYcoordinate(),
 					this.getWidth(), this.getHeight());
 		}
 		
 		if(getBorderColor() != null) {
-			g.setColor(getBorderColor());
+			graphics.setColor(getBorderColor());
 		}
 		else 
-		g.setColor(Color.BLACK);			
-		g.drawRect(this.getUpperLeftPoint().getX(), this.getUpperLeftPoint().getY(), this.width, this.getHeight());
-		// g.fillRect(this.getUpperLeftPoint().getX(), this.getUpperLeftPoint().getY(), this.width, this.getHeight());
+		graphics.setColor(Color.BLACK);			
+		graphics.drawRect(this.getUpperLeftPoint().getXcoordinate(), this.getUpperLeftPoint().getYcoordinate(), this.width, this.getHeight());
+		// graphics.fillRect(this.getUpperLeftPoint().getXcoordinate(), this.getUpperLeftPoint().getYcoordinate(), this.width, this.getHeight());
 		
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(this.getUpperLeftPoint().getX() - 3, this.getUpperLeftPoint().getY() -3, 6, 6);
-			g.drawRect(this.getUpperLeftPoint().getX() + width - 3, this.getUpperLeftPoint().getY() - 3, 6, 6);
-			g.drawRect(this.getUpperLeftPoint().getX() - 3, this.getUpperLeftPoint().getY() + height - 3, 6, 6);
-			g.drawRect(this.getUpperLeftPoint().getX() + width - 3, this.getUpperLeftPoint().getY() + height - 3, 6, 6);
-			g.setColor(Color.BLACK);
+			graphics.setColor(Color.BLUE);
+			graphics.drawRect(this.getUpperLeftPoint().getXcoordinate() - 3, this.getUpperLeftPoint().getYcoordinate() -3, 6, 6);
+			graphics.drawRect(this.getUpperLeftPoint().getXcoordinate() + width - 3, this.getUpperLeftPoint().getYcoordinate() - 3, 6, 6);
+			graphics.drawRect(this.getUpperLeftPoint().getXcoordinate() - 3, this.getUpperLeftPoint().getYcoordinate() + height - 3, 6, 6);
+			graphics.drawRect(this.getUpperLeftPoint().getXcoordinate() + width - 3, this.getUpperLeftPoint().getYcoordinate() + height - 3, 6, 6);
+			graphics.setColor(Color.BLACK);
 		}
 	}
 	
-	public void moveBy(int x, int y) {
-		upperLeftPoint.moveBy(x, y);
+	public void moveBy(int xCoordinate, int yCoordinate) {
+		upperLeftPoint.moveBy(xCoordinate, yCoordinate);
 		//dovoljno da se pomeri jedna, menjaju se sve jer se racunaju preko nje
 	}
 	
@@ -117,38 +120,38 @@ public class Rectangle extends AreaShape implements Cloneable{
 	}
 	
 	public String toString() {
-		int inr = this.getAreaColor().getRed();
-		int ing = this.getAreaColor().getGreen();
-		int inb = this.getAreaColor().getBlue();
-		int outr = this.getBorderColor().getRed();
-		int outg = this.getBorderColor().getGreen();
-		int outb = this.getBorderColor().getBlue();
+		int innerRed = this.getAreaColor().getRed();
+		int innerGreen = this.getAreaColor().getGreen();
+		int innerBlue = this.getAreaColor().getBlue();
+		int outerRed = this.getBorderColor().getRed();
+		int outerGreen = this.getBorderColor().getGreen();
+		int outerBlue = this.getBorderColor().getBlue();
 		String selected;
 		if(this.isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
-		return "Rectangle:(" + this.getUpperLeftPoint().getX()+","+this.getUpperLeftPoint().getY()+") "
-				+ "W:"+this.getWidth()+", H:"+this.getHeight()+", BC("+outr+","+outg+","+outb+"), "
-						+ "FC("+inr+","+ing+","+inb+"), "+selected;
+		return "Rectangle:(" + this.getUpperLeftPoint().getXcoordinate()+","+this.getUpperLeftPoint().getYcoordinate()+") "
+				+ "Width:"+this.getWidth()+", Height:"+this.getHeight()+", BC("+outerRed+","+outerGreen+","+outerBlue+"), "
+						+ "FC("+innerRed+","+innerGreen+","+innerBlue+"), "+selected;
 	}
 
 	@Override
 	public void setFields(Shape shape) {
 		if(shape instanceof Rectangle) {
 			Rectangle getRect = (Rectangle)shape;
-			this.getUpperLeftPoint().setX(getRect.getUpperLeftPoint().getX());
-			this.getUpperLeftPoint().setY(getRect.getUpperLeftPoint().getY());
+			this.getUpperLeftPoint().setXcoordinate(getRect.getUpperLeftPoint().getXcoordinate());
+			this.getUpperLeftPoint().setYcoordinate(getRect.getUpperLeftPoint().getYcoordinate());
 			try {
 				this.setHeight(getRect.getHeight());
-			} catch (Exception e1) {
-				e1.printStackTrace();
+			} catch (Exception exceptionHeight) {
+				exceptionHeight.printStackTrace();
 			}
 			try {
 				this.setWidth(getRect.getWidth());
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (Exception exceptionWidth) {
+				exceptionWidth.printStackTrace();
 			}
 			this.setSelected(getRect.isSelected());
 			this.setBorderColor(getRect.getBorderColor());

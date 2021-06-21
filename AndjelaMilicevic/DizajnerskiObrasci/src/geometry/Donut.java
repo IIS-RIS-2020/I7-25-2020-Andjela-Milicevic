@@ -16,21 +16,21 @@ public class Donut extends Circle implements Cloneable{
 		super();
 	}
 	
-	public Donut(Point center, int radius,int innerRadius) {
-			setRadius(radius);
+	public Donut(Point center, int outerRadius,int innerRadius) {
+			setRadius(outerRadius);
 			setCenter(center);
 			this.innerRadius = innerRadius;	
 	
 	}
 
-	public Donut(Point center, int radius, int innerRadius, boolean selected){
-		this(center, radius, innerRadius);
+	public Donut(Point center, int outerRadius, int innerRadius, boolean selected){
+		this(center, outerRadius, innerRadius);
 		setSelected(selected);
 	}
 	
 	//CONTAINS
 	public boolean contains(int x, int y) {
-		double dFromCenter = this.getCenter().distance(x, y);
+		double dFromCenter = this.getCenter().calculateDistance(x, y);
 		return (dFromCenter < getRadius() && dFromCenter > this.innerRadius);
 	}
 		
@@ -50,30 +50,30 @@ public class Donut extends Circle implements Cloneable{
 		}
 	}
 	
-	public void draw(Graphics g) {
+	public void draw(Graphics graphics) {
 		
 		System.out.println("Iscrtavanje donut-a");
-		Graphics2D gr = (Graphics2D) g;
+		Graphics2D gr = (Graphics2D) graphics;
 		Shape donut = (Area)createDonut(getCenter(), innerRadius, getRadius());
 		if(getBorderColor() != null) {
-			g.setColor(getBorderColor());
+			graphics.setColor(getBorderColor());
 		} else {
-			g.setColor(Color.BLACK);
+			graphics.setColor(Color.BLACK);
 		}
 		gr.draw(donut);
 		
 		if(getAreaColor() != null) {
-			g.setColor(getAreaColor());
+			graphics.setColor(getAreaColor());
 			gr.fill(donut);
 		} 
 		
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(getCenter().getX() - 3, getCenter().getY() - 3, 6, 6);
-			g.drawRect(this.getCenter().getX() + getInnerRadius() - 3, this.getCenter().getY()-3, 6, 6);
-			g.drawRect(this.getCenter().getX() - getInnerRadius() - 3, this.getCenter().getY()-3, 6, 6);
-			g.drawRect(this.getCenter().getX() - 3, this.getCenter().getY() + getInnerRadius() -3, 6, 6);
-			g.drawRect(this.getCenter().getX()  - 3, this.getCenter().getY() - getInnerRadius() -3, 6, 6);
+			graphics.setColor(Color.BLUE);
+			graphics.drawRect(getCenter().getXcoordinate() - 3, getCenter().getYcoordinate() - 3, 6, 6);
+			graphics.drawRect(this.getCenter().getXcoordinate() + getInnerRadius() - 3, this.getCenter().getYcoordinate()-3, 6, 6);
+			graphics.drawRect(this.getCenter().getXcoordinate() - getInnerRadius() - 3, this.getCenter().getYcoordinate()-3, 6, 6);
+			graphics.drawRect(this.getCenter().getXcoordinate() - 3, this.getCenter().getYcoordinate() + getInnerRadius() -3, 6, 6);
+			graphics.drawRect(this.getCenter().getXcoordinate()  - 3, this.getCenter().getYcoordinate() - getInnerRadius() -3, 6, 6);
 		}
 	
 	}
@@ -81,13 +81,13 @@ public class Donut extends Circle implements Cloneable{
     private static Shape createDonut(Point center, int innerRadius, int outerRadius)
     {
         Ellipse2D outer = new Ellipse2D.Double(
-            center.getX() - outerRadius, 
-            center.getY() - outerRadius,
+            center.getXcoordinate() - outerRadius, 
+            center.getYcoordinate() - outerRadius,
             2*outerRadius, 
             2*outerRadius);
         Ellipse2D inner = new Ellipse2D.Double(
-            center.getX() - innerRadius, 
-            center.getY() - innerRadius,
+            center.getXcoordinate() - innerRadius, 
+            center.getYcoordinate() - innerRadius,
             2*innerRadius, 
             2*innerRadius);
         Area area = new Area(outer);
@@ -95,8 +95,8 @@ public class Donut extends Circle implements Cloneable{
         return area;
     }
     
-	public void moveBy(int x, int y) {
-		getCenter().moveBy(x, y);
+	public void moveBy(int xCoordinate, int yCoordinate) {
+		getCenter().moveBy(xCoordinate, yCoordinate);
 	}
 
 	public int compareTo (Object o) {
@@ -117,21 +117,21 @@ public class Donut extends Circle implements Cloneable{
 	}
 
 	public String toString() {
-		int inr = this.getAreaColor().getRed();
-		int ing = this.getAreaColor().getGreen();
-		int inb = this.getAreaColor().getBlue();
-		int outr = this.getBorderColor().getRed();
-		int outg = this.getBorderColor().getGreen();
-		int outb = this.getBorderColor().getBlue();
+		int innerRed = this.getAreaColor().getRed();
+		int innerGreen = this.getAreaColor().getGreen();
+		int innerBlue = this.getAreaColor().getBlue();
+		int outerRed = this.getBorderColor().getRed();
+		int outerGreen = this.getBorderColor().getGreen();
+		int outerBlue = this.getBorderColor().getBlue();
 		String selected;
 		if(this.isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
-		return "Donut:("+this.getCenter().getX()+","+this.getCenter().getY()+")"
+		return "Donut:("+this.getCenter().getXcoordinate()+","+this.getCenter().getYcoordinate()+")"
 				+ " OR:"+this.getRadius()+", IR:"+this.getInnerRadius()+", "
-						+ "BC("+outr+","+outg+","+outb+"), FC("+inr+","+ing+","+inb+"), "+selected;
+						+ "BC("+outerRed+","+outerGreen+","+outerBlue+"), FC("+innerRed+","+innerGreen+","+innerBlue+"), "+selected;
 	}
 	
 	public void setFields(Donut donut) {

@@ -40,55 +40,55 @@ public class Line extends Shape implements Cloneable {
 	}
 	
 	//CONTAINS
-	public boolean contains(int x, int y) {
+	public boolean contains(int xCoordinate, int yCoordinate) {
 		
-		if(startPoint.distance(x, y) + endPoint.distance(x,y) - length() <= 50)
+		if(startPoint.calculateDistance(xCoordinate, yCoordinate) + endPoint.calculateDistance(xCoordinate,yCoordinate) - calculateLength() <= 50)
 			return true;
 		else
 			return false;
 	}
 	
-	public double length() {
-		return this.endPoint.distance(this.startPoint.getX(), this.endPoint.getY());
+	public double calculateLength() {
+		return this.endPoint.calculateDistance(this.startPoint.getXcoordinate(), this.endPoint.getYcoordinate());
 	}
 	
 	
-	public Point middleOfLine() {
-		int x = (startPoint.getX()+endPoint.getX())/2;
-		int y = (startPoint.getY()+endPoint.getY())/2;
+	public Point getMiddleOfLine() {
+		int x = (startPoint.getXcoordinate()+endPoint.getXcoordinate())/2;
+		int y = (startPoint.getYcoordinate()+endPoint.getYcoordinate())/2;
 		Point p = new Point(x,y);
 		return p;
 	}
 
-	public void draw(Graphics g) {
+	public void draw(Graphics graphic) {
 		System.out.println("iscrtavanje linije");
 		if(getBorderColor() != null) {
-			g.setColor(getBorderColor());
+			graphic.setColor(getBorderColor());
 		}
 		else
-			g.setColor(Color.BLACK);
-		g.drawLine(this.getStartPoint().getX(), this.getStartPoint().getY(), 
-				this.getEndPoint().getX(), this.getEndPoint().getY());
+			graphic.setColor(Color.BLACK);
+		graphic.drawLine(this.getStartPoint().getXcoordinate(), this.getStartPoint().getYcoordinate(), 
+				this.getEndPoint().getXcoordinate(), this.getEndPoint().getYcoordinate());
 		
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(this.getStartPoint().getX() - 3, this.getStartPoint().getY() - 3, 6, 6);
-			g.drawRect(this.getEndPoint().getX() - 3, this.getEndPoint().getY() - 3, 6, 6);
-			g.drawRect(this.middleOfLine().getX() - 3, this.middleOfLine().getY() - 3, 6, 6);
+			graphic.setColor(Color.BLUE);
+			graphic.drawRect(this.getStartPoint().getXcoordinate() - 3, this.getStartPoint().getYcoordinate() - 3, 6, 6);
+			graphic.drawRect(this.getEndPoint().getXcoordinate() - 3, this.getEndPoint().getYcoordinate() - 3, 6, 6);
+			graphic.drawRect(this.getMiddleOfLine().getXcoordinate() - 3, this.getMiddleOfLine().getYcoordinate() - 3, 6, 6);
 		}
 		
 	}
 	
-	public void moveBy(int x, int y) {
+	public void moveBy(int xCoordinate, int yCoordinate) {
 		//VEC IMAMO REALIZOVANE METODE ZA TACKE
-		startPoint.moveBy(x, y);
-		endPoint.moveBy(x, y);
+		startPoint.moveBy(xCoordinate, yCoordinate);
+		endPoint.moveBy(xCoordinate, yCoordinate);
 		
 	}
 	
 	public int compareTo(Object o) {
 		if (o instanceof Line) {
-			return (int) (this.length() - ((Line) o).length());
+			return (int) (this.calculateLength() - ((Line) o).calculateLength());
 		}
 		else
 			return 0;
@@ -109,17 +109,17 @@ public class Line extends Shape implements Cloneable {
 	}
 	
 	public String toString() {
-		int outr = this.getBorderColor().getRed();
-		int outg = this.getBorderColor().getGreen();
-		int outb = this.getBorderColor().getBlue();
+		int outerRed = this.getBorderColor().getRed();
+		int outerGreen = this.getBorderColor().getGreen();
+		int outerBlue = this.getBorderColor().getBlue();
 		String selected;
 		if(this.isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
-		return "Line:SP(" + this.getStartPoint().getX()+","+this.getStartPoint().getY()+") EP("+
-				this.getEndPoint().getX()+","+this.getEndPoint().getY()+") "+ "BC("+outr+","+outg+","+outb+"), "
+		return "Line:SP(" + this.getStartPoint().getXcoordinate()+","+this.getStartPoint().getYcoordinate()+") EP("+
+				this.getEndPoint().getXcoordinate()+","+this.getEndPoint().getYcoordinate()+") "+ "BC("+outerRed+","+outerGreen+","+outerBlue+"), "
 						+ selected;
 	}
 
@@ -127,10 +127,10 @@ public class Line extends Shape implements Cloneable {
 	public void setFields(Shape shape) {
 		if(shape instanceof Line) {
 			Line getLine = (Line) shape;
-			this.getStartPoint().setX(getLine.getStartPoint().getX());
-			this.getStartPoint().setY(getLine.getStartPoint().getY());
-			this.getEndPoint().setX(getLine.getEndPoint().getX());
-			this.getEndPoint().setY(getLine.getEndPoint().getY());
+			this.getStartPoint().setXcoordinate(getLine.getStartPoint().getXcoordinate());
+			this.getStartPoint().setYcoordinate(getLine.getStartPoint().getYcoordinate());
+			this.getEndPoint().setXcoordinate(getLine.getEndPoint().getXcoordinate());
+			this.getEndPoint().setYcoordinate(getLine.getEndPoint().getYcoordinate());
 			this.setSelected(getLine.isSelected());
 			this.setBorderColor(getLine.getBorderColor());
 		}

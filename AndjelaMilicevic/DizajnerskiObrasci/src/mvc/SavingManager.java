@@ -7,10 +7,10 @@ public class SavingManager implements Saving{
 		this.saving = saving;
 	}
 	@Override
-	public void save() {
-		saving.save();
+	public void saveDrawingOrLog() {
+		saving.saveDrawingOrLog();
 	}
-	
+	//da li je potrebno
 	public void setSaving(Saving saving) {
 		this.saving = saving;
 	}

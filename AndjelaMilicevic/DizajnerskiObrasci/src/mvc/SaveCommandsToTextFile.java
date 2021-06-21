@@ -16,7 +16,7 @@ public class SaveCommandsToTextFile implements Saving {
 	}
 
 	@Override
-	public void save() {
+	public void saveDrawingOrLog() {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File("C:/Users/Natalija/Documents"));
 		fc.setDialogTitle("Save a file");

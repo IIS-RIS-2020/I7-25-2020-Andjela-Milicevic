@@ -85,8 +85,8 @@ public class DrawingController {
 			{
 				clickedPoint = new Point();
 				// mora da se uvek napravi nova inace se samo menjaju vrednosti nad referencom na istu tacku
-				clickedPoint.setX(e.getX());
-				clickedPoint.setY(e.getY());
+				clickedPoint.setXcoordinate(e.getX());
+				clickedPoint.setYcoordinate(e.getY());
 				clickedPoint.setBorderColor(getBorderColor(pd.getColor()));
 				CmdAdd cmd = new CmdAdd(clickedPoint, model);
 				 executeCommand(cmd);
@@ -106,10 +106,10 @@ public class DrawingController {
 				ld.setTxtStartYEditable(false);
 				ld.setTxtEndXEditable(false);
 				ld.setTxtEndYXEditable(false);
-				ld.setTxtStartX(Integer.toString(l.getStartPoint().getX()));
-				ld.setTxtStartY(Integer.toString(l.getStartPoint().getY()));
-				ld.setTxtEndX(Integer.toString(l.getEndPoint().getX()));
-				ld.setTxtEndY(Integer.toString(l.getEndPoint().getY()));
+				ld.setTxtStartX(Integer.toString(l.getStartPoint().getXcoordinate()));
+				ld.setTxtStartY(Integer.toString(l.getStartPoint().getYcoordinate()));
+				ld.setTxtEndX(Integer.toString(l.getEndPoint().getXcoordinate()));
+				ld.setTxtEndY(Integer.toString(l.getEndPoint().getYcoordinate()));
 				ld.setVisible(true);
 				if(ld.isOk()) {					
 					l.setBorderColor(getBorderColor(ld.getColorLine()));				
@@ -125,8 +125,8 @@ public class DrawingController {
 			
 			Point center = new Point(e.getX(), e.getY());
 			CircleDialog cd = new CircleDialog();
-			cd.setTxtCentarX(Integer.toString(center.getX()));
-			cd.setTxtCentarY(Integer.toString(center.getY()));
+			cd.setTxtCentarX(Integer.toString(center.getXcoordinate()));
+			cd.setTxtCentarY(Integer.toString(center.getYcoordinate()));
 			cd.setTxtCentarXEditable(false);
 			cd.setTxtCentarYEditable(false);
 			cd.setVisible(true);
@@ -143,8 +143,8 @@ public class DrawingController {
 		} else if(frame.getTglBtnRectangle()) {
 			Point upperLeft = new Point(e.getX(), e.getY());
 			RectangleDialog rd = new RectangleDialog();
-			rd.setTxtXCoordinate(Integer.toString(upperLeft.getX()));
-			rd.setTxtYCoordinate(Integer.toString(upperLeft.getY()));
+			rd.setTxtXCoordinate(Integer.toString(upperLeft.getXcoordinate()));
+			rd.setTxtYCoordinate(Integer.toString(upperLeft.getYcoordinate()));
 			rd.setTxtCoordXEditable(false);
 			rd.setTxtCoordYEditable(false);
 			rd.setVisible(true);
@@ -161,8 +161,8 @@ public class DrawingController {
 		} else if(frame.getTglBtnDonut()) {
 			Point center = new Point(e.getX(),e.getY());
 			DonutDialog dd = new DonutDialog();
-			dd.setTxtCentarX(Integer.toString(center.getX()));
-			dd.setTxtCentarY(Integer.toString(center.getY()));
+			dd.setTxtCentarX(Integer.toString(center.getXcoordinate()));
+			dd.setTxtCentarY(Integer.toString(center.getYcoordinate()));
 			dd.setTxtCentarXEditable(false);
 			dd.setTxtCentarYEditable(false);
 			dd.setVisible(true);
@@ -180,8 +180,8 @@ public class DrawingController {
 		} else if (frame.getTglBtnHexagon()) {
 			Point center = new Point(e.getX(), e.getY());
 			HexagonDialog hd = new HexagonDialog();
-			hd.setTxtCentarX(Integer.toString(center.getX()));
-			hd.setTxtCentarY(Integer.toString(center.getY()));
+			hd.setTxtCentarX(Integer.toString(center.getXcoordinate()));
+			hd.setTxtCentarY(Integer.toString(center.getYcoordinate()));
 			hd.setTxtCentarXEditable(false);
 			hd.setTxtCentarYEditable(false);
 			hd.setVisible(true);
@@ -210,9 +210,9 @@ public class DrawingController {
 			}
 			if(selectedShape != null) {
 				if(!selectedShape.isSelected()) {	
-					modifySelected(selectedShape, true);
+					modifySelectedShape(selectedShape, true);
 				} else {
-					modifySelected(selectedShape, false);
+					modifySelectedShape(selectedShape, false);
 				}	
 				selectedShape = null;
 			} 
@@ -241,49 +241,49 @@ public class DrawingController {
 		return areaColor;
 	}
 	
-	private void modifySelected(Shape selectedShape, boolean setSelected) {
+	private void modifySelectedShape(Shape selectedShape, boolean setSelected) {
 		if(selectedShape instanceof Point) {
 			Point newPoint = new Point();
 			newPoint.setFields(((Point)selectedShape));
 			newPoint.setSelected(setSelected);
-			CmdModifyPoint cmd = new CmdModifyPoint(((Point)selectedShape),newPoint);
-			addRemoveSelectedExecute(cmd);
-			executeCommand(cmd);
+			CmdModifyPoint commandModifyPoint = new CmdModifyPoint(((Point)selectedShape),newPoint);
+			addRemoveSelectedExecute(commandModifyPoint);
+			executeCommand(commandModifyPoint);
 		} else if (selectedShape instanceof Line) {
 			Line newLine = new Line();
 			newLine.setFields(((Line)selectedShape));
 			newLine.setSelected(setSelected);
-			CmdModifyLine cmd = new CmdModifyLine(((Line)selectedShape), newLine);
-			addRemoveSelectedExecute(cmd);
-			executeCommand(cmd);
+			CmdModifyLine commandModifyLine = new CmdModifyLine(((Line)selectedShape), newLine);
+			addRemoveSelectedExecute(commandModifyLine);
+			executeCommand(commandModifyLine);
 		} else if(selectedShape instanceof Donut) {
 			Donut newDonut = new Donut();
 			newDonut.setFields(((Donut)selectedShape));			
 			newDonut.setSelected(setSelected);
-			CmdModifyDonut cmd = new CmdModifyDonut(((Donut)selectedShape), newDonut);
-			addRemoveSelectedExecute(cmd);
-			executeCommand(cmd);
+			CmdModifyDonut commandModifyDonut = new CmdModifyDonut(((Donut)selectedShape), newDonut);
+			addRemoveSelectedExecute(commandModifyDonut);
+			executeCommand(commandModifyDonut);
 		} else if (selectedShape instanceof Rectangle) {
 			Rectangle newRect = new Rectangle();
 			newRect.setFields(((Rectangle)selectedShape));			
 			newRect.setSelected(setSelected);
-			CmdModifyRectangle cmd = new CmdModifyRectangle(((Rectangle)selectedShape),newRect);
-			addRemoveSelectedExecute(cmd);
-			executeCommand(cmd);
+			CmdModifyRectangle commandModifyRectangle = new CmdModifyRectangle(((Rectangle)selectedShape),newRect);
+			addRemoveSelectedExecute(commandModifyRectangle);
+			executeCommand(commandModifyRectangle);
 		} else if (selectedShape instanceof Circle) {
 			Circle newCircle = new Circle();
 			newCircle.setFields(((Circle)selectedShape));			
 			newCircle.setSelected(setSelected);
-			CmdModifyCircle cmd = new CmdModifyCircle(((Circle)selectedShape), newCircle);
-			addRemoveSelectedExecute(cmd);
-			executeCommand(cmd);
+			CmdModifyCircle commandModifyCircle = new CmdModifyCircle(((Circle)selectedShape), newCircle);
+			addRemoveSelectedExecute(commandModifyCircle);
+			executeCommand(commandModifyCircle);
 		} else if (selectedShape instanceof HexagonAdapter) {
 			HexagonAdapter newHex = new HexagonAdapter();
 			newHex.setFields(((HexagonAdapter)selectedShape));	
 			newHex.setSelected(setSelected);
-			CmdModifyHexagon cmd = new CmdModifyHexagon(((HexagonAdapter)selectedShape),newHex);
-			addRemoveSelectedExecute(cmd);
-			executeCommand(cmd);
+			CmdModifyHexagon commandModifyHexagon = new CmdModifyHexagon(((HexagonAdapter)selectedShape),newHex);
+			addRemoveSelectedExecute(commandModifyHexagon);
+			executeCommand(commandModifyHexagon);
 		}
 		
 	}
@@ -334,17 +334,17 @@ public class DrawingController {
 				|| commandPointer instanceof CmdModifyHexagon || commandPointer instanceof CmdModifyPoint) {
 			if(((CmdModify)commandPointer).redo()!=null) {
 				if((Boolean)((CmdModify)commandPointer).redo()==true) {
-					selectedShapes.add(((CmdModify)commandPointer).getOldState());
+					selectedShapes.addSelectedShape(((CmdModify)commandPointer).getOldState());
 				} else {
-					selectedShapes.remove(((CmdModify)commandPointer).getOldState());
+					selectedShapes.removeSelectedShape(((CmdModify)commandPointer).getOldState());
 				}
 			}
 		}else if(commandPointer instanceof CmdDelete) {
-			selectedShapes.remove(((CmdDelete)commandPointer).getShape());
+			selectedShapes.removeSelectedShape(((CmdDelete)commandPointer).getShape());
 		} else if (commandPointer instanceof CmdDeleteAll) {
 			Iterator<CmdDelete> it = ((CmdDeleteAll) commandPointer).getListOfDeleteCommands().iterator();
 			while(it.hasNext()) {
-				selectedShapes.remove(it.next().getShape());
+				selectedShapes.removeSelectedShape(it.next().getShape());
 			}
 		}
 	}
@@ -355,17 +355,17 @@ public class DrawingController {
 				|| commandPointer instanceof CmdModifyHexagon || commandPointer instanceof CmdModifyPoint) {
 			if(((CmdModify)commandPointer).undo()!=null) {
 				if((Boolean)((CmdModify)commandPointer).undo()==true) {
-					selectedShapes.add(((CmdModify)commandPointer).getOldState());
+					selectedShapes.addSelectedShape(((CmdModify)commandPointer).getOldState());
 				} else {
-					selectedShapes.remove(((CmdModify)commandPointer).getOldState());
+					selectedShapes.removeSelectedShape(((CmdModify)commandPointer).getOldState());
 				}
 			}
 		}else if(commandPointer instanceof CmdDelete) {
-			selectedShapes.add(((CmdDelete)commandPointer).getShape());
+			selectedShapes.addSelectedShape(((CmdDelete)commandPointer).getShape());
 		} else if (commandPointer instanceof CmdDeleteAll) {
 			Iterator<CmdDelete> it = ((CmdDeleteAll) commandPointer).getListOfDeleteCommands().iterator();
 			while(it.hasNext()) {
-				selectedShapes.add(it.next().getShape());
+				selectedShapes.addSelectedShape(it.next().getShape());
 			}
 		}
 	}
@@ -430,14 +430,14 @@ public class DrawingController {
 
 	public void clickedDelete() {
 		// set clickedPoint null
-		if(selectedShapes.size() != 0) {
-			if(selectedShapes.size() == 1) {
+		if(selectedShapes.getNumberOfSelectedShapes() != 0) {
+			if(selectedShapes.getNumberOfSelectedShapes() == 1) {
 				if(JOptionPane.showConfirmDialog(new JFrame(), 
 						"Da li ste sigurni da želite da obrišete selektovani oblik?","Potvrda",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-				CmdDelete cmd = new CmdDelete(selectedShapes.get(0), model);
+				CmdDelete cmd = new CmdDelete(selectedShapes.getSelectedShapeByIndex(0), model);
 				executeCommand(cmd);
-				selectedShapes.removeAll();
+				selectedShapes.removeAllSelectedShapes();
 				}				
 			} else {
 				if(JOptionPane.showConfirmDialog(new JFrame(), 
@@ -447,10 +447,10 @@ public class DrawingController {
 				CmdDeleteAll cmdAll = new CmdDeleteAll();
 				while(it.hasNext()) {
 					CmdDelete cmd = new CmdDelete(it.next(), model);
-					cmdAll.add(cmd);
+					cmdAll.addDeletedCommand(cmd);
 				}
 				executeCommand(cmdAll);
-				selectedShapes.removeAll();
+				selectedShapes.removeAllSelectedShapes();
 				}				
 			}
 		} else {
@@ -461,13 +461,13 @@ public class DrawingController {
 
 	public void clickedBringToBack() {
 		System.out.println("clickedBringToBack");
-		System.out.println(selectedShapes.size());
-		if(selectedShapes.size() == 1) {
+		System.out.println(selectedShapes.getNumberOfSelectedShapes());
+		if(selectedShapes.getNumberOfSelectedShapes() == 1) {
 			System.out.println("One selected shape");
-			int index = model.getShapes().indexOf(selectedShapes.get(0));
+			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 			if(index != 0) {
 				int newIndex = 0; 
-				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.get(0), model, newIndex);
+				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.getSelectedShapeByIndex(0), model, newIndex);
 				executeCommand(cmd);
 			}
 		} else {
@@ -478,11 +478,11 @@ public class DrawingController {
 
 	public void clickedBringToTop() {
 		System.out.println();
-		if(selectedShapes.size() == 1) {
-			int index = model.getShapes().indexOf(selectedShapes.get(0));
+		if(selectedShapes.getNumberOfSelectedShapes() == 1) {
+			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 			if(index != model.getShapes().size() - 1) {
 				int newIndex = model.getShapes().size() - 1; 
-				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.get(0), model, newIndex);
+				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.getSelectedShapeByIndex(0), model, newIndex);
 				executeCommand(cmd);
 			}
 		} else {
@@ -492,12 +492,12 @@ public class DrawingController {
 	}
 
 	public void clickedToBack() {
-		if(selectedShapes.size() == 1) {
+		if(selectedShapes.getNumberOfSelectedShapes() == 1) {
 			System.out.println("One selected shape");
-			int index = model.getShapes().indexOf(selectedShapes.get(0));
+			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 			if(index != 0) {
 				int newIndex = index - 1; 
-				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.get(0), model, newIndex);
+				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.getSelectedShapeByIndex(0), model, newIndex);
 				executeCommand(cmd);
 			}
 		} else {
@@ -508,11 +508,11 @@ public class DrawingController {
 	}
 
 	public void clickedToFront() {
-		if(selectedShapes.size() == 1) {
-			int index = model.getShapes().indexOf(selectedShapes.get(0));
+		if(selectedShapes.getNumberOfSelectedShapes() == 1) {
+			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 			if(index != model.getShapes().size() - 1) {
 				int newIndex = index + 1; 
-				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.get(0), model, newIndex);
+				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.getSelectedShapeByIndex(0), model, newIndex);
 				executeCommand(cmd);
 			}
 		} else {
@@ -567,32 +567,32 @@ public class DrawingController {
 
 
 	public void clickedModify() {
-		if(selectedShapes.size() == 1) {
+		if(selectedShapes.getNumberOfSelectedShapes() == 1) {
 			
-			if (selectedShapes.get(0) instanceof Point) {
-				Point p = (Point) selectedShapes.get(0);
+			if (selectedShapes.getSelectedShapeByIndex(0) instanceof Point) {
+				Point p = (Point) selectedShapes.getSelectedShapeByIndex(0);
 				PointDialog pd = new PointDialog();
-				pd.setTxtCoordX(Integer.toString(p.getX()));
-				pd.setTxtCoordY(Integer.toString(p.getY()));
+				pd.setTxtCoordX(Integer.toString(p.getXcoordinate()));
+				pd.setTxtCoordY(Integer.toString(p.getYcoordinate()));
 				pd.setColor(p.getBorderColor());
 				pd.setVisible(true);
 				if (pd.getIsOk()) {
 					Point newPoint = new Point();
-					newPoint.setX(Integer.parseInt(pd.getTxtCoordX()));
-					newPoint.setY(Integer.parseInt(pd.getTxtCoordY()));
+					newPoint.setXcoordinate(Integer.parseInt(pd.getTxtCoordX()));
+					newPoint.setYcoordinate(Integer.parseInt(pd.getTxtCoordY()));
 					newPoint.setBorderColor(pd.getColor());
 					newPoint.setSelected(true);
 					CmdModifyPoint cmd = new CmdModifyPoint(p, newPoint);
 					addRemoveSelectedExecute(cmd);
 					executeCommand(cmd);
 				}
-			} else if (selectedShapes.get(0) instanceof Line) {
-				Line l = (Line) selectedShapes.get(0);
+			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Line) {
+				Line l = (Line) selectedShapes.getSelectedShapeByIndex(0);
 				LineDialog ld = new LineDialog();
-				ld.setTxtStartX(Integer.toString(l.getStartPoint().getX()));
-				ld.setTxtStartY(Integer.toString(l.getStartPoint().getY()));
-				ld.setTxtEndX(Integer.toString(l.getEndPoint().getX()));
-				ld.setTxtEndY(Integer.toString(l.getEndPoint().getY()));
+				ld.setTxtStartX(Integer.toString(l.getStartPoint().getXcoordinate()));
+				ld.setTxtStartY(Integer.toString(l.getStartPoint().getYcoordinate()));
+				ld.setTxtEndX(Integer.toString(l.getEndPoint().getXcoordinate()));
+				ld.setTxtEndY(Integer.toString(l.getEndPoint().getYcoordinate()));
 				ld.setColorLine(l.getBorderColor());
 				ld.setVisible(true);
 				if (ld.isOk()) {
@@ -607,11 +607,11 @@ public class DrawingController {
 					addRemoveSelectedExecute(cmd);
 					executeCommand(cmd);
 				}
-			} else if (selectedShapes.get(0) instanceof Rectangle) {
-				Rectangle r = (Rectangle) selectedShapes.get(0);
+			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Rectangle) {
+				Rectangle r = (Rectangle) selectedShapes.getSelectedShapeByIndex(0);
 				RectangleDialog rd = new RectangleDialog();
-				rd.setTxtXCoordinate((Integer.toString(r.getUpperLeftPoint().getX())));
-				rd.setTxtYCoordinate(Integer.toString(r.getUpperLeftPoint().getY()));
+				rd.setTxtXCoordinate((Integer.toString(r.getUpperLeftPoint().getXcoordinate())));
+				rd.setTxtYCoordinate(Integer.toString(r.getUpperLeftPoint().getYcoordinate()));
 				rd.setTxtHeight(Integer.toString(r.getHeight()));
 				rd.setTxtWidth(Integer.toString(r.getWidth()));
 				rd.setColorIn(r.getAreaColor());
@@ -630,11 +630,11 @@ public class DrawingController {
 					addRemoveSelectedExecute(cmd);
 					executeCommand(cmd);
 				}
-			} else if (selectedShapes.get(0) instanceof Donut) {
-				Donut d = (Donut) selectedShapes.get(0);
+			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Donut) {
+				Donut d = (Donut) selectedShapes.getSelectedShapeByIndex(0);
 				DonutDialog dd = new DonutDialog();
-				dd.setTxtCentarX(Integer.toString(d.getCenter().getX()));
-				dd.setTxtCentarY(Integer.toString(d.getCenter().getY()));
+				dd.setTxtCentarX(Integer.toString(d.getCenter().getXcoordinate()));
+				dd.setTxtCentarY(Integer.toString(d.getCenter().getYcoordinate()));
 				dd.setTxtInnerRadius(Integer.toString(d.getInnerRadius()));
 				dd.setTxtRadius(Integer.toString(d.getRadius()));
 				dd.setColorIn(d.getAreaColor());
@@ -652,12 +652,12 @@ public class DrawingController {
 					addRemoveSelectedExecute(cmd);
 					executeCommand(cmd);
 				}
-			} else if (selectedShapes.get(0) instanceof Circle) {
-				Circle c = (Circle) selectedShapes.get(0);
+			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Circle) {
+				Circle c = (Circle) selectedShapes.getSelectedShapeByIndex(0);
 				//mora posle donuta jer ulazi u if i ako je donut jer je donut insanca kruga 
 				CircleDialog cd = new CircleDialog();
-				cd.setTxtCentarX(Integer.toString(c.getCenter().getX()));
-				cd.setTxtCentarY(Integer.toString(c.getCenter().getY()));
+				cd.setTxtCentarX(Integer.toString(c.getCenter().getXcoordinate()));
+				cd.setTxtCentarY(Integer.toString(c.getCenter().getYcoordinate()));
 				cd.setTxtRadius(Integer.toString(c.getRadius()));
 				cd.setColorIn(c.getAreaColor());
 				cd.setColorOut(c.getBorderColor());
@@ -674,11 +674,11 @@ public class DrawingController {
 					addRemoveSelectedExecute(cmd);
 					executeCommand(cmd);
 				}
-			} else if (selectedShapes.get(0) instanceof HexagonAdapter) {
-				HexagonAdapter h = (HexagonAdapter) selectedShapes.get(0);
+			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof HexagonAdapter) {
+				HexagonAdapter h = (HexagonAdapter) selectedShapes.getSelectedShapeByIndex(0);
 				HexagonDialog hd = new HexagonDialog();
-				hd.setTxtCentarX(Integer.toString(h.getCenter().getX()));
-				hd.setTxtCentarY(Integer.toString(h.getCenter().getY()));
+				hd.setTxtCentarX(Integer.toString(h.getCenter().getXcoordinate()));
+				hd.setTxtCentarY(Integer.toString(h.getCenter().getYcoordinate()));
 				hd.setTxtRadius(Integer.toString(h.getRadius()));
 				hd.setColorIn(h.getAreaColor());
 				hd.setColorOut(h.getBorderColor());
@@ -715,15 +715,15 @@ public class DrawingController {
 		//problem jer izgledaju da su selektovani a u stvari nisu u listi 
 		SaveSerializedDrawing ssd = new SaveSerializedDrawing(this);
 		SavingManager sm = new SavingManager(ssd);
-		sm.save();
+		sm.saveDrawingOrLog();
 		
 	}
 	
-
+	//saveDrawing?!
 	public void clickedSaveFile() {
 		SaveCommandsToTextFile scttf = new SaveCommandsToTextFile(this);
 		SavingManager sm = new SavingManager(scttf);
-		sm.save();
+		sm.saveDrawingOrLog();
 	}
 
 	public void clickedNextLine() {
@@ -751,7 +751,7 @@ public class DrawingController {
 				ArrayList<Shape> shapesFromFile = (ArrayList<Shape>) objectInputStream.readObject();
 				Iterator<Shape> it = shapesFromFile.iterator();
 				while(it.hasNext()) {
-					model.add(it.next());
+					model.addShape(it.next());
 				}
 				//TODO dodato zatvaranje stream-a
 				objectInputStream.close();
@@ -825,7 +825,7 @@ public class DrawingController {
 					System.out.println("delete command:" + deleteCommands[i]);
 					String[] splitsForCmdDelete = deleteCommands[i].split("[, =():]");
 					CmdDelete cmdDelete = (CmdDelete)makeDeleteCommand(splitsForCmdDelete);
-					cmd.add(cmdDelete);
+					cmd.addDeletedCommand(cmdDelete);
 				}
 				executeCommand(cmd);
 			} else {

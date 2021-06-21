@@ -65,7 +65,7 @@ public class DrawingFrame extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
-		setTitle("IT17-2017 Natalija Gajic");
+		setTitle("Andjela Milicevic I7 25/2020");
 		setBounds(10, 10, 1920, 1080);
 		
 		jlistOfCommands.setModel(dlm);
@@ -175,8 +175,8 @@ public class DrawingFrame extends JFrame {
 		toolBar.add(tglBtnRedo);
 		buttonGroup.add(tglBtnRedo);
 		this.view.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				controller.mouseClickedOnPanel(e);
+			public void mouseClicked(MouseEvent event) {
+				controller.mouseClickedOnPanel(event);
 			}
 		});
 	
@@ -184,7 +184,7 @@ public class DrawingFrame extends JFrame {
 	buttonGroup.add(tglBtnOpenFile);
 	tglBtnOpenFile.addMouseListener(new MouseAdapter() {
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void mouseClicked(MouseEvent event) {
 			controller.clickedOpenFile();
 		}
 	});
@@ -193,7 +193,7 @@ public class DrawingFrame extends JFrame {
 	buttonGroup.add(tglBtnNextLine);
 	tglBtnNextLine.addMouseListener(new MouseAdapter() {
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void mouseClicked(MouseEvent event) {
 			controller.clickedNextLine();
 		}
 	});
@@ -203,7 +203,7 @@ public class DrawingFrame extends JFrame {
 	buttonGroup.add(tglBtnSaveFile);
 	tglBtnSaveFile.addMouseListener(new MouseAdapter() {
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void mouseClicked(MouseEvent event) {
 			controller.clickedSaveFile();
 		}
 	});
@@ -213,7 +213,7 @@ public class DrawingFrame extends JFrame {
 			buttonGroup.add(tglBtnOpen);
 			tglBtnOpen.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mouseClicked(MouseEvent e) {
+				public void mouseClicked(MouseEvent event) {
 					controller.clickedOpen();
 				}
 			});
@@ -255,7 +255,7 @@ public class DrawingFrame extends JFrame {
 		buttonGroup.add(tglBtnSave);
 		tglBtnSave.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent event) {
 				controller.clickedSave();
 			}
 		});
@@ -283,8 +283,8 @@ public class DrawingFrame extends JFrame {
 
 	}
 	
-	public void addToDLM(Object o) {
-		dlm.addElement(o);
+	public void addToDLM(Object object) {
+		dlm.addElement(object);
 	}
 	
 
@@ -301,7 +301,7 @@ public class DrawingFrame extends JFrame {
 		return controller;
 	}
 
-	public void setController(DrawingController controller) {
+	public void setDrawingController(DrawingController controller) {
 		this.controller = controller;
 	}
 	

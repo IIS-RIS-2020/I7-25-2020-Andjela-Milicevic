@@ -20,7 +20,7 @@ public class JToggleButtonObserver implements Observer {
 	}
 	
 	@Override
-	public void update(int numberOfSelected) {
+	public void updateSelectedShape(int numberOfSelected) {
 		if(numberOfSelected == 0) {
 			Iterator<JToggleButton> it = buttons.iterator();
 			while(it.hasNext()) {

@@ -22,14 +22,14 @@ public class CmdChangeLayer implements Command, Serializable {
 	
 	@Override
 	public void execute() {
-		model.remove(shape);
-		model.add(newIndex, shape);
+		model.removeShape(shape);
+		model.addShapeToIndex(newIndex, shape);
 	}
 
 	@Override
 	public void unexecute() {
-		model.remove(shape);
-		model.add(oldIndex, shape);
+		model.removeShape(shape);
+		model.addShapeToIndex(oldIndex, shape);
 	}
 	
 

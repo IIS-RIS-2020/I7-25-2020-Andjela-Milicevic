@@ -47,6 +47,8 @@ import geometry.Point;
 import geometry.Rectangle;
 import geometry.Shape;
 
+import observer.*;
+
 //TODO indexOf za komande ne moze, pogledaj executeCommand i clickedUndo za objasnjenje
 
 //TODO 25.12. undoredo pogledaj sta se desava
@@ -1186,10 +1188,10 @@ public class DrawingController {
 		Point p = new Point(x, y);
 		int w = Integer.parseInt(splits[7 + diff]);
 		int h = Integer.parseInt(splits[10 + diff]);
-		Color border = new Color(Integer.parseInt(splits[13 + diff]),Integer.parseInt(splits[14 + diff]),Integer.parseInt(splits[15 + diff]));
-		Color fill = new Color(Integer.parseInt(splits[19 + diff]),Integer.parseInt(splits[20 + diff]),Integer.parseInt(splits[21 + diff]));
+		Color border = new Color(Integer.parseInt(splits[13 + diff]));
+		Color fill = new Color(Integer.parseInt(splits[17 + diff]));
 		boolean selected;
-		if(splits[24 + diff].equals("selected")) {
+		if(splits[20 + diff].equals("selected")) {
 			selected = true;
 		} else {
 			selected = false;
@@ -1197,7 +1199,6 @@ public class DrawingController {
 		Rectangle rect = new Rectangle(p, h, w, selected, borderColor, areaColor);
 		rect.setBorderColor(border);
 		rect.setAreaColor(fill);
-		//dodaj za boje
 		return rect;
 		
 	}
@@ -1207,10 +1208,10 @@ public class DrawingController {
 		int y = Integer.parseInt(splits[4 + diff]);
 		Point center = new Point(x, y);
 		int radius = Integer.parseInt(splits[7 + diff]);
-		Color border = new Color(Integer.parseInt(splits[10 + diff]),Integer.parseInt(splits[11 + diff]),Integer.parseInt(splits[12 + diff]));
-		Color fill = new Color(Integer.parseInt(splits[16 + diff]),Integer.parseInt(splits[17 + diff]),Integer.parseInt(splits[18 + diff]));
+		Color border = new Color(Integer.parseInt(splits[10 + diff]));
+		Color fill = new Color(Integer.parseInt(splits[14 + diff]));
 		boolean selected;
-		if(splits[21 + diff].equals("selected")) {
+		if(splits[17 + diff].equals("selected")) {
 			selected = true;
 		} else {
 			selected = false;
@@ -1228,10 +1229,10 @@ public class DrawingController {
 		Point center = new Point(x, y);
 		int outerRadius = Integer.parseInt(splits[7 + diff]);
 		int innerRadius = Integer.parseInt(splits[10 + diff]);
-		Color border = new Color(Integer.parseInt(splits[13 + diff]),Integer.parseInt(splits[14 + diff]),Integer.parseInt(splits[15 + diff]));
-		Color fill = new Color(Integer.parseInt(splits[19 + diff]),Integer.parseInt(splits[20 + diff]),Integer.parseInt(splits[21 + diff]));
+		Color border = new Color(Integer.parseInt(splits[13 + diff]));
+		Color fill = new Color(Integer.parseInt(splits[17 + diff]));
 		boolean selected;
-		if(splits[24 + diff].equals("selected")) {
+		if(splits[20 + diff].equals("selected")) {
 			selected = true;
 		} else {
 			selected = false;
@@ -1251,10 +1252,10 @@ public class DrawingController {
 		int y = Integer.parseInt(splits[4 + diff]);
 		Point center = new Point(x, y);
 		int outRadius = Integer.parseInt(splits[7 + diff]);
-		Color border = new Color(Integer.parseInt(splits[10 + diff]),Integer.parseInt(splits[11 + diff]),Integer.parseInt(splits[12 + diff]));
-		Color fill = new Color(Integer.parseInt(splits[16 + diff]),Integer.parseInt(splits[17 + diff]),Integer.parseInt(splits[18 + diff]));
+		Color border = new Color(Integer.parseInt(splits[10 + diff]));
+		Color fill = new Color(Integer.parseInt(splits[14 + diff]));
 		boolean selected;
-		if(splits[21 + diff].equals("selected")) {
+		if(splits[17 + diff].equals("selected")) {
 			selected = true;
 		} else {
 			selected = false;
@@ -1268,17 +1269,24 @@ public class DrawingController {
 	
 	private Line makeLine(String[] splits, int diff) {
 		int x = Integer.parseInt(splits[3 + diff]);
+		System.out.println("prva X koo "+ splits[3 + diff]);
 		int y = Integer.parseInt(splits[4 + diff]);
+		System.out.println("prva Y koo "+ splits[4 + diff]);
 		int x1 = Integer.parseInt(splits[7 + diff]);
+		System.out.println("dryga X koo "+ splits[7 + diff]);
 		int y1 = Integer.parseInt(splits[8 + diff]);
+		System.out.println("druga Y koo "+ splits[8 + diff]);
 		Point startPoint = new Point(x, y);
 		Point endPoint = new Point(x1, y1);
-		Color border = new Color(Integer.parseInt(splits[11 + diff]),Integer.parseInt(splits[12 + diff]),Integer.parseInt(splits[13 + diff]));
+		Color border = new Color(Integer.parseInt(splits[11 + diff]));
+		System.out.println("border "+ splits[11 + diff]);
 		boolean selected;
-		if(splits[16 + diff].equals("selected")) {
+		if(splits[14 + diff].equals("selected")) {
 			selected = true;
+			System.out.println("selekcija "+ splits[14 + diff]);
 		} else {
 			selected = false;
+			System.out.println("selekcija "+ splits[14 + diff]);
 		}	
 		Line l = new Line(startPoint, endPoint);
 		l.setSelected(selected);
@@ -1287,14 +1295,18 @@ public class DrawingController {
 	}
 	
 	private Point makePoint(String[] splits, int diff) {
-		int x = Integer.parseInt(splits[3+ diff]);
-		int y = Integer.parseInt(splits[4+ diff]);
-		Color border = new Color(Integer.parseInt(splits[7 + diff]),Integer.parseInt(splits[8 + diff]),Integer.parseInt(splits[9 + diff]));
+		int x = Integer.parseInt(splits[3 + diff]);
+		System.out.println("X "+splits[3]);
+		int y = Integer.parseInt(splits[4 + diff]);
+		System.out.println("Y "+splits[4]);
+		Color border = new Color(Integer.parseInt(splits[7 + diff]));
+		System.out.println("Border "+splits[7]);
 		boolean selected;
-		if(splits[11 + diff].equals("selected")) {
+		if(splits[9 + diff].equals("selected")) {
 			selected = true;
 		} else {
 			selected = false;
+			System.out.println("sel "+splits[9]);
 		}	
 		Point point = new Point(x, y);
 		point.setSelected(selected);

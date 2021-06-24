@@ -88,10 +88,9 @@ public class Line extends Shape implements Cloneable {
 		} else {
 			selected = "unselected";
 		}
-		return "Line: Start point:(" + this.getStartPoint().getXcoordinate() + ","
-				+ this.getStartPoint().getYcoordinate() + ") End point:(" + this.getEndPoint().getXcoordinate() + ","
-				+ this.getEndPoint().getYcoordinate() + ") " + "Border color:(" + getBorderColor().getRGB() + "), "
-				+ selected;
+		return "Line:StartPoint(" + this.getStartPoint().getXcoordinate() + "," + this.getStartPoint().getYcoordinate()
+				+ ") EndPoint(" + this.getEndPoint().getXcoordinate() + "," + this.getEndPoint().getYcoordinate() + ") "
+				+ "BorderColor(" + getBorderColor().getRGB() + "), " + selected;
 	}
 
 	public void moveBy(int xCoordinate, int yCoordinate) {

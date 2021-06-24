@@ -100,7 +100,7 @@ public class Point extends Shape implements Cloneable {
 		} else {
 			selected = "unselected";
 		}
-		return "(x: " + xCoordinate + " , y: " + yCoordinate + " , Border color: " + getBorderColor().getRGB() + " ) " + selected;
+		return "Point:(" + xCoordinate + "," + yCoordinate + ") "+"BorderColor(" + getBorderColor().getRGB() + ") " + selected;
 	}
 	
 	public void moveBy(int xCoordinate, int yCoordinate) {

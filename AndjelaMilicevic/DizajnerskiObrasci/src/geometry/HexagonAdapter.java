@@ -91,9 +91,9 @@ public class HexagonAdapter extends AreaShape {
 		} else {
 			selected = "unselected";
 		}
-		return "Hexagon: Center: (" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ") " + "Radius:"
-				+ this.getRadius() + ", Border color:(" + getBorderColor().getRGB() + "), " 
-		+ "Fill color:(" + getAreaColor().getRGB() + "), " + selected;
+		return "Hexagon:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ") " + "Radius:"
+				+ this.getRadius() + ", BorderColor(" + getBorderColor().getRGB() + "), " 
+		+ "FillColor(" + getAreaColor().getRGB() + "), " + selected;
 	}
 
 	@Override

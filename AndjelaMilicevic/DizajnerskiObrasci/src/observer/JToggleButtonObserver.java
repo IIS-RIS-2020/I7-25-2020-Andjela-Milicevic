@@ -1,8 +1,8 @@
-package mvc;
+package observer;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
+import mvc.*;
 import javax.swing.JToggleButton;
 
 public class JToggleButtonObserver implements Observer {

@@ -94,9 +94,9 @@ public class Rectangle extends AreaShape implements Cloneable {
 		} else {
 			selected = "unselected";
 		}
-		return "Rectangle: Upper left point:(" + this.getUpperLeftPoint().getXcoordinate() + ","
+		return "Rectangle:(" + this.getUpperLeftPoint().getXcoordinate() + ","
 				+ this.getUpperLeftPoint().getYcoordinate() + ") " + "Width:" + this.getWidth() + ", Height:"
-				+ this.getHeight() + ", Border color:(" + getBorderColor().getRGB() + "), " + "Fill color:("
+				+ this.getHeight() + ", BorderColor(" + getBorderColor().getRGB() + "), " + "FillColor("
 				+ getAreaColor().getRGB() + "), " + selected;
 	}
 

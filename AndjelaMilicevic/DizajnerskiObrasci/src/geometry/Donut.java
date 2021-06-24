@@ -87,9 +87,9 @@ public class Donut extends Circle implements Cloneable {
 		} else {
 			selected = "unselected";
 		}
-		return "Donut: Center:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ")" + " outerRadius:"
-				+ this.getRadius() + ", innerRadius:" + this.getInnerRadius() + ", " + "Border color:(" + getBorderColor().getRGB()
-				+ "), Fill color:(" + getAreaColor().getRGB() + "), " + selected;
+		return "Donut:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ")" + " outerRadius:"
+				+ this.getRadius() + ", innerRadius:" + this.getInnerRadius() + ", " + "BorderColor(" + getBorderColor().getRGB()
+				+ "), FillColor(" + getAreaColor().getRGB() + "), " + selected;
 	}
 	
 	public double area() {

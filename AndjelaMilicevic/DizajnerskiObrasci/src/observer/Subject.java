@@ -1,4 +1,4 @@
-package mvc;
+package observer;
 
 public interface Subject {
 	public void notifyObservers();

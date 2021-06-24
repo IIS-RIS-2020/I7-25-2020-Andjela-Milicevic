@@ -2,8 +2,7 @@ package mvc;
 
 
 import javax.swing.JFrame;
-
-import controller.DrawingController;
+import observer.*;
 import observer.JToggleButtonObserver;
 
 

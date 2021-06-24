@@ -26,17 +26,23 @@ public class Line extends Shape implements Cloneable {
 	
 	//EQUALS
 	public boolean equals (Object o) {
-		if(o instanceof Line) {
-			Line l = (Line)o;
-			if (l.getStartPoint().equals(startPoint) && l.getEndPoint().equals(endPoint)
-					&& l.getBorderColor().equals(getBorderColor()) && l.isSelected() == isSelected()) {
-				return true;
-			} else {
-				return false;
-			}
+//		if(o instanceof Line) {
+//			Line l = (Line)o;
+//			if (l.getStartPoint().equals(startPoint) && l.getEndPoint().equals(endPoint)
+//					&& l.getBorderColor().equals(getBorderColor()) && l.isSelected() == isSelected()) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		}
+//		else
+//			return false;
+		if (o instanceof Line) {
+			Line line = (Line) o;
+			return startPoint.equals(line.startPoint) && endPoint.equals(line.endPoint);
 		}
-		else
-			return false;
+
+		return false;
 	}
 	
 	//CONTAINS
@@ -49,7 +55,7 @@ public class Line extends Shape implements Cloneable {
 	}
 	
 	public double length() {
-		return this.endPoint.distance(this.startPoint.getX(), this.endPoint.getY());
+		return this.startPoint.distance(this.endPoint.getX(), this.endPoint.getY());
 	}
 	
 	

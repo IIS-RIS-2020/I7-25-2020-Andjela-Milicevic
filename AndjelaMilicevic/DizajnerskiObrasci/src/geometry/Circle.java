@@ -32,14 +32,13 @@ public class Circle extends AreaShape implements Cloneable{
 	}
 	
 	//EQUALS
-	public boolean equals (Object o) {
-		if (o instanceof Circle) {
-			Circle c = (Circle)o;
-			return (c.center.equals(center) && c.radius == radius && c.getAreaColor().equals(getAreaColor())
-					&& c.getBorderColor().equals(getBorderColor()) && c.isSelected() == isSelected());
-		} else {
-			return false;
+	public boolean equals (Object object) {
+		if (object instanceof Circle) {
+			Circle circle = (Circle) object;
+			return center.equals(circle.center) && this.radius == circle.radius;
 		}
+
+		return false;
 	}
 	
 	public void draw(Graphics g) {

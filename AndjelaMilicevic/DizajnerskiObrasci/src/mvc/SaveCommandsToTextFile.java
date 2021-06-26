@@ -7,6 +7,8 @@ import java.util.Iterator;
 
 import javax.swing.JFileChooser;
 
+import mvc.*;
+
 
 public class SaveCommandsToTextFile implements Saving {
 
@@ -18,7 +20,7 @@ public class SaveCommandsToTextFile implements Saving {
 	@Override
 	public void saveDrawingOrLog() {
 		JFileChooser fc = new JFileChooser();
-		fc.setCurrentDirectory(new java.io.File("C:/Users/Natalija/Documents"));
+		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Save a file");
 		//fc.setFileFilter(new FileTypeFilter(".bin", "File"));
 		int result = fc.showSaveDialog(null);

@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -21,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CircleDialog extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private final JPanel pnlCircle = new JPanel();
 	private JTextField txtCentarX;
 	private JTextField txtCentarY;
@@ -29,6 +28,7 @@ public class CircleDialog extends JDialog {
 	private Color colorIn;
 	private Color colorOut;
 	private boolean isOk;
+
 	/**
 	 * Launch the application.
 	 */
@@ -53,71 +53,61 @@ public class CircleDialog extends JDialog {
 		this.setModal(true);
 		JLabel lblXCC = new JLabel("X koordinata centra");
 		JLabel lblYCC = new JLabel("Y koordinata centra");
-		JLabel lblDuinaPoluprenika = new JLabel("Du\u017Eina polupre\u010Dnika");
+		JLabel lblDuinaPoluprenika = new JLabel("Duzina poluprecnika");
 		txtCentarX = new JTextField();
-	
+
 		txtCentarX.setColumns(10);
 		txtCentarY = new JTextField();
-	
+
 		txtCentarY.setColumns(10);
 		txtRadius = new JTextField();
 		txtRadius.setColumns(10);
-		JButton btnBoja = new JButton("Boja unutra\u0161njosti");
+		JButton btnBoja = new JButton("Boja unutrasnjosti");
 		btnBoja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorIn=JColorChooser.showDialog(null, "Izaberite boju", Color.WHITE);
+				colorIn = JColorChooser.showDialog(null, "Izaberite boju", Color.WHITE);
 			}
 		});
-		
+
 		JButton btnBojaIvica = new JButton("Boja ivica");
 		btnBojaIvica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorOut=JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
+				colorOut = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 			}
 		});
 		GroupLayout gl_pnlCircle = new GroupLayout(pnlCircle);
-		gl_pnlCircle.setHorizontalGroup(
-			gl_pnlCircle.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnlCircle.createSequentialGroup()
-					.addGap(51)
-					.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
+		gl_pnlCircle.setHorizontalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlCircle
+				.createSequentialGroup().addGap(51)
+				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								gl_pnlCircle.createSequentialGroup().addComponent(btnBoja)
+										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btnBojaIvica))
 						.addGroup(gl_pnlCircle.createSequentialGroup()
-							.addComponent(btnBoja)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnBojaIvica))
-						.addGroup(gl_pnlCircle.createSequentialGroup()
-							.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblXCC)
-								.addComponent(lblYCC)
-								.addComponent(lblDuinaPoluprenika))
-							.addGap(56)
-							.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCentarY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCentarX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(123, Short.MAX_VALUE))
-		);
-		gl_pnlCircle.setVerticalGroup(
-			gl_pnlCircle.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnlCircle.createSequentialGroup()
-					.addGap(30)
-					.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblXCC)
-						.addComponent(txtCentarX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblYCC)
-						.addComponent(txtCentarY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(34)
-					.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDuinaPoluprenika)
-						.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-					.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnBoja)
-						.addComponent(btnBojaIvica))
-					.addGap(26))
-		);
+								.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addComponent(lblXCC)
+										.addComponent(lblYCC).addComponent(lblDuinaPoluprenika))
+								.addGap(56)
+								.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
+										.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtCentarY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtCentarX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE))))
+				.addContainerGap(123, Short.MAX_VALUE)));
+		gl_pnlCircle.setVerticalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlCircle
+				.createSequentialGroup().addGap(30)
+				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblXCC).addComponent(
+						txtCentarX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGap(18)
+				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblYCC).addComponent(
+						txtCentarY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGap(34)
+				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblDuinaPoluprenika)
+						.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE).addGroup(gl_pnlCircle
+						.createParallelGroup(Alignment.BASELINE).addComponent(btnBoja).addComponent(btnBojaIvica))
+				.addGap(26)));
 		pnlCircle.setLayout(gl_pnlCircle);
 		{
 			JPanel buttonPane = new JPanel();
@@ -128,28 +118,25 @@ public class CircleDialog extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							if(Integer.parseInt(getTxtRadius()) <= 0) {
+							if (Integer.parseInt(getTxtRadius()) <= 0) {
 								throw new Exception();
 							} else {
 								Integer.parseInt(getTxtCentarX());
 								Integer.parseInt(getTxtCentarY());
 								setIsOk(true);
 							}
-							
+
 							dispose();
-						}
-						catch (NumberFormatException e1){
-							JOptionPane.showMessageDialog(new JFrame(), 
-									"Neispravan unos podataka.Proverite da li su sva polja popunjena brojnim vrednostima!!", "Greška", 
-									JOptionPane.WARNING_MESSAGE);
-						} 
-						catch (Exception e1){
-							JOptionPane.showMessageDialog(new JFrame(), 
-									"Vrednost poluprecnika mora da bude pozitivna!", "Greška", 
-									JOptionPane.WARNING_MESSAGE);	
+						} catch (NumberFormatException e1) {
+							JOptionPane.showMessageDialog(new JFrame(),
+									"Neispravan unos podataka.Proverite da li su sva polja popunjena brojnim vrednostima!!",
+									"Greška", JOptionPane.WARNING_MESSAGE);
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(new JFrame(), "Vrednost poluprecnika mora da bude pozitivna!",
+									"Greška", JOptionPane.WARNING_MESSAGE);
 						}
 					}
-					
+
 				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
@@ -161,7 +148,7 @@ public class CircleDialog extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
-					
+
 				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
@@ -169,24 +156,27 @@ public class CircleDialog extends JDialog {
 		}
 	}
 
-	//Getters and setters
+	// Getters and setters
 	public void setColorIn(Color colorIn) {
-		this.colorIn=colorIn;
+		this.colorIn = colorIn;
 	}
-	
+
 	public Color getColorIn() {
 		return this.colorIn;
 	}
+
 	public void setColorOut(Color colorOut) {
 		this.colorOut = colorOut;
 	}
-	
+
 	public Color getColorOut() {
 		return this.colorOut;
 	}
+
 	public void setIsOk(boolean isOk) {
 		this.isOk = isOk;
 	}
+
 	public boolean getisOk() {
 		return isOk;
 	}
@@ -204,7 +194,8 @@ public class CircleDialog extends JDialog {
 	}
 
 	public void setTxtCentarY(String txtCentarY) {
-		this.txtCentarY.setText(txtCentarY);;
+		this.txtCentarY.setText(txtCentarY);
+		;
 	}
 
 	public String getTxtRadius() {
@@ -212,16 +203,18 @@ public class CircleDialog extends JDialog {
 	}
 
 	public void setTxtRadius(String txtRadius) {
-		this.txtRadius.setText(txtRadius); ;
+		this.txtRadius.setText(txtRadius);
+		;
 	}
-	
+
 	public void setTxtCentarXEditable(boolean b) {
 		this.txtCentarX.setEditable(b);
 	}
+
 	public void setTxtCentarYEditable(boolean b) {
 		this.txtCentarY.setEditable(b);
 	}
-	
+
 	public void setTxtRadiusEditable(boolean b) {
 		this.txtRadius.setEditable(b);
 	}

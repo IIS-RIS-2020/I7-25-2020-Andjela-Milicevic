@@ -37,17 +37,17 @@ public class CmdChangeLayer implements Command, Serializable {
 		return "Moved "+shape.toString()+" to layer "+newIndex;
 	}
 	
-	public boolean equals(Object o) {
-		if(o instanceof CmdChangeLayer) {
-			CmdChangeLayer ccl = (CmdChangeLayer)o;
-			if(ccl.getShape().equals(getShape()) && ccl.getnewIndex() == getnewIndex()
-					&& ccl.getOldIndex() == getOldIndex()) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
+//	public boolean equals(Object o) {
+//		if(o instanceof CmdChangeLayer) {
+//			CmdChangeLayer ccl = (CmdChangeLayer)o;
+//			if(ccl.getShape().equals(getShape()) && ccl.getnewIndex() == getnewIndex()
+//					&& ccl.getOldIndex() == getOldIndex()) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+//	
 	//Getters and setters
 	public Shape getShape() {
 		return shape;

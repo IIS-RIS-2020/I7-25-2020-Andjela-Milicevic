@@ -5,59 +5,57 @@ import java.util.Iterator;
 import mvc.*;
 import javax.swing.JToggleButton;
 
+import mvc.DrawingFrame;
+
 public class JToggleButtonObserver implements Observer {
 
 	ArrayList<JToggleButton> buttons = new ArrayList<JToggleButton>();
 	DrawingFrame frame;
-	
+	Iterator<JToggleButton> it;
+
 	public JToggleButtonObserver(DrawingFrame drawingFrame) {
 		this.frame = drawingFrame;
 	}
 
-	
 	public void addJToggleButton(JToggleButton btn) {
 		buttons.add(btn);
 	}
-	
+
 	@Override
 	public void updateSelectedShape(int numberOfSelected) {
-		if(numberOfSelected == 0) {
-			Iterator<JToggleButton> it = buttons.iterator();
-			while(it.hasNext()) {
+		if (numberOfSelected == 0) {
+			it = buttons.iterator();
+			while (it.hasNext()) {
 				it.next().setEnabled(false);
 			}
 		} else if (numberOfSelected == 1) {
-			Iterator<JToggleButton> it = buttons.iterator();
-			while(it.hasNext()) {
+			it = buttons.iterator();
+			while (it.hasNext()) {
 				JToggleButton jtb = it.next();
-				if(jtb.equals(frame.getBtnModify())) {
+				if (jtb.equals(frame.getBtnModify())) {
 					jtb.setEnabled(true);
 				} else if (jtb.equals(frame.getBtnDelete())) {
 					jtb.setEnabled(true);
-				} else if(jtb.equals(frame.getBtnBringToBack()) || jtb.equals(frame.getBtnBringToTop())
-							|| jtb.equals(frame.getBtnToFront()) || jtb.equals(frame.getBtnToBack())) {
+				} else if (jtb.equals(frame.getBtnBringToBack()) || jtb.equals(frame.getBtnBringToTop())
+						|| jtb.equals(frame.getBtnToFront()) || jtb.equals(frame.getBtnToBack())) {
 					jtb.setEnabled(true);
 				}
 			}
 		} else {
-			Iterator<JToggleButton> it = buttons.iterator();
-			while(it.hasNext()) {
+			it = buttons.iterator();
+			while (it.hasNext()) {
 				JToggleButton jtb = it.next();
-				if(jtb.equals(frame.getBtnModify())) {
+				if (jtb.equals(frame.getBtnModify())) {
 					jtb.setEnabled(false);
 				} else if (jtb.equals(frame.getBtnDelete())) {
 					jtb.setEnabled(true);
-				} else if(jtb.equals(frame.getBtnBringToBack()) || jtb.equals(frame.getBtnBringToTop())
+				} else if (jtb.equals(frame.getBtnBringToBack()) || jtb.equals(frame.getBtnBringToTop())
 						|| jtb.equals(frame.getBtnToFront()) || jtb.equals(frame.getBtnToBack())) {
 					jtb.setEnabled(false);
 				}
 			}
 		}
-		
-		
+
 	}
-	
-	
-	
 
 }

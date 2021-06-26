@@ -3,19 +3,17 @@ package observer;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 import geometry.Shape;
 
 public class CollectionOfSelectedShapes implements Subject {
-	
+
 	ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
 	ArrayList<Observer> observers = new ArrayList<Observer>();
-
 
 	@Override
 	public void notifyObservers() {
 		Iterator<Observer> it = observers.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			it.next().updateSelectedShape(selectedShapes.size());
 		}
 	}
@@ -27,10 +25,10 @@ public class CollectionOfSelectedShapes implements Subject {
 
 	@Override
 	public void removeObserver(Observer o) {
-		observers.remove(o);		
+		observers.remove(o);
 	}
-	
-	public ArrayList<Shape> getSelectedShapes(){
+
+	public ArrayList<Shape> getSelectedShapes() {
 		return selectedShapes;
 	}
 
@@ -38,30 +36,29 @@ public class CollectionOfSelectedShapes implements Subject {
 		selectedShapes.add(shape);
 		notifyObservers();
 	}
-	
+
 	public void removeSelectedShape(Shape shape) {
 		selectedShapes.remove(shape);
 		notifyObservers();
 	}
-	
+
 	public void removeAllSelectedShapes() {
 		selectedShapes.removeAll(selectedShapes);
 		notifyObservers();
 	}
-	//size
+
+	// size
 	public int getNumberOfSelectedShapes() {
 		return selectedShapes.size();
 	}
-	//get
+
+	// get
 	public Shape getSelectedShapeByIndex(int indexOfShape) {
 		return selectedShapes.get(indexOfShape);
 	}
 
 	public Iterator<Shape> iterator() {
-		
 		return selectedShapes.iterator();
 	}
 
-	
-	
 }

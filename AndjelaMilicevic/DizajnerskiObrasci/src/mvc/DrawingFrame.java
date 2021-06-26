@@ -16,6 +16,9 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
+
+import mvc.*;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;

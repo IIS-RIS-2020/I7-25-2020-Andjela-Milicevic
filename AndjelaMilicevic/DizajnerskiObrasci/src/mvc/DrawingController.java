@@ -46,6 +46,7 @@ import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
 import geometry.Shape;
+import observer.CollectionOfSelectedShapes;
 
 import observer.*;
 
@@ -739,7 +740,7 @@ public class DrawingController {
 
 	public void clickedOpen() {
 		JFileChooser fc = new JFileChooser();
-		fc.setCurrentDirectory(new java.io.File("C:/Users/Natalija/Documents"));
+		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Choose a file");
 		//fc.setFileFilter(new FileTypeFilter(".bin", "File"));
 		int result = fc.showOpenDialog(null);
@@ -769,7 +770,7 @@ public class DrawingController {
 
 	public void clickedOpenFile() {
 		JFileChooser fc = new JFileChooser();
-		fc.setCurrentDirectory(new java.io.File("C:/Users/Natalija/Documents"));
+		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Choose a file");
 		//fc.setFileFilter(new FileTypeFilter(".bin", "File"));
 		int result = fc.showOpenDialog(null);
@@ -812,7 +813,7 @@ public class DrawingController {
 	private void makeCommand(String line) {
 		System.out.println("make command");
 		String[] splits = line.split("[, =():]");
-		System.out.println(splits[0]);
+		System.out.println("sta mi ovo znaci" + splits[1]);
 		if(splits[0].equals("Added")) {
 			Command cmd = makeAddCommand(splits);
 			executeCommand(cmd);

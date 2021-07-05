@@ -3,6 +3,8 @@ package mvc;
 
 import javax.swing.JFrame;
 
+import observer.JToggleButtonObserver;
+
 
 public class Application {
 

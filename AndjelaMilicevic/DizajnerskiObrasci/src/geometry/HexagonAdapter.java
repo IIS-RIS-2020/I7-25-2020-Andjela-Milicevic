@@ -53,7 +53,7 @@ public class HexagonAdapter extends AreaShape {
 	}
 
 	@Override
-	protected void drawSelection(Graphics graphics) {
+	public void drawSelection(Graphics graphics) {
 		throw new UnsupportedOperationException();
 	}
 

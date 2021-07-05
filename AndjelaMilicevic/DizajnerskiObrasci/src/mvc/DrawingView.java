@@ -24,5 +24,5 @@ public class DrawingView extends JPanel {
 
 	public void setModel(DrawingModel model) {
 		this.model = model;
-	}
+	}	
 }

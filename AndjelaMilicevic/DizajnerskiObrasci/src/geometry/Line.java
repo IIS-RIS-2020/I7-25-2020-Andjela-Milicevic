@@ -59,7 +59,7 @@ public class Line extends Shape implements Cloneable {
 	}
 
 	public double calculateLength() {
-		return this.endPoint.calculateDistance(this.startPoint.getXcoordinate(), this.endPoint.getYcoordinate());
+		return this.startPoint.calculateDistance(this.endPoint.getXcoordinate(), this.endPoint.getYcoordinate());
 	}
 
 	public boolean equals(Object object) {

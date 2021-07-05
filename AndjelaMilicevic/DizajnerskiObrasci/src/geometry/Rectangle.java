@@ -69,16 +69,15 @@ public class Rectangle extends AreaShape implements Cloneable {
 				&& (yCoordinate < upperLeftPoint.getYcoordinate() + height));
 	}
 
-	public boolean equals(Object o) {
-		if (o instanceof Rectangle) {
-			Rectangle r = (Rectangle) o;
-			return (r.getUpperLeftPoint().equals(getUpperLeftPoint()) && r.getHeight() == height
-					&& r.getWidth() == width && r.getBorderColor().equals(getBorderColor())
-					&& r.getAreaColor().equals(getAreaColor()));
+	public boolean equals(Object object) {
+		if (object instanceof Rectangle) {
+			Rectangle rectangle = (Rectangle) object;
 
-		} else {
-			return false;
+			return upperLeftPoint.equals(rectangle.upperLeftPoint) && height == rectangle.height
+					&& width == rectangle.width;
 		}
+
+		return false;
 	}
 
 	public Rectangle clone() {

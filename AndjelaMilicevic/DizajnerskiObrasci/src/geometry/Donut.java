@@ -64,14 +64,15 @@ public class Donut extends Circle implements Cloneable {
 		return (dFromCenter < getRadius() && dFromCenter > this.innerRadius);
 	}
 
-	public boolean equals(Object o) {
-		if (o instanceof Donut) {
-			return ((super.equals(((Circle) o)) && this.innerRadius == ((Donut) o).innerRadius));
+	public boolean equals(Object object) {
+		if (object instanceof Donut) {
+			Donut donut = (Donut) object;
+
+			return getCenter().equals(donut.getCenter()) && getRadius() == donut.getRadius()
+					&& innerRadius == donut.innerRadius;
 		}
 
-		else {
-			return false;
-		}
+		return false;
 	}
 	
 	public Donut clone() {

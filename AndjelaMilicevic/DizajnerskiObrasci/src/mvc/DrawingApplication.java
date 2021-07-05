@@ -2,12 +2,9 @@ package mvc;
 
 
 import javax.swing.JFrame;
-<<<<<<< Updated upstream
 import observer.*;
-=======
 
 import mvc.*;
->>>>>>> Stashed changes
 import observer.JToggleButtonObserver;
 
 

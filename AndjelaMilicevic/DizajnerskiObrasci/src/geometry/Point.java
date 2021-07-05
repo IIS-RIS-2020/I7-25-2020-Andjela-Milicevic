@@ -61,31 +61,14 @@ public class Point extends Shape implements Cloneable {
 	
 	//EQUALS da li je tacka jednaka sa drugom 
 	public boolean equals(Object object) {
-		// prvo moramo da ispitamo da li je instanca tacka da bismo uporedjivali
 		if (object instanceof Point) {
-			// kastovanje
 			Point point = (Point) object;
-			if (this.xCoordinate == point.xCoordinate && this.yCoordinate == point.yCoordinate) {
-				if (getBorderColor() != null) {
-					// u slucaju ispitivanja tacke kao centra krofne ili start point, end point
-					// linije
-					// getBorderColor() daje null jer nije postavljeno
-					// TODO provera da li se jos negde to desava
-					if (point.getBorderColor() != null && point.getBorderColor().equals(getBorderColor())
-							&& point.isSelected() == isSelected()) {
-						return true;
-					} else {
-						return false;
-					}
-				}
-				return true;
-			} else {
-				return false;
-			}
+			return xCoordinate == point.xCoordinate && yCoordinate == point.yCoordinate;
 		}
+
 		return false;
 	}
-	
+
 	public Point clone() {
 		Point newPoint = new Point();
 		newPoint.setFields(this);
@@ -100,11 +83,7 @@ public class Point extends Shape implements Cloneable {
 		} else {
 			selected = "unselected";
 		}
-<<<<<<< Updated upstream
 		return "Point:(" + xCoordinate + "," + yCoordinate + ") "+"BorderColor(" + getBorderColor().getRGB() + ") " + selected;
-=======
-		return "Point: (x: " + xCoordinate + " , y: " + yCoordinate + " , Border color: " + getBorderColor().getRGB() + " ) " + selected;
->>>>>>> Stashed changes
 	}
 	
 	public void moveBy(int xCoordinate, int yCoordinate) {
@@ -115,7 +94,6 @@ public class Point extends Shape implements Cloneable {
 	public int compareTo (Object o) {
 		if (o instanceof Point) {
 			Point p = (Point)o;
-			//mora castovanje distance vraca double
 			return (int)(p.calculateDistance(0, 0) - this.calculateDistance(0, 0));
 		}
 		else

@@ -62,17 +62,13 @@ public class Line extends Shape implements Cloneable {
 		return this.endPoint.calculateDistance(this.startPoint.getXcoordinate(), this.endPoint.getYcoordinate());
 	}
 
-	public boolean equals(Object o) {
-		if (o instanceof Line) {
-			Line l = (Line) o;
-			if (l.getStartPoint().equals(startPoint) && l.getEndPoint().equals(endPoint)
-					&& l.getBorderColor().equals(getBorderColor()) && l.isSelected() == isSelected()) {
-				return true;
-			} else {
-				return false;
-			}
-		} else
-			return false;
+	public boolean equals(Object object) {
+		if (object instanceof Line) {
+			Line line = (Line) object;
+			return startPoint.equals(line.startPoint) && endPoint.equals(line.endPoint);
+		}
+
+		return false;
 	}
 
 	public Line clone() {
@@ -88,19 +84,11 @@ public class Line extends Shape implements Cloneable {
 		} else {
 			selected = "unselected";
 		}
-<<<<<<< Updated upstream
+		
 		return "Line:StartPoint(" + this.getStartPoint().getXcoordinate() + "," + this.getStartPoint().getYcoordinate()
 				+ ") EndPoint(" + this.getEndPoint().getXcoordinate() + "," + this.getEndPoint().getYcoordinate() + ") "
 				+ "BorderColor(" + getBorderColor().getRGB() + "), " + selected;
-=======
-//		return "Line: Start point:(" + this.getStartPoint().getXcoordinate() + ","
-//				+ this.getStartPoint().getYcoordinate() + ") End point:(" + this.getEndPoint().getXcoordinate() + ","
-//				+ this.getEndPoint().getYcoordinate() + ") " + "Border color:(" + getBorderColor().getRGB() + "), "
-//				+ selected;
-		return "Line:SP(" + this.getStartPoint().getXcoordinate()+","+this.getStartPoint().getYcoordinate()+") EP("+
-		this.getEndPoint().getXcoordinate()+","+this.getEndPoint().getYcoordinate()+") "+ "BC("+getBorderColor().getRGB()+"), "
-				+ selected;
->>>>>>> Stashed changes
+
 	}
 
 	public void moveBy(int xCoordinate, int yCoordinate) {

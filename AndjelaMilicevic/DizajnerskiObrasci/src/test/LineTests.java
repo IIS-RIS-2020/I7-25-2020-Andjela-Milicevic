@@ -1,12 +1,17 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import geometry.*;
-import org.junit.*;
+
+import org.junit.Before;
 import org.junit.Test;
+
+import geometry.Line;
+import geometry.Point;
 
 public class LineTests {
 	private Graphics graphics;
@@ -29,13 +34,10 @@ public class LineTests {
 				new Point(xCoordinateOfEndPoint, yCoordinateOfEndPoint, false), false);
 	}
 
-
 	@Test
 	public void testGetMiddleOfLine() {
-		assertEquals(
-				new Point((xCoordinateOfStartPoint + xCoordinateOfEndPoint) / 2,
-						(yCoordinateOfStartPoint + yCoordinateOfEndPoint) / 2, false),
-				line.middleOfLine());
+		assertEquals(new Point((xCoordinateOfStartPoint + xCoordinateOfEndPoint) / 2,
+				(yCoordinateOfStartPoint + yCoordinateOfEndPoint) / 2, false), line.middleOfLine());
 	}
 
 	@Test
@@ -72,7 +74,7 @@ public class LineTests {
 	public void testEqualsTrueExpected() {
 		assertTrue(line.equals(new Line(new Point(1, 2), new Point(3, 4))));
 	}
-	
+
 //	@Test
 //	public void testToString() {
 //		assertEquals("Line:SP(" + line.getStartPoint().getX()+","+line.getStartPoint().getY()+") EP("+
@@ -80,5 +82,4 @@ public class LineTests {
 //				+borderColor.getGreen()+","+borderColor.getBlue()+"), "
 //				+ line.isSelected(), line.toString());
 //	}
-
 }

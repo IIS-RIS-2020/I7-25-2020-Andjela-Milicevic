@@ -6,7 +6,7 @@ import geometry.HexagonAdapter;
 import geometry.Shape;
 
 public class CmdModifyHexagon implements Command, Serializable, CmdModify {
-
+	private static final long serialVersionUID = 1L;
 	private HexagonAdapter oldState;
 	private HexagonAdapter newState;
 	private HexagonAdapter originalState = new HexagonAdapter();
@@ -15,7 +15,6 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 		this.oldState = oldHex;
 		this.newState = newHex;
 		originalState.setFields(oldState);
-		;
 	}
 
 	@Override
@@ -29,11 +28,12 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 		oldState.setFields(originalState);
 	}
 
+	@Override
 	public String toString() {
 		return "Modified " + originalState.toString() + " to " + newState.toString();
-
 	}
 
+	@Override
 	public Object redo() {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
@@ -44,6 +44,7 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
@@ -56,6 +57,7 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
@@ -64,8 +66,8 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 		return newState;
 	}
 
+	@Override
 	public Shape getOldState() {
 		return oldState;
 	}
-
 }

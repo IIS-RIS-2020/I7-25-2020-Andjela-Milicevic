@@ -3,23 +3,24 @@ package dialogs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 public class LineDialog extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private final JPanel pnlLine = new JPanel();
 	private JTextField txtStartX;
 	private JTextField txtStartY;
@@ -34,7 +35,7 @@ public class LineDialog extends JDialog {
 	public static void main(String[] args) {
 		try {
 			LineDialog dialog = new LineDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,6 +51,7 @@ public class LineDialog extends JDialog {
 		pnlLine.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setModal(true);
 		getContentPane().add(pnlLine, BorderLayout.CENTER);
+		
 		JLabel lblXKoordinataPoetne = new JLabel("X koordinata pocetne tacke ");
 		JLabel lblYKoordinataPoetne = new JLabel("Y koordinata pocetne tacke");
 		JLabel lblXKoordinataKrajnje = new JLabel("X koordinata krajnje tacke");
@@ -57,21 +59,28 @@ public class LineDialog extends JDialog {
 
 		txtStartX = new JTextField();
 		txtStartX.setColumns(10);
+		
 		txtStartY = new JTextField();
 		txtStartY.setColumns(10);
+		
 		txtEndX = new JTextField();
 		txtEndX.setColumns(10);
+		
 		txtEndY = new JTextField();
 		txtEndY.setColumns(10);
 
 		JButton btnNewButton = new JButton("Izaberi boju");
+		
 		btnNewButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				colorLine = JColorChooser.showDialog(null, "Izaberite boju linije", null);
 
 			}
 		});
+		
 		GroupLayout gl_pnlLine = new GroupLayout(pnlLine);
+		
 		gl_pnlLine
 				.setHorizontalGroup(
 						gl_pnlLine.createParallelGroup(Alignment.LEADING)
@@ -91,6 +100,7 @@ public class LineDialog extends JDialog {
 												.addComponent(txtStartX, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addContainerGap(94, Short.MAX_VALUE)));
+		
 		gl_pnlLine.setVerticalGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pnlLine.createSequentialGroup().addGap(26)
 						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblXKoordinataPoetne)
@@ -109,14 +119,18 @@ public class LineDialog extends JDialog {
 								.addComponent(txtEndY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(18).addComponent(btnNewButton).addContainerGap(18, Short.MAX_VALUE)));
+		
 		pnlLine.setLayout(gl_pnlLine);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+			
 				okButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						// kad se klikne ok
 						try {
@@ -134,17 +148,21 @@ public class LineDialog extends JDialog {
 
 					}
 				});
+				
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				
 				cancelButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
+				
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

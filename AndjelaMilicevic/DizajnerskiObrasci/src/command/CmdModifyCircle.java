@@ -6,7 +6,7 @@ import geometry.Circle;
 import geometry.Shape;
 
 public class CmdModifyCircle implements Command, Serializable, CmdModify {
-
+	private static final long serialVersionUID = 1L;
 	private Circle oldState;
 	private Circle newState;
 	private Circle originalState = new Circle();
@@ -28,11 +28,12 @@ public class CmdModifyCircle implements Command, Serializable, CmdModify {
 		oldState.setFields(originalState);
 	}
 
+	@Override
 	public String toString() {
 		return "Modified " + originalState.toString() + " to " + newState.toString();
-
 	}
 
+	@Override
 	public Object redo() {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
@@ -43,6 +44,7 @@ public class CmdModifyCircle implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
@@ -55,9 +57,11 @@ public class CmdModifyCircle implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
+	@Override
 	public Shape getOldState() {
 		return oldState;
 	}
@@ -65,5 +69,4 @@ public class CmdModifyCircle implements Command, Serializable, CmdModify {
 	public Shape getNewState() {
 		return newState;
 	}
-
 }

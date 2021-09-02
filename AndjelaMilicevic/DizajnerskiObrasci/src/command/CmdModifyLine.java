@@ -1,11 +1,12 @@
 package command;
 
 import java.io.Serializable;
+
 import geometry.Line;
 import geometry.Shape;
 
 public class CmdModifyLine implements Command, Serializable, CmdModify {
-
+	private static final long serialVersionUID = 1L;
 	Line oldState;
 	Line originalState = new Line();
 	Line newState;
@@ -27,11 +28,12 @@ public class CmdModifyLine implements Command, Serializable, CmdModify {
 		oldState.setFields(originalState);
 	}
 
+	@Override
 	public String toString() {
 		return "Modified " + originalState.toString() + " to " + newState.toString();
-
 	}
 
+	@Override
 	public Object redo() {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
@@ -42,6 +44,7 @@ public class CmdModifyLine implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
@@ -54,9 +57,11 @@ public class CmdModifyLine implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
+	@Override
 	public Shape getOldState() {
 		return oldState;
 	}
@@ -64,5 +69,4 @@ public class CmdModifyLine implements Command, Serializable, CmdModify {
 	public Shape getNewState() {
 		return newState;
 	}
-
 }

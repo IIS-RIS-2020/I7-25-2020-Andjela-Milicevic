@@ -1,12 +1,13 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import java.awt.Color;
-import java.awt.Graphics;
-import geometry.*;
-import org.junit.*;
-import org.junit.Test;
+import java.awt.Graphics2D;
+
+import org.junit.Before;
+
+import geometry.AreaShape;
+import geometry.Donut;
+import geometry.Point;
 
 public class DounutTests {
 	private Graphics2D graphics;
@@ -27,7 +28,6 @@ public class DounutTests {
 		innerRadius = 2;
 		borderColor = Color.BLACK;
 		fillColor = Color.WHITE;
-
 		donut = new Donut(new Point(xCoordinate, yCoordinate, false), outerRadius, innerRadius);
 
 	}

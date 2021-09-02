@@ -6,7 +6,7 @@ import geometry.Point;
 import geometry.Shape;
 
 public class CmdModifyPoint implements Command, Serializable, CmdModify {
-
+	private static final long serialVersionUID = 1L;
 	private Point oldState;
 	private Point newState;
 	private Point originalState = new Point();
@@ -28,11 +28,12 @@ public class CmdModifyPoint implements Command, Serializable, CmdModify {
 		oldState.setFields(originalState);
 	}
 
+	@Override
 	public String toString() {
 		return "Modified " + originalState.toString() + " to " + newState.toString();
-
 	}
 
+	@Override
 	public Object redo() {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
@@ -43,6 +44,7 @@ public class CmdModifyPoint implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
@@ -55,9 +57,11 @@ public class CmdModifyPoint implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
+	@Override
 	public Shape getOldState() {
 		return oldState;
 	}

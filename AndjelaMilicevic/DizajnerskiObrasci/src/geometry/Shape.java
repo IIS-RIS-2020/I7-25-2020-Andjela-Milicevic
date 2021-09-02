@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 //
-public abstract class Shape implements Moveable, Comparable, Serializable {
-
+public abstract class Shape implements Moveable, Comparable<Object>, Serializable {
+	private static final long serialVersionUID = 1L;
 	private boolean selected;
 	private Color borderColor;
 	protected final int SELECT_RECTANGLE_GAP = 3;
@@ -20,7 +20,7 @@ public abstract class Shape implements Moveable, Comparable, Serializable {
 	}
 
 	public abstract void draw(Graphics graphics);
-	
+
 	protected abstract void drawSelection(Graphics graphics);
 
 	public abstract boolean contains(int xCoordinate, int yCoordinate);
@@ -34,7 +34,7 @@ public abstract class Shape implements Moveable, Comparable, Serializable {
 	protected Color getSelectionColor() {
 		return Color.BLUE;
 	}
-	
+
 	public Color getBorderColor() {
 		return borderColor;
 	}

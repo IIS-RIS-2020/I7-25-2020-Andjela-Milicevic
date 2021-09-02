@@ -1,12 +1,8 @@
 package mvc;
 
+import javax.swing.WindowConstants;
 
-import javax.swing.JFrame;
-import observer.*;
-
-import mvc.*;
 import observer.JToggleButtonObserver;
-
 
 public class DrawingApplication {
 
@@ -18,7 +14,7 @@ public class DrawingApplication {
 		DrawingController controller = new DrawingController(model, frame);
 		frame.setDrawingController(controller);
 		frame.setSize(600, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		System.out.println(frame.getBtnUndo().getText());
 		JToggleButtonObserver tbo = new JToggleButtonObserver(frame);
@@ -29,7 +25,5 @@ public class DrawingApplication {
 		tbo.addJToggleButton(frame.getBtnToBack());
 		tbo.addJToggleButton(frame.getBtnToFront());
 		controller.getCollectionOfSelectedShapes().addObserver(tbo);
-		
 	}
-
 }

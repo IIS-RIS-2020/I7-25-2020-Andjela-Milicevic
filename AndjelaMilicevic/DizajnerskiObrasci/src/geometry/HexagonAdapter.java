@@ -24,7 +24,6 @@ public class HexagonAdapter extends AreaShape {
 	public HexagonAdapter(Point center, int r) {
 		this.center = center;
 		this.radius = r;
-
 		this.hexagon = new Hexagon(center.getXcoordinate(), center.getYcoordinate(), r);
 		hexagon.setR(radius);
 		hexagon.setX(center.getXcoordinate());
@@ -38,6 +37,7 @@ public class HexagonAdapter extends AreaShape {
 	@Override
 	public void draw(Graphics graphics) {
 		hexagon.setSelected(isSelected());
+		
 		if (this.getAreaColor() != null) {
 			hexagon.setAreaColor(this.getAreaColor());
 		} else {
@@ -49,6 +49,7 @@ public class HexagonAdapter extends AreaShape {
 		} else {
 			hexagon.setBorderColor(Color.BLACK);
 		}
+		
 		hexagon.paint(graphics);
 	}
 
@@ -60,6 +61,7 @@ public class HexagonAdapter extends AreaShape {
 	@Override
 	protected void areaShape(Graphics graphics) {
 	}
+
 	@Override
 	public boolean contains(int xCoordinate, int yCoordinate) {
 		return hexagon.doesContain(xCoordinate, yCoordinate);
@@ -78,35 +80,38 @@ public class HexagonAdapter extends AreaShape {
 		return false;
 	}
 
+	@Override
 	public HexagonAdapter clone() {
 		HexagonAdapter newHex = new HexagonAdapter();
 		newHex.setFields(this);
 		return newHex;
 	}
 
+	@Override
 	public String toString() {
 		String selected;
+		
 		if (this.isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
-		return "Hexagon:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ") " + "Radius:"
-				+ this.getRadius() + ", BorderColor(" + getBorderColor().getRGB() + "), " 
-		+ "FillColor(" + getAreaColor().getRGB() + "), " + selected;
+		
+		return "Hexagon:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ") "
+				+ "Radius:" + this.getRadius() + ", BorderColor(" + getBorderColor().getRGB() + "), " + "FillColor("
+				+ getAreaColor().getRGB() + "), " + selected;
 	}
 
 	@Override
 	public void moveBy(int byX, int byY) {
-
 	}
 
 	@Override
 	public int compareTo(Object o) {
 		return 0;
-
 	}
 
+	@Override
 	public void setFields(Shape shape) {
 		if (shape instanceof HexagonAdapter) {
 			HexagonAdapter getHexagon = (HexagonAdapter) shape;
@@ -116,7 +121,6 @@ public class HexagonAdapter extends AreaShape {
 			this.getCenter().setXcoordinate(getHexagon.getCenter().getXcoordinate());
 			this.getCenter().setYcoordinate(getHexagon.getCenter().getYcoordinate());
 			this.setRadius(getHexagon.getRadius());
-
 			this.getHexagon().setAreaColor(getHexagon.getHexagon().getAreaColor());
 			this.getHexagon().setBorderColor(getHexagon.getHexagon().getBorderColor());
 			this.getHexagon().setR(getHexagon.getHexagon().getR());
@@ -141,7 +145,7 @@ public class HexagonAdapter extends AreaShape {
 	public void setHexagon(Hexagon hexagon) {
 		this.hexagon = hexagon;
 	}
-	
+
 	public void setCenter(Point center) {
 		this.center = center;
 	}
@@ -149,5 +153,4 @@ public class HexagonAdapter extends AreaShape {
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
-
 }

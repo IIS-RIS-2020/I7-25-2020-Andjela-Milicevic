@@ -3,24 +3,24 @@ package dialogs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 public class RectangleDialog extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private final JPanel pnlRectangleDialog = new JPanel();
 	private JTextField txtWidth;
 	private JTextField txtHeight;
@@ -36,7 +36,7 @@ public class RectangleDialog extends JDialog {
 	public static void main(String[] args) {
 		try {
 			RectangleDialog dialog = new RectangleDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,30 +67,33 @@ public class RectangleDialog extends JDialog {
 		JLabel lblXCoordinate = new JLabel("X koordinata");
 
 		txtXCoordinate = new JTextField();
-
 		txtXCoordinate.setColumns(10);
 
 		JLabel lblYCoordinate = new JLabel("Y koordinata");
 
 		txtYCoordinate = new JTextField();
-
 		txtYCoordinate.setColumns(10);
 
 		JButton btnColorOut = new JButton("Boja ivica");
+		
 		btnColorOut.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				colorOut = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 			}
 		});
 
 		JButton btnColorIn = new JButton("Boja unutrasnjosti");
+		
 		btnColorIn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				colorIn = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 
 			}
 		});
 		GroupLayout gl_pnlRectangleDialog = new GroupLayout(pnlRectangleDialog);
+		
 		gl_pnlRectangleDialog.setHorizontalGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pnlRectangleDialog.createSequentialGroup().addGap(39)
 						.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.TRAILING).addComponent(lblWidth)
@@ -109,6 +112,7 @@ public class RectangleDialog extends JDialog {
 										GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnColorIn))
 						.addContainerGap(158, Short.MAX_VALUE)));
+		
 		gl_pnlRectangleDialog.setVerticalGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pnlRectangleDialog.createSequentialGroup().addGap(26)
 						.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.BASELINE).addComponent(lblWidth)
@@ -131,14 +135,18 @@ public class RectangleDialog extends JDialog {
 						.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnColorOut).addComponent(btnColorIn))
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		
 		pnlRectangleDialog.setLayout(gl_pnlRectangleDialog);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+			
 				okButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						// kada se klikne na ok
 						try {
@@ -146,6 +154,7 @@ public class RectangleDialog extends JDialog {
 							int j = Integer.parseInt(getTxtYCoordinate());
 							int h = (Integer.parseInt(getTxtHeight()));
 							int w = (Integer.parseInt(getTxtWidth()));
+				
 							if (h <= 0 || w <= 0) {
 								throw new Exception();
 							} else {
@@ -159,23 +168,28 @@ public class RectangleDialog extends JDialog {
 									JOptionPane.ERROR_MESSAGE);
 						} catch (Exception ex) {
 							System.out.println(ex.getMessage());
+							
 							JOptionPane.showMessageDialog(new JFrame(),
 									"Visina i širina moraju da budu pozitivni brojevi.", "Greška!",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				});
+				
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				
 				cancelButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
+				
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

@@ -6,20 +6,19 @@ import geometry.Shape;
 import mvc.DrawingModel;
 
 public class CmdChangeLayer implements Command, Serializable {
-
+	private static final long serialVersionUID = 1L;
 	private Shape shape;
 	private int oldIndex;
 	private int newIndex;
-	
 	private DrawingModel model;
-	
+
 	public CmdChangeLayer(Shape shape, DrawingModel model, int newIndex) {
 		this.oldIndex = model.getShapes().indexOf(shape);
 		this.newIndex = newIndex;
 		this.shape = shape;
 		this.model = model;
 	}
-	
+
 	@Override
 	public void execute() {
 		model.removeShape(shape);
@@ -31,12 +30,12 @@ public class CmdChangeLayer implements Command, Serializable {
 		model.removeShape(shape);
 		model.addShapeToIndex(oldIndex, shape);
 	}
-	
 
+	@Override
 	public String toString() {
-		return "Moved "+shape.toString()+" to layer "+newIndex;
+		return "Moved " + shape.toString() + " to layer " + newIndex;
 	}
-	
+
 //	public boolean equals(Object o) {
 //		if(o instanceof CmdChangeLayer) {
 //			CmdChangeLayer ccl = (CmdChangeLayer)o;
@@ -47,16 +46,16 @@ public class CmdChangeLayer implements Command, Serializable {
 //		}
 //		return false;
 //	}
-//	
-	//Getters and setters
+//
+	// Getters and setters
 	public Shape getShape() {
 		return shape;
 	}
-	
+
 	public int getOldIndex() {
 		return oldIndex;
 	}
-	
+
 	public int getnewIndex() {
 		return newIndex;
 	}

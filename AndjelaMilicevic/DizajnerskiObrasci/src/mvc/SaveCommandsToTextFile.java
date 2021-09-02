@@ -7,12 +7,9 @@ import java.util.Iterator;
 
 import javax.swing.JFileChooser;
 
-import mvc.*;
-
-
 public class SaveCommandsToTextFile implements Saving {
-
 	DrawingController controller;
+
 	public SaveCommandsToTextFile(DrawingController controller) {
 		this.controller = controller;
 	}
@@ -22,22 +19,24 @@ public class SaveCommandsToTextFile implements Saving {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Save a file");
-		//fc.setFileFilter(new FileTypeFilter(".bin", "File"));
+		// fc.setFileFilter(new FileTypeFilter(".bin", "File"));
 		int result = fc.showSaveDialog(null);
-		if(result == JFileChooser.APPROVE_OPTION) {
+		
+		if (result == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
+		
 			try {
 				PrintWriter writer = new PrintWriter(file);
 				Iterator<String> it = controller.getStringCommandsToWriteToFile().iterator();
-				while(it.hasNext()) {
+			
+				while (it.hasNext()) {
 					writer.println(it.next());
 				}
+				
 				writer.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
-		
 	}
-
 }

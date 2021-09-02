@@ -6,9 +6,8 @@ import java.util.Iterator;
 import geometry.Shape;
 
 public class CollectionOfSelectedShapes implements Subject {
-
-	ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
-	ArrayList<Observer> observers = new ArrayList<Observer>();
+	ArrayList<Shape> selectedShapes = new ArrayList<>();
+	ArrayList<Observer> observers = new ArrayList<>();
 
 	@Override
 	public void notifyObservers() {
@@ -60,5 +59,4 @@ public class CollectionOfSelectedShapes implements Subject {
 	public Iterator<Shape> iterator() {
 		return selectedShapes.iterator();
 	}
-
 }

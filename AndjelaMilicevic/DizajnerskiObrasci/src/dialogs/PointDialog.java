@@ -3,23 +3,24 @@ package dialogs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 public class PointDialog extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private final JPanel pnlPoint = new JPanel();
 	private JTextField txtCoordX;
 	private JTextField txtCoordY;
@@ -32,7 +33,7 @@ public class PointDialog extends JDialog {
 	public static void main(String[] args) {
 		try {
 			PointDialog dialog = new PointDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,23 +49,28 @@ public class PointDialog extends JDialog {
 		pnlPoint.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setModal(true);
 		getContentPane().add(pnlPoint, BorderLayout.CENTER);
+		
 		JLabel lblXCoord = new JLabel("X koordinata");
 		JLabel lblYCoord = new JLabel("Y koordinata");
+		
 		txtCoordX = new JTextField();
-
 		txtCoordX.setColumns(10);
+		
 		txtCoordY = new JTextField();
-
 		txtCoordY.setColumns(10);
 
 		JButton btnColor = new JButton("Boja");
+		
 		btnColor.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				color = JColorChooser.showDialog(null, "Izaberite boju tacke", null);
 			}
 
 		});
+		
 		GroupLayout gl_pnlPoint = new GroupLayout(pnlPoint);
+		
 		gl_pnlPoint.setHorizontalGroup(gl_pnlPoint.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlPoint
 				.createSequentialGroup().addGap(63)
 				.addGroup(gl_pnlPoint.createParallelGroup(Alignment.LEADING).addComponent(btnColor).addGroup(gl_pnlPoint
@@ -78,6 +84,7 @@ public class PointDialog extends JDialog {
 								.addComponent(txtCoordX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))))
 				.addContainerGap(137, Short.MAX_VALUE)));
+		
 		gl_pnlPoint.setVerticalGroup(gl_pnlPoint.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlPoint
 				.createSequentialGroup().addGap(34)
 				.addGroup(gl_pnlPoint.createParallelGroup(Alignment.BASELINE).addComponent(lblXCoord).addComponent(
@@ -86,14 +93,18 @@ public class PointDialog extends JDialog {
 				.addGroup(gl_pnlPoint.createParallelGroup(Alignment.BASELINE).addComponent(lblYCoord).addComponent(
 						txtCoordY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGap(35).addComponent(btnColor).addContainerGap(42, Short.MAX_VALUE)));
+		
 		pnlPoint.setLayout(gl_pnlPoint);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+			
 				okButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						// treba da se preuzmu vrednosti
 						try {
@@ -108,17 +119,21 @@ public class PointDialog extends JDialog {
 						}
 					}
 				});
+				
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				
 				cancelButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
+				
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -152,7 +167,6 @@ public class PointDialog extends JDialog {
 
 	public void setIsOK(boolean isOk) {
 		this.isOk = isOk;
-
 	}
 
 	public boolean getIsOk() {
@@ -166,5 +180,4 @@ public class PointDialog extends JDialog {
 	public void setTxtCoordYEditable(boolean b) {
 		this.txtCoordY.setEditable(b);
 	}
-
 }

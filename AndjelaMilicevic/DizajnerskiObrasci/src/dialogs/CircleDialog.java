@@ -3,21 +3,22 @@ package dialogs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 public class CircleDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +36,7 @@ public class CircleDialog extends JDialog {
 	public static void main(String[] args) {
 		try {
 			CircleDialog dialog = new CircleDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,31 +52,40 @@ public class CircleDialog extends JDialog {
 		pnlCircle.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(pnlCircle, BorderLayout.CENTER);
 		this.setModal(true);
+		
 		JLabel lblXCC = new JLabel("X koordinata centra");
 		JLabel lblYCC = new JLabel("Y koordinata centra");
 		JLabel lblDuinaPoluprenika = new JLabel("Duzina poluprecnika");
+		
 		txtCentarX = new JTextField();
-
 		txtCentarX.setColumns(10);
+		
 		txtCentarY = new JTextField();
-
 		txtCentarY.setColumns(10);
+		
 		txtRadius = new JTextField();
 		txtRadius.setColumns(10);
+		
 		JButton btnBoja = new JButton("Boja unutrasnjosti");
+		
 		btnBoja.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				colorIn = JColorChooser.showDialog(null, "Izaberite boju", Color.WHITE);
 			}
 		});
 
 		JButton btnBojaIvica = new JButton("Boja ivica");
+		
 		btnBojaIvica.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				colorOut = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 			}
 		});
+		
 		GroupLayout gl_pnlCircle = new GroupLayout(pnlCircle);
+		
 		gl_pnlCircle.setHorizontalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlCircle
 				.createSequentialGroup().addGap(51)
 				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
@@ -108,14 +118,18 @@ public class CircleDialog extends JDialog {
 				.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE).addGroup(gl_pnlCircle
 						.createParallelGroup(Alignment.BASELINE).addComponent(btnBoja).addComponent(btnBojaIvica))
 				.addGap(26)));
+		
 		pnlCircle.setLayout(gl_pnlCircle);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+			
 				okButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						try {
 							if (Integer.parseInt(getTxtRadius()) <= 0) {
@@ -138,18 +152,22 @@ public class CircleDialog extends JDialog {
 					}
 
 				});
+				
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				
 				cancelButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 
 				});
+				
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -195,7 +213,7 @@ public class CircleDialog extends JDialog {
 
 	public void setTxtCentarY(String txtCentarY) {
 		this.txtCentarY.setText(txtCentarY);
-		;
+
 	}
 
 	public String getTxtRadius() {
@@ -204,7 +222,7 @@ public class CircleDialog extends JDialog {
 
 	public void setTxtRadius(String txtRadius) {
 		this.txtRadius.setText(txtRadius);
-		;
+
 	}
 
 	public void setTxtCentarXEditable(boolean b) {

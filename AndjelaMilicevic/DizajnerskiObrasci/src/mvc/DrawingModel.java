@@ -7,29 +7,32 @@ import java.util.List;
 import geometry.Shape;
 
 public class DrawingModel implements Serializable {
-
-	private List<Shape> shapes = new ArrayList<Shape>();
+	private static final long serialVersionUID = 1L;
+	private List<Shape> shapes = new ArrayList<>();
 
 	// Getters and setters
 	public List<Shape> getShapes() {
 		return shapes;
 	}
-	
+
 	public void addShape(Shape shape) {
 		shapes.add(shape);
 	}
-	
+
 	public void removeShape(Shape shape) {
 		shapes.remove(shape);
 	}
+
 	public void addShapeToIndex(int indexOfShape, Shape shape) {
 		shapes.add(indexOfShape, shape);
 	}
-	//get
+
+	// get
 	public int getIndexOfShape(Shape shape) {
 		return shapes.indexOf(shape);
 	}
-	//size
+
+	// size
 	public int getNumberOfShapes() {
 		return shapes.size();
 	}

@@ -1,12 +1,16 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import geometry.*;
-import org.junit.*;
+
+import org.junit.Before;
 import org.junit.Test;
+
+import geometry.Circle;
+import geometry.Point;
 
 public class CircleTests {
 	private Graphics graphics;
@@ -65,5 +69,4 @@ public class CircleTests {
 //				+ circle.getBorderColor().getRGB() + " , Fill color: " + circle.getFillColor().getRGB(),
 //				circle.toString());
 //	}
-
 }

@@ -8,10 +8,10 @@ import geometry.Shape;
 //TODO izbrisi initial state, setuj original state u konstruktoru, u tostring
 //umesto initial, original
 public class CmdModifyRectangle implements Command, Serializable, CmdModify {
-
+	private static final long serialVersionUID = 1L;
 	private Rectangle oldState;
 	private Rectangle newState;
-	private Rectangle originalState = new Rectangle();;
+	private Rectangle originalState = new Rectangle();
 
 	public CmdModifyRectangle(Rectangle oldRect, Rectangle newRect) {
 		this.oldState = oldRect;
@@ -23,7 +23,6 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 	public void execute() {
 		originalState.setFields(oldState);
 		oldState.setFields(newState);
-
 	}
 
 	@Override
@@ -31,10 +30,12 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 		oldState.setFields(originalState);
 	}
 
+	@Override
 	public String toString() {
 		return "Modified " + originalState.toString() + " to " + newState.toString();
 	}
 
+	@Override
 	public Object redo() {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
@@ -45,6 +46,7 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
@@ -57,6 +59,7 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
@@ -64,6 +67,7 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 		return newState;
 	}
 
+	@Override
 	public Shape getOldState() {
 		return oldState;
 	}

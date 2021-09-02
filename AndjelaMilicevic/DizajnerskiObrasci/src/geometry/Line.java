@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Line extends Shape implements Cloneable {
-
 	private static final long serialVersionUID = 1L;
 	private Point startPoint;
 	private Point endPoint;
@@ -25,88 +24,12 @@ public class Line extends Shape implements Cloneable {
 		super.setSelected(selected);
 		setBorderColor(borderColor);
 	}
-	
-	//EQUALS
-//	public boolean equals (Object o) {
-//		if(o instanceof Line) {
-//			Line l = (Line)o;
-//			if (l.getStartPoint().equals(startPoint) && l.getEndPoint().equals(endPoint)
-//					&& l.getBorderColor().equals(getBorderColor()) && l.isSelected() == isSelected()) {
-//				return true;
-//			} else {
-//				return false;
-//			}
-//		}
-//		else
-//			return false;
-//	}
-	
-	//CONTAINS
-//	public boolean contains(int x, int y) {
-//		
-//		if(startPoint.distance(x, y) + endPoint.distance(x,y) - length() <= 50)
-//			return true;
-//		else
-//			return false;
-//	}
-	
-//	public double length() {
-//		return this.endPoint.distance(this.startPoint.getX(), this.endPoint.getY());
-//	}
-//	
-//	
-//	public Point middleOfLine() {
-//		int x = (startPoint.getX()+endPoint.getX())/2;
-//		int y = (startPoint.getY()+endPoint.getY())/2;
-//		Point p = new Point(x,y);
-//		return p;
-//	}
-	
-	//EQUALS
-//	public boolean equals (Object o) {
-////		if(o instanceof Line) {
-////			Line l = (Line)o;
-////			if (l.getStartPoint().equals(startPoint) && l.getEndPoint().equals(endPoint)
-////					&& l.getBorderColor().equals(getBorderColor()) && l.isSelected() == isSelected()) {
-////				return true;
-////			} else {
-////				return false;
-////			}
-////		}
-////		else
-////			return false;
-//		if (o instanceof Line) {
-//			Line line = (Line) o;
-//			return startPoint.equals(line.startPoint) && endPoint.equals(line.endPoint);
-//		}
-//
-//		return false;
-//	}
-	
-	//CONTAINS
-//	public boolean contains(int x, int y) {
-//		
-//		if(startPoint.distance(x, y) + endPoint.distance(x,y) - length() <= 50)
-//			return true;
-//		else
-//			return false;
-//	}
-//	
-//	public double length() {
-//		return this.startPoint.distance(this.endPoint.getX(), this.endPoint.getY());
-//	}
-//	
-//	
-//	public Point middleOfLine() {
-//		int x = (startPoint.getX()+endPoint.getX())/2;
-//		int y = (startPoint.getY()+endPoint.getY())/2;
-//		Point p = new Point(x,y);
-//		return p;
-//	}
 
+	@Override
 	public void draw(Graphics graphics) {
 		System.out.println("iscrtavanje linije");
 		graphics.setColor(getBorderColor());
+		
 		graphics.drawLine(this.getStartPoint().getXcoordinate(), this.getStartPoint().getYcoordinate(),
 				this.getEndPoint().getXcoordinate(), this.getEndPoint().getYcoordinate());
 
@@ -130,6 +53,7 @@ public class Line extends Shape implements Cloneable {
 		return new Point(xCoordinate, yCoordinate);
 	}
 
+	@Override
 	public boolean contains(int xCoordinate, int yCoordinate) {
 		double startPointDistance = startPoint.calculateDistance(xCoordinate, yCoordinate);
 		double endPointDistance = endPoint.calculateDistance(xCoordinate, yCoordinate);
@@ -137,9 +61,10 @@ public class Line extends Shape implements Cloneable {
 	}
 
 	public double calculateLength() {
-		return this.endPoint.calculateDistance(this.startPoint.getXcoordinate(), this.endPoint.getYcoordinate());
+		return this.startPoint.calculateDistance(this.endPoint.getXcoordinate(), this.endPoint.getYcoordinate());
 	}
 
+	@Override
 	public boolean equals(Object object) {
 		if (object instanceof Line) {
 			Line line = (Line) object;
@@ -149,32 +74,36 @@ public class Line extends Shape implements Cloneable {
 		return false;
 	}
 
+	@Override
 	public Line clone() {
 		Line newLine = new Line();
 		newLine.setFields(this);
 		return newLine;
 	}
 
+	@Override
 	public String toString() {
 		String selected;
+		
 		if (this.isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
-		
+
 		return "Line:StartPoint(" + this.getStartPoint().getXcoordinate() + "," + this.getStartPoint().getYcoordinate()
 				+ ") EndPoint(" + this.getEndPoint().getXcoordinate() + "," + this.getEndPoint().getYcoordinate() + ") "
 				+ "BorderColor(" + getBorderColor().getRGB() + "), " + selected;
 
 	}
 
+	@Override
 	public void moveBy(int xCoordinate, int yCoordinate) {
 		startPoint.moveBy(xCoordinate, yCoordinate);
 		endPoint.moveBy(xCoordinate, yCoordinate);
-
 	}
 
+	@Override
 	public int compareTo(Object o) {
 		if (o instanceof Line) {
 			return (int) (this.calculateLength() - ((Line) o).calculateLength());
@@ -210,5 +139,4 @@ public class Line extends Shape implements Cloneable {
 	public void setEndPoint(Point endPoint) {
 		this.endPoint = endPoint;
 	}
-
 }

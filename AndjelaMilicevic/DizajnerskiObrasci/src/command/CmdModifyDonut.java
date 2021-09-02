@@ -1,11 +1,12 @@
 package command;
 
 import java.io.Serializable;
+
 import geometry.Donut;
 import geometry.Shape;
 
 public class CmdModifyDonut implements Command, Serializable, CmdModify {
-
+	private static final long serialVersionUID = 1L;
 	private Donut oldState;
 	private Donut newState;
 	private Donut originalState = new Donut();
@@ -14,27 +15,25 @@ public class CmdModifyDonut implements Command, Serializable, CmdModify {
 		this.oldState = oldDonut;
 		this.newState = newDonut;
 		originalState.setFields(oldState);
-		;
 	}
 
 	@Override
 	public void execute() {
-
 		originalState.setFields(oldState);
 		oldState.setFields(newState);
 	}
 
 	@Override
 	public void unexecute() {
-
 		oldState.setFields(originalState);
 	}
 
+	@Override
 	public String toString() {
 		return "Modified " + originalState.toString() + " to " + newState.toString();
-
 	}
 
+	@Override
 	public Object redo() {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
@@ -45,6 +44,7 @@ public class CmdModifyDonut implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
@@ -57,9 +57,11 @@ public class CmdModifyDonut implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
+		
 		return null;
 	}
 
+	@Override
 	public Shape getOldState() {
 		return oldState;
 	}
@@ -67,5 +69,4 @@ public class CmdModifyDonut implements Command, Serializable, CmdModify {
 	public Shape getNewState() {
 		return newState;
 	}
-
 }

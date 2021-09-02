@@ -25,6 +25,84 @@ public class Line extends Shape implements Cloneable {
 		super.setSelected(selected);
 		setBorderColor(borderColor);
 	}
+	
+	//EQUALS
+//	public boolean equals (Object o) {
+//		if(o instanceof Line) {
+//			Line l = (Line)o;
+//			if (l.getStartPoint().equals(startPoint) && l.getEndPoint().equals(endPoint)
+//					&& l.getBorderColor().equals(getBorderColor()) && l.isSelected() == isSelected()) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		}
+//		else
+//			return false;
+//	}
+	
+	//CONTAINS
+//	public boolean contains(int x, int y) {
+//		
+//		if(startPoint.distance(x, y) + endPoint.distance(x,y) - length() <= 50)
+//			return true;
+//		else
+//			return false;
+//	}
+	
+//	public double length() {
+//		return this.endPoint.distance(this.startPoint.getX(), this.endPoint.getY());
+//	}
+//	
+//	
+//	public Point middleOfLine() {
+//		int x = (startPoint.getX()+endPoint.getX())/2;
+//		int y = (startPoint.getY()+endPoint.getY())/2;
+//		Point p = new Point(x,y);
+//		return p;
+//	}
+	
+	//EQUALS
+//	public boolean equals (Object o) {
+////		if(o instanceof Line) {
+////			Line l = (Line)o;
+////			if (l.getStartPoint().equals(startPoint) && l.getEndPoint().equals(endPoint)
+////					&& l.getBorderColor().equals(getBorderColor()) && l.isSelected() == isSelected()) {
+////				return true;
+////			} else {
+////				return false;
+////			}
+////		}
+////		else
+////			return false;
+//		if (o instanceof Line) {
+//			Line line = (Line) o;
+//			return startPoint.equals(line.startPoint) && endPoint.equals(line.endPoint);
+//		}
+//
+//		return false;
+//	}
+	
+	//CONTAINS
+//	public boolean contains(int x, int y) {
+//		
+//		if(startPoint.distance(x, y) + endPoint.distance(x,y) - length() <= 50)
+//			return true;
+//		else
+//			return false;
+//	}
+//	
+//	public double length() {
+//		return this.startPoint.distance(this.endPoint.getX(), this.endPoint.getY());
+//	}
+//	
+//	
+//	public Point middleOfLine() {
+//		int x = (startPoint.getX()+endPoint.getX())/2;
+//		int y = (startPoint.getY()+endPoint.getY())/2;
+//		Point p = new Point(x,y);
+//		return p;
+//	}
 
 	public void draw(Graphics graphics) {
 		System.out.println("iscrtavanje linije");

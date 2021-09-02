@@ -42,6 +42,27 @@ public class Circle extends AreaShape implements Cloneable {
 		graphics.fillOval(center.getXcoordinate() - radius + 1, center.getYcoordinate() - radius + 1, 2 * radius - 2,
 				2 * radius - 2);
 	}
+	
+	//EQUALS
+	public boolean equals (Object o) {
+		if (o instanceof Circle) {
+			Circle c = (Circle)o;
+			return (c.center.equals(center) && c.radius == radius && c.getAreaColor().equals(getAreaColor())
+					&& c.getBorderColor().equals(getBorderColor()) && c.isSelected() == isSelected());
+		} else {
+			return false;
+		}
+	}
+	
+	//EQUALS
+//	public boolean equals (Object object) {
+//		if (object instanceof Circle) {
+//			Circle circle = (Circle) object;
+//			return center.equals(circle.center) && this.radius == circle.radius;
+//		}
+//
+//		return false;
+//	}
 
 	@Override
 	protected void drawSelection(Graphics graphics) {
@@ -70,15 +91,15 @@ public class Circle extends AreaShape implements Cloneable {
 		return center.calculateDistance(x, y) <= radius;
 	}
 
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof Circle) {
-			Circle circle = (Circle) object;
-			return center.equals(circle.center) && this.radius == circle.radius;
-		}
-
-		return false;
-	}
+//	@Override
+//	public boolean equals(Object object) {
+//		if (object instanceof Circle) {
+//			Circle circle = (Circle) object;
+//			return center.equals(circle.center) && this.radius == circle.radius;
+//		}
+//
+//		return false;
+//	}
 
 	public Circle clone() {
 		Circle newCircle = new Circle();

@@ -29,7 +29,7 @@ public class JToggleButtonObserver implements Observer {
 			}
 		} else if (numberOfSelected == 1) {
 			it = buttons.iterator();
-			
+
 			while (it.hasNext()) {
 				JToggleButton jtb = it.next();
 				if (jtb.equals(frame.getBtnModify())) {
@@ -43,7 +43,7 @@ public class JToggleButtonObserver implements Observer {
 			}
 		} else {
 			it = buttons.iterator();
-			
+
 			while (it.hasNext()) {
 				JToggleButton jtb = it.next();
 				if (jtb.equals(frame.getBtnModify())) {

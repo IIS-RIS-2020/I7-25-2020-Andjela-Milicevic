@@ -21,11 +21,11 @@ public class SaveSerializedDrawing implements Saving {
 		fc.setDialogTitle("Save a file");
 		// fc.setFileFilter(new FileTypeFilter(".bin", "File"));
 		int result = fc.showSaveDialog(null);
-		
+
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			String filePath = file.getPath();
-		
+
 			try {
 				System.out.println("broj komandi koji se cuva:" + controller.getCommandList().size());
 				// SerializableCommandList.writeToFile((ArrayList<Shape>)

@@ -51,7 +51,7 @@ public class LineDialog extends JDialog {
 		pnlLine.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setModal(true);
 		getContentPane().add(pnlLine, BorderLayout.CENTER);
-		
+
 		JLabel lblXKoordinataPoetne = new JLabel("X koordinata pocetne tacke ");
 		JLabel lblYKoordinataPoetne = new JLabel("Y koordinata pocetne tacke");
 		JLabel lblXKoordinataKrajnje = new JLabel("X koordinata krajnje tacke");
@@ -59,18 +59,18 @@ public class LineDialog extends JDialog {
 
 		txtStartX = new JTextField();
 		txtStartX.setColumns(10);
-		
+
 		txtStartY = new JTextField();
 		txtStartY.setColumns(10);
-		
+
 		txtEndX = new JTextField();
 		txtEndX.setColumns(10);
-		
+
 		txtEndY = new JTextField();
 		txtEndY.setColumns(10);
 
 		JButton btnNewButton = new JButton("Izaberi boju");
-		
+
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -78,9 +78,9 @@ public class LineDialog extends JDialog {
 
 			}
 		});
-		
+
 		GroupLayout gl_pnlLine = new GroupLayout(pnlLine);
-		
+
 		gl_pnlLine
 				.setHorizontalGroup(
 						gl_pnlLine.createParallelGroup(Alignment.LEADING)
@@ -100,7 +100,7 @@ public class LineDialog extends JDialog {
 												.addComponent(txtStartX, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addContainerGap(94, Short.MAX_VALUE)));
-		
+
 		gl_pnlLine.setVerticalGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pnlLine.createSequentialGroup().addGap(26)
 						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblXKoordinataPoetne)
@@ -119,16 +119,16 @@ public class LineDialog extends JDialog {
 								.addComponent(txtEndY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(18).addComponent(btnNewButton).addContainerGap(18, Short.MAX_VALUE)));
-		
+
 		pnlLine.setLayout(gl_pnlLine);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		
+
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
-			
+
 				okButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -148,21 +148,21 @@ public class LineDialog extends JDialog {
 
 					}
 				});
-				
+
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
-				
+
 				cancelButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				
+
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

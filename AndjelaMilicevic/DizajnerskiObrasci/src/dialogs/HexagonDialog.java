@@ -52,22 +52,22 @@ public class HexagonDialog extends JDialog {
 		pnlHexagon.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(pnlHexagon, BorderLayout.CENTER);
 		this.setModal(true);
-		
+
 		JLabel lblXCC = new JLabel("X koordinata centra");
 		JLabel lblYCC = new JLabel("Y koordinata centra");
 		JLabel lblDuinaPoluprenika = new JLabel("Du\u017Eina polupre\u010Dnika");
-		
+
 		txtCentarX = new JTextField();
 		txtCentarX.setColumns(10);
-		
+
 		txtCentarY = new JTextField();
 		txtCentarY.setColumns(10);
-		
+
 		txtRadius = new JTextField();
 		txtRadius.setColumns(10);
-		
+
 		JButton btnBoja = new JButton("Boja unutra\u0161njosti");
-		
+
 		btnBoja.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -76,16 +76,16 @@ public class HexagonDialog extends JDialog {
 		});
 
 		JButton btnBojaIvica = new JButton("Boja ivica");
-		
+
 		btnBojaIvica.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				colorOut = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 			}
 		});
-		
+
 		GroupLayout gl_pnlCircle = new GroupLayout(pnlHexagon);
-		
+
 		gl_pnlCircle.setHorizontalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlCircle
 				.createSequentialGroup().addGap(51)
 				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
@@ -104,7 +104,7 @@ public class HexagonDialog extends JDialog {
 										.addComponent(txtCentarX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE))))
 				.addContainerGap(123, Short.MAX_VALUE)));
-		
+
 		gl_pnlCircle.setVerticalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlCircle
 				.createSequentialGroup().addGap(30)
 				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblXCC).addComponent(
@@ -119,16 +119,16 @@ public class HexagonDialog extends JDialog {
 				.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE).addGroup(gl_pnlCircle
 						.createParallelGroup(Alignment.BASELINE).addComponent(btnBoja).addComponent(btnBojaIvica))
 				.addGap(26)));
-		
+
 		pnlHexagon.setLayout(gl_pnlCircle);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		
+
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
-			
+
 				okButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -153,14 +153,14 @@ public class HexagonDialog extends JDialog {
 					}
 
 				});
-				
+
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
-				
+
 				cancelButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -168,7 +168,7 @@ public class HexagonDialog extends JDialog {
 					}
 
 				});
-				
+
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

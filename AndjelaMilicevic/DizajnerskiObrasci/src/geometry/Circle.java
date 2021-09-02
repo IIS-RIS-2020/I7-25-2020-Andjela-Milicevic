@@ -27,10 +27,10 @@ public class Circle extends AreaShape implements Cloneable {
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(getBorderColor());
-		
+
 		graphics.drawOval(this.getCenter().getXcoordinate() - this.getRadius(),
 				this.getCenter().getYcoordinate() - this.getRadius(), this.getRadius() * 2, this.getRadius() * 2);
-		
+
 		areaShape(graphics);
 
 		if (isSelected())
@@ -54,7 +54,7 @@ public class Circle extends AreaShape implements Cloneable {
 
 		return false;
 	}
-	
+
 	@Override
 	protected void drawSelection(Graphics graphics) {
 		graphics.setColor(getSelectionColor());
@@ -93,13 +93,13 @@ public class Circle extends AreaShape implements Cloneable {
 	@Override
 	public String toString() {
 		String selected;
-		
+
 		if (this.isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
-		
+
 		return "Circle:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ") " + "R:"
 				+ this.getRadius() + ", BC(" + getBorderColor().getRGB() + "), " + "FC(" + getAreaColor().getRGB()
 				+ "), " + selected;

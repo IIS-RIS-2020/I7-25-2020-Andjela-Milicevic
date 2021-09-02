@@ -17,7 +17,7 @@ public class CmdDeleteAll implements Command, Serializable {
 		sortByIndex();
 		CmdDelete deleteCommand;
 		Iterator<CmdDelete> it = listOfDeleteCommands.iterator();
-		
+
 		while (it.hasNext()) {
 			deleteCommand = it.next();
 			deleteCommand.execute();
@@ -29,7 +29,7 @@ public class CmdDeleteAll implements Command, Serializable {
 		sortByIndex();
 		CmdDelete deleteCommand;
 		Iterator<CmdDelete> it = listOfDeleteCommands.iterator();
-		
+
 		while (it.hasNext()) {
 			deleteCommand = it.next();
 			deleteCommand.unexecute();
@@ -46,12 +46,12 @@ public class CmdDeleteAll implements Command, Serializable {
 		StringBuilder compositionOfStrings = new StringBuilder("");
 		Iterator<CmdDelete> it = listOfDeleteCommands.iterator();
 		compositionOfStrings.append(it.next().toString());
-		
+
 		while (it.hasNext()) {
 			compositionOfStrings.append(";");
 			compositionOfStrings.append(it.next().toString());
 		}
-		
+
 		return compositionOfStrings.toString();
 	}
 
@@ -60,17 +60,17 @@ public class CmdDeleteAll implements Command, Serializable {
 		CmdDelete[] array = new CmdDelete[listOfDeleteCommands.size()];
 		int i = 0;
 		Iterator<CmdDelete> it = listOfDeleteCommands.iterator();
-		
+
 		while (it.hasNext()) {
 			deleteCommand = it.next();
 			array[i] = deleteCommand;
 			i++;
 		}
-		
+
 		bubbleSort(array);
 		i = 0;
 		listOfDeleteCommands.removeAll(listOfDeleteCommands);
-		
+
 		for (; i < array.length; i++) {
 			listOfDeleteCommands.add(array[i]);
 		}
@@ -78,7 +78,7 @@ public class CmdDeleteAll implements Command, Serializable {
 
 	void bubbleSort(CmdDelete arr[]) {
 		int n = arr.length;
-		
+
 		for (int i = 0; i < n - 1; i++)
 			for (int j = 0; j < n - i - 1; j++)
 				if (arr[j].getIndex() > arr[j + 1].getIndex()) {

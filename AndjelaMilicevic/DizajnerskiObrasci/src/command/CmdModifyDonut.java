@@ -44,7 +44,7 @@ public class CmdModifyDonut implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -57,7 +57,7 @@ public class CmdModifyDonut implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
-		
+
 		return null;
 	}
 

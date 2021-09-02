@@ -94,7 +94,7 @@ public class DrawingFrame extends JFrame {
 		tglBtnModify.setEnabled(false);
 		buttonGroup.add(tglBtnModify);
 		toolBar.add(tglBtnModify);
-		
+
 		tglBtnModify.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -104,19 +104,19 @@ public class DrawingFrame extends JFrame {
 
 		tglBtnDelete.setEnabled(false);
 		buttonGroup.add(tglBtnDelete);
-		
+
 		tglBtnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				controller.clickedDelete();
 			}
 		});
-		
+
 		toolBar.add(tglBtnDelete);
 		tglBtnToBack.setEnabled(false);
 		toolBar.add(tglBtnToBack);
 		buttonGroup.add(tglBtnToBack);
-		
+
 		tglBtnToBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -127,7 +127,7 @@ public class DrawingFrame extends JFrame {
 		tglBtnBringToBack.setEnabled(false);
 		toolBar.add(tglBtnBringToBack);
 		buttonGroup.add(tglBtnBringToBack);
-		
+
 		tglBtnBringToBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -138,7 +138,7 @@ public class DrawingFrame extends JFrame {
 		tglBtnToFront.setEnabled(false);
 		toolBar.add(tglBtnToFront);
 		buttonGroup.add(tglBtnToFront);
-		
+
 		tglBtnToFront.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -149,7 +149,7 @@ public class DrawingFrame extends JFrame {
 		tglBtnBringToTop.setEnabled(false);
 		toolBar.add(tglBtnBringToTop);
 		buttonGroup.add(tglBtnBringToTop);
-		
+
 		tglBtnBringToTop.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -167,7 +167,7 @@ public class DrawingFrame extends JFrame {
 		tglBtnUndo.setEnabled(false);
 		toolBar.add(tglBtnUndo);
 		buttonGroup.add(tglBtnUndo);
-		
+
 		tglBtnRedo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -178,7 +178,7 @@ public class DrawingFrame extends JFrame {
 		tglBtnRedo.setEnabled(false);
 		toolBar.add(tglBtnRedo);
 		buttonGroup.add(tglBtnRedo);
-		
+
 		this.view.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {
@@ -188,7 +188,7 @@ public class DrawingFrame extends JFrame {
 
 		toolBar.add(tglBtnOpenFile);
 		buttonGroup.add(tglBtnOpenFile);
-		
+
 		tglBtnOpenFile.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {
@@ -198,7 +198,7 @@ public class DrawingFrame extends JFrame {
 
 		toolBar.add(tglBtnNextLine);
 		buttonGroup.add(tglBtnNextLine);
-		
+
 		tglBtnNextLine.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {
@@ -208,7 +208,7 @@ public class DrawingFrame extends JFrame {
 
 		toolBar.add(tglBtnSaveFile);
 		buttonGroup.add(tglBtnSaveFile);
-		
+
 		tglBtnSaveFile.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {
@@ -218,7 +218,7 @@ public class DrawingFrame extends JFrame {
 
 		toolBar.add(tglBtnOpen);
 		buttonGroup.add(tglBtnOpen);
-		
+
 		tglBtnOpen.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {
@@ -243,7 +243,7 @@ public class DrawingFrame extends JFrame {
 
 		btnAreaColor.setBackground(Color.WHITE);
 		buttonGroup.add(btnAreaColor);
-	
+
 		btnAreaColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -251,14 +251,14 @@ public class DrawingFrame extends JFrame {
 				controller.clickedAreaColor();
 			}
 		});
-		
+
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(view);
 		contentPane.add(toolBar, BorderLayout.NORTH);
 
 		toolBar.add(tglBtnSave);
 		buttonGroup.add(tglBtnSave);
-		
+
 		tglBtnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent event) {
@@ -272,7 +272,7 @@ public class DrawingFrame extends JFrame {
 
 		btnBorderColor.setBackground(Color.BLACK);
 		buttonGroup.add(btnBorderColor);
-		
+
 		btnBorderColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

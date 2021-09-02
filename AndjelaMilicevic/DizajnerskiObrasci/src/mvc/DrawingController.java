@@ -1121,7 +1121,7 @@ public class DrawingController {
 		case "Circle": {
 			Circle oldCircle = makeCircle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
 				if (shapeFromList.equals(oldCircle)) {
@@ -1129,7 +1129,7 @@ public class DrawingController {
 					break;
 				}
 			}
-			
+
 			Circle newCircle = makeCircle(splits, 22);
 			Command cmd = new CmdModifyCircle(oldCircle, newCircle);
 			addRemoveSelectedExecute(cmd);
@@ -1138,7 +1138,7 @@ public class DrawingController {
 		case "Line": {
 			Line oldLine = makeLine(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
 				if (shapeFromList.equals(oldLine)) {
@@ -1146,14 +1146,14 @@ public class DrawingController {
 					break;
 				}
 			}
-		
+
 			Line newLine = makeLine(splits, 17);
 			Command cmd = new CmdModifyLine(oldLine, newLine);
 			addRemoveSelectedExecute(cmd);
 			return cmd;
 
 		}
-		
+
 		case "Point": {
 
 			Point oldPoint = makePoint(splits, 0);
@@ -1172,49 +1172,49 @@ public class DrawingController {
 			return cmd;
 		}
 		}
-		
+
 		return null;
 
 	}
 
 	private Command makeAddCommand(String[] splits) {
 		switch (splits[1]) {
-			case "Rectangle": {
-				System.out.println("rectangle case");
-				Rectangle rect = makeRectangle(splits, 0);
-				Command cmd = new CmdAdd(rect, this.model);
-				return cmd;
-			}
-			
-			case "Hexagon": {
-				HexagonAdapter hex = makeHexagon(splits, 0);
-				Command cmd = new CmdAdd(hex, model);
-				return cmd;
-			}
-		
-			case "Donut": {
-				Donut donut = makeDonut(splits, 0);
-				Command cmd = new CmdAdd(donut, model);
-				return cmd;
-			}
-			
-			case "Circle": {
-				Circle circle = makeCircle(splits, 0);
-				Command cmd = new CmdAdd(circle, model);
-				return cmd;
-			}
-			
-			case "Line": {
-				Line l = makeLine(splits, 0);
-				Command cmd = new CmdAdd(l, model);
-				return cmd;
-			}
-			
-			case "Point": {
-				Point point = makePoint(splits, 0);
-				Command cmd = new CmdAdd(point, model);
-				return cmd;
-			}
+		case "Rectangle": {
+			System.out.println("rectangle case");
+			Rectangle rect = makeRectangle(splits, 0);
+			Command cmd = new CmdAdd(rect, this.model);
+			return cmd;
+		}
+
+		case "Hexagon": {
+			HexagonAdapter hex = makeHexagon(splits, 0);
+			Command cmd = new CmdAdd(hex, model);
+			return cmd;
+		}
+
+		case "Donut": {
+			Donut donut = makeDonut(splits, 0);
+			Command cmd = new CmdAdd(donut, model);
+			return cmd;
+		}
+
+		case "Circle": {
+			Circle circle = makeCircle(splits, 0);
+			Command cmd = new CmdAdd(circle, model);
+			return cmd;
+		}
+
+		case "Line": {
+			Line l = makeLine(splits, 0);
+			Command cmd = new CmdAdd(l, model);
+			return cmd;
+		}
+
+		case "Point": {
+			Point point = makePoint(splits, 0);
+			Command cmd = new CmdAdd(point, model);
+			return cmd;
+		}
 		}
 
 		return null;

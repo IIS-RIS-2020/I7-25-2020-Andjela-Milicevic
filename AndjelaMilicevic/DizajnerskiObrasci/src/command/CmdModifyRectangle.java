@@ -46,7 +46,7 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -59,7 +59,7 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
-		
+
 		return null;
 	}
 

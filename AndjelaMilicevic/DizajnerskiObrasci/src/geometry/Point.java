@@ -29,10 +29,10 @@ public class Point extends Shape implements Cloneable {
 		System.out.println("draw for point");
 		graphics.setColor(getBorderColor());
 		System.out.println("U draw point x je " + xCoordinate + " y je " + yCoordinate);
-		
+
 		graphics.drawLine(this.xCoordinate - POINT_LINE_GAP, yCoordinate, this.xCoordinate + POINT_LINE_GAP,
 				yCoordinate);
-		
+
 		graphics.drawLine(xCoordinate, this.yCoordinate - POINT_LINE_GAP, xCoordinate,
 				this.yCoordinate + POINT_LINE_GAP);
 
@@ -84,13 +84,13 @@ public class Point extends Shape implements Cloneable {
 	@Override
 	public String toString() {
 		String selected;
-		
+
 		if (this.isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
-		
+
 		return "Point:(" + xCoordinate + "," + yCoordinate + ") " + "BorderColor(" + getBorderColor().getRGB() + ") "
 				+ selected;
 	}

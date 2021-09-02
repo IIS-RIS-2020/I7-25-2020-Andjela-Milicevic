@@ -45,12 +45,12 @@ public class Donut extends Circle implements Cloneable {
 	private void createDonut() {
 		Ellipse2D outer = new Ellipse2D.Double(getCenter().getXcoordinate() - getRadius(),
 				getCenter().getYcoordinate() - getRadius(), 2 * getRadius(), 2 * getRadius());
-		
+
 		area = new Area(outer);
-		
+
 		Ellipse2D inner = new Ellipse2D.Double(getCenter().getXcoordinate() - innerRadius,
 				getCenter().getYcoordinate() - innerRadius, 2 * innerRadius, 2 * innerRadius);
-		
+
 		area.subtract(new Area(inner));
 
 	}
@@ -89,13 +89,13 @@ public class Donut extends Circle implements Cloneable {
 	@Override
 	public String toString() {
 		String selected;
-		
+
 		if (this.isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
-		
+
 		return "Donut:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ")"
 				+ " outerRadius:" + this.getRadius() + ", innerRadius:" + this.getInnerRadius() + ", " + "BorderColor("
 				+ getBorderColor().getRGB() + "), FillColor(" + getAreaColor().getRGB() + "), " + selected;

@@ -14,7 +14,7 @@ public class DrawingView extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		ListIterator<Shape> it = this.model.getShapes().listIterator();
-		
+
 		while (it.hasNext()) {
 			it.next().draw(g);
 		}

@@ -44,7 +44,7 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -57,7 +57,7 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
-		
+
 		return null;
 	}
 

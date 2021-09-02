@@ -21,18 +21,18 @@ public class SaveCommandsToTextFile implements Saving {
 		fc.setDialogTitle("Save a file");
 		// fc.setFileFilter(new FileTypeFilter(".bin", "File"));
 		int result = fc.showSaveDialog(null);
-		
+
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
-		
+
 			try {
 				PrintWriter writer = new PrintWriter(file);
 				Iterator<String> it = controller.getStringCommandsToWriteToFile().iterator();
-			
+
 				while (it.hasNext()) {
 					writer.println(it.next());
 				}
-				
+
 				writer.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();

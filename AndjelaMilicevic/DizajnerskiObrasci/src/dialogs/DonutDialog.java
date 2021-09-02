@@ -56,24 +56,24 @@ public class DonutDialog extends JDialog {
 
 		JLabel lblXCC = new JLabel("X koordinata centra");
 		JLabel lblYCC = new JLabel("Y koordinata centra");
-		
+
 		JLabel lblInnerRadius = new JLabel("Unutrasnji radius");
 		JLabel lblOutterRadius = new JLabel("Spoljasnji radius");
 
 		txtCentarX = new JTextField();
 		txtCentarX.setColumns(10);
-		
+
 		txtCentarY = new JTextField();
 		txtCentarY.setColumns(10);
-		
+
 		txtInnerRadius = new JTextField();
 		txtInnerRadius.setColumns(10);
-		
+
 		txtRadius = new JTextField();
 		txtRadius.setColumns(10);
 
 		JButton btnColorIn = new JButton("Boja unutrasnjosti");
-		
+
 		btnColorIn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -83,7 +83,7 @@ public class DonutDialog extends JDialog {
 		});
 
 		JButton btnColorOut = new JButton("Boja ivica");
-		
+
 		btnColorOut.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -91,9 +91,9 @@ public class DonutDialog extends JDialog {
 				colorOut = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 			}
 		});
-		
+
 		GroupLayout gl_pnlDonut = new GroupLayout(pnlDonut);
-		
+
 		gl_pnlDonut.setHorizontalGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlDonut
 				.createSequentialGroup()
 				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
@@ -117,7 +117,7 @@ public class DonutDialog extends JDialog {
 						.addGroup(gl_pnlDonut.createSequentialGroup().addPreferredGap(ComponentPlacement.UNRELATED)
 								.addComponent(btnColorOut)))
 				.addContainerGap(87, Short.MAX_VALUE)));
-		
+
 		gl_pnlDonut.setVerticalGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlDonut
 				.createSequentialGroup().addGap(23)
 				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(lblXCC).addComponent(
@@ -137,16 +137,16 @@ public class DonutDialog extends JDialog {
 				.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE).addGroup(gl_pnlDonut
 						.createParallelGroup(Alignment.BASELINE).addComponent(btnColorIn).addComponent(btnColorOut))
 				.addGap(19)));
-		
+
 		pnlDonut.setLayout(gl_pnlDonut);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			
+
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
-			
+
 				okButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -154,7 +154,7 @@ public class DonutDialog extends JDialog {
 
 							Integer.parseInt(getTxtCentarX());
 							Integer.parseInt(getTxtCentarY());
-				
+
 							if (Integer.parseInt(getTxtRadius()) < 0 || Integer.parseInt(getTxtInnerRadius()) < 0) {
 								throw new Exception();
 							} else {
@@ -178,7 +178,7 @@ public class DonutDialog extends JDialog {
 						}
 					}
 				});
-				
+
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

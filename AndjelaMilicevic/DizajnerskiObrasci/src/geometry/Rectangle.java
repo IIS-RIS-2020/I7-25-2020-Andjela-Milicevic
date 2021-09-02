@@ -29,10 +29,10 @@ public class Rectangle extends AreaShape implements Cloneable {
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(getBorderColor());
-		
+
 		graphics.drawRect(this.getUpperLeftPoint().getXcoordinate(), this.getUpperLeftPoint().getYcoordinate(),
 				this.width, this.getHeight());
-		
+
 		areaShape(graphics);
 
 		if (isSelected()) {
@@ -44,7 +44,7 @@ public class Rectangle extends AreaShape implements Cloneable {
 	@Override
 	protected void areaShape(Graphics graphics) {
 		graphics.setColor(getAreaColor());
-		
+
 		graphics.fillRect(upperLeftPoint.getXcoordinate() + 1, upperLeftPoint.getYcoordinate() + 1, width - 1,
 				height - 1);
 	}
@@ -96,13 +96,13 @@ public class Rectangle extends AreaShape implements Cloneable {
 	@Override
 	public String toString() {
 		String selected;
-		
+
 		if (this.isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
-		
+
 		return "Rectangle:(" + this.getUpperLeftPoint().getXcoordinate() + ","
 				+ this.getUpperLeftPoint().getYcoordinate() + ") " + "Width:" + this.getWidth() + ", Height:"
 				+ this.getHeight() + ", BorderColor(" + getBorderColor().getRGB() + "), " + "FillColor("
@@ -132,19 +132,19 @@ public class Rectangle extends AreaShape implements Cloneable {
 			Rectangle getRect = (Rectangle) shape;
 			this.getUpperLeftPoint().setXcoordinate(getRect.getUpperLeftPoint().getXcoordinate());
 			this.getUpperLeftPoint().setYcoordinate(getRect.getUpperLeftPoint().getYcoordinate());
-		
+
 			try {
 				this.setHeight(getRect.getHeight());
 			} catch (Exception exceptionHeight) {
 				exceptionHeight.printStackTrace();
 			}
-			
+
 			try {
 				this.setWidth(getRect.getWidth());
 			} catch (Exception exceptionWidth) {
 				exceptionWidth.printStackTrace();
 			}
-			
+
 			this.setSelected(getRect.isSelected());
 			this.setBorderColor(getRect.getBorderColor());
 			this.setAreaColor(getRect.getAreaColor());

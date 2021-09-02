@@ -37,7 +37,7 @@ public class HexagonAdapter extends AreaShape {
 	@Override
 	public void draw(Graphics graphics) {
 		hexagon.setSelected(isSelected());
-		
+
 		if (this.getAreaColor() != null) {
 			hexagon.setAreaColor(this.getAreaColor());
 		} else {
@@ -49,12 +49,12 @@ public class HexagonAdapter extends AreaShape {
 		} else {
 			hexagon.setBorderColor(Color.BLACK);
 		}
-		
+
 		hexagon.paint(graphics);
 	}
 
 	@Override
-	protected void drawSelection(Graphics graphics) {
+	public void drawSelection(Graphics graphics) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -90,13 +90,13 @@ public class HexagonAdapter extends AreaShape {
 	@Override
 	public String toString() {
 		String selected;
-		
+
 		if (this.isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
-		
+
 		return "Hexagon:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ") "
 				+ "Radius:" + this.getRadius() + ", BorderColor(" + getBorderColor().getRGB() + "), " + "FillColor("
 				+ getAreaColor().getRGB() + "), " + selected;

@@ -29,7 +29,7 @@ public class Line extends Shape implements Cloneable {
 	public void draw(Graphics graphics) {
 		System.out.println("iscrtavanje linije");
 		graphics.setColor(getBorderColor());
-		
+
 		graphics.drawLine(this.getStartPoint().getXcoordinate(), this.getStartPoint().getYcoordinate(),
 				this.getEndPoint().getXcoordinate(), this.getEndPoint().getYcoordinate());
 
@@ -84,7 +84,7 @@ public class Line extends Shape implements Cloneable {
 	@Override
 	public String toString() {
 		String selected;
-		
+
 		if (this.isSelected()) {
 			selected = "selected";
 		} else {

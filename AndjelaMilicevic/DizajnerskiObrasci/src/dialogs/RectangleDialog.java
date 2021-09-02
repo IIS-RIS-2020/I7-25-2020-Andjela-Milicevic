@@ -75,7 +75,7 @@ public class RectangleDialog extends JDialog {
 		txtYCoordinate.setColumns(10);
 
 		JButton btnColorOut = new JButton("Boja ivica");
-		
+
 		btnColorOut.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -84,7 +84,7 @@ public class RectangleDialog extends JDialog {
 		});
 
 		JButton btnColorIn = new JButton("Boja unutrasnjosti");
-		
+
 		btnColorIn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -93,7 +93,7 @@ public class RectangleDialog extends JDialog {
 			}
 		});
 		GroupLayout gl_pnlRectangleDialog = new GroupLayout(pnlRectangleDialog);
-		
+
 		gl_pnlRectangleDialog.setHorizontalGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pnlRectangleDialog.createSequentialGroup().addGap(39)
 						.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.TRAILING).addComponent(lblWidth)
@@ -112,7 +112,7 @@ public class RectangleDialog extends JDialog {
 										GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnColorIn))
 						.addContainerGap(158, Short.MAX_VALUE)));
-		
+
 		gl_pnlRectangleDialog.setVerticalGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pnlRectangleDialog.createSequentialGroup().addGap(26)
 						.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.BASELINE).addComponent(lblWidth)
@@ -135,16 +135,16 @@ public class RectangleDialog extends JDialog {
 						.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnColorOut).addComponent(btnColorIn))
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-		
+
 		pnlRectangleDialog.setLayout(gl_pnlRectangleDialog);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		
+
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
-			
+
 				okButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -154,7 +154,7 @@ public class RectangleDialog extends JDialog {
 							int j = Integer.parseInt(getTxtYCoordinate());
 							int h = (Integer.parseInt(getTxtHeight()));
 							int w = (Integer.parseInt(getTxtWidth()));
-				
+
 							if (h <= 0 || w <= 0) {
 								throw new Exception();
 							} else {
@@ -168,28 +168,28 @@ public class RectangleDialog extends JDialog {
 									JOptionPane.ERROR_MESSAGE);
 						} catch (Exception ex) {
 							System.out.println(ex.getMessage());
-							
+
 							JOptionPane.showMessageDialog(new JFrame(),
 									"Visina i širina moraju da budu pozitivni brojevi.", "Greška!",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				});
-				
+
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
-				
+
 				cancelButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				
+
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

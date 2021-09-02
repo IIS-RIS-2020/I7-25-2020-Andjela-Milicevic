@@ -44,7 +44,7 @@ public class CmdModifyPoint implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -57,7 +57,7 @@ public class CmdModifyPoint implements Command, Serializable, CmdModify {
 				return false;
 			}
 		}
-		
+
 		return null;
 	}
 

@@ -41,11 +41,6 @@ public class CircleTests {
 	}
 
 	@Test
-	public void testEqualsNotSameType() {
-		assertFalse(circle.equals(new Point(1, 2)));
-	}
-
-	@Test
 	public void testEqualsFalseExpectedRadius() {
 		assertFalse(circle.equals(new Circle(new Point(1, 2), 1)));
 	}

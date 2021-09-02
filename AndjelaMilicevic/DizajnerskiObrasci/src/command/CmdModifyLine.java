@@ -7,9 +7,9 @@ import geometry.Shape;
 
 public class CmdModifyLine implements Command, Serializable, CmdModify {
 	private static final long serialVersionUID = 1L;
-	Line oldState;
-	Line originalState = new Line();
-	Line newState;
+	private Line oldState;
+	private Line originalState = new Line();
+	private Line newState;
 
 	public CmdModifyLine(Line oldLine, Line newLine) {
 		this.oldState = oldLine;
@@ -38,11 +38,9 @@ public class CmdModifyLine implements Command, Serializable, CmdModify {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
 				return true;
-				// treba oldState dodati u listu
-			} else {
-				// treba oldState izbaciti iz liste
-				return false;
-			}
+			} 
+
+			return false;
 		}
 
 		return null;

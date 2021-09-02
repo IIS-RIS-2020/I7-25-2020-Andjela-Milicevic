@@ -174,7 +174,6 @@ public class CircleDialog extends JDialog {
 		}
 	}
 
-	// Getters and setters
 	public void setColorIn(Color colorIn) {
 		this.colorIn = colorIn;
 	}

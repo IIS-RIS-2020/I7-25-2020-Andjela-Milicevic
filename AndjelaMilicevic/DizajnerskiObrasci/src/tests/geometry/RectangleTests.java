@@ -43,11 +43,6 @@ public class RectangleTests {
 	}
 
 	@Test
-	public void testEqualsNotSameType() {
-		assertFalse(rectangle.equals(new Point(1, 2)));
-	}
-
-	@Test
 	public void testEqualsFalseExpectedUpperLeftPoint() {
 		assertFalse(rectangle.equals(new Rectangle(new Point(2, 2), 1, 2)));
 	}
@@ -66,5 +61,4 @@ public class RectangleTests {
 	public void testEqualsTrueExpected() {
 		assertTrue(rectangle.equals(new Rectangle(new Point(1, 2), 1, 2)));
 	}
-
 }

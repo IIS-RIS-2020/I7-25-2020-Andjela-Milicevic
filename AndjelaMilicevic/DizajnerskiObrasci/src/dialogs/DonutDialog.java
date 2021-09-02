@@ -77,7 +77,6 @@ public class DonutDialog extends JDialog {
 		btnColorIn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// boja unutrasnjosti
 				colorIn = JColorChooser.showDialog(null, "Izaberite boju", Color.WHITE);
 			}
 		});
@@ -87,7 +86,6 @@ public class DonutDialog extends JDialog {
 		btnColorOut.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// boja spolj.
 				colorOut = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 			}
 		});
@@ -191,7 +189,6 @@ public class DonutDialog extends JDialog {
 		}
 	}
 
-	// Getters and setters
 	public Color getColorIn() {
 		return colorIn;
 	}

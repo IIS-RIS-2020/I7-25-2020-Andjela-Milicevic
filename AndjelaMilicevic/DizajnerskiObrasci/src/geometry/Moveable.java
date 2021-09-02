@@ -1,5 +1,5 @@
 package geometry;
 
-public interface Moveable {
+interface Moveable {
 	public abstract void moveBy(int byXcoordinate, int byYcoordinate);
 }

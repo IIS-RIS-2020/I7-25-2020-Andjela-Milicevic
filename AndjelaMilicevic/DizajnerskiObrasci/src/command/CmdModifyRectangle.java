@@ -5,8 +5,6 @@ import java.io.Serializable;
 import geometry.Rectangle;
 import geometry.Shape;
 
-//TODO izbrisi initial state, setuj original state u konstruktoru, u tostring
-//umesto initial, original
 public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 	private static final long serialVersionUID = 1L;
 	private Rectangle oldState;
@@ -40,11 +38,9 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
 				return true;
-				// treba oldState dodati u listu
-			} else {
-				// treba oldState izbaciti iz liste
-				return false;
-			}
+			} 
+				
+			return false;
 		}
 
 		return null;
@@ -55,9 +51,9 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 		if (oldState.isSelected() != originalState.isSelected()) {
 			if (originalState.isSelected()) {
 				return true;
-			} else {
-				return false;
-			}
+			} 
+	
+			return false;
 		}
 
 		return null;

@@ -51,7 +51,6 @@ public class RectangleDialog extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		pnlRectangleDialog.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(pnlRectangleDialog, BorderLayout.CENTER);
-		// postavljamo da bude modalni
 		this.setModal(true);
 
 		JLabel lblWidth = new JLabel("Unesite sirinu");
@@ -148,7 +147,6 @@ public class RectangleDialog extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						// kada se klikne na ok
 						try {
 							int i = Integer.parseInt(getTxtXCoordinate());
 							int j = Integer.parseInt(getTxtYCoordinate());
@@ -167,8 +165,6 @@ public class RectangleDialog extends JDialog {
 									"Neispravan unos. Sva polja moraju biti ispunjena brojnim vrednostima.", "Greška!",
 									JOptionPane.ERROR_MESSAGE);
 						} catch (Exception ex) {
-							System.out.println(ex.getMessage());
-
 							JOptionPane.showMessageDialog(new JFrame(),
 									"Visina i širina moraju da budu pozitivni brojevi.", "Greška!",
 									JOptionPane.ERROR_MESSAGE);
@@ -196,7 +192,6 @@ public class RectangleDialog extends JDialog {
 		}
 	}
 
-	// Getters and setters
 	public boolean isOk() {
 		return isOk;
 	}

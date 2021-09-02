@@ -132,7 +132,6 @@ public class LineDialog extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						// kad se klikne ok
 						try {
 							Integer.parseInt(getTxtStartX());
 							Integer.parseInt(getTxtStartY());

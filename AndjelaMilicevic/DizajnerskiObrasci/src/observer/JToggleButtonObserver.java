@@ -8,9 +8,9 @@ import javax.swing.JToggleButton;
 import mvc.DrawingFrame;
 
 public class JToggleButtonObserver implements Observer {
-	ArrayList<JToggleButton> buttons = new ArrayList<>();
-	DrawingFrame frame;
-	Iterator<JToggleButton> it;
+	private ArrayList<JToggleButton> buttons = new ArrayList<>();
+	private DrawingFrame frame;
+	private Iterator<JToggleButton> it;
 
 	public JToggleButtonObserver(DrawingFrame drawingFrame) {
 		this.frame = drawingFrame;
@@ -24,6 +24,7 @@ public class JToggleButtonObserver implements Observer {
 	public void updateSelectedShape(int numberOfSelected) {
 		if (numberOfSelected == 0) {
 			it = buttons.iterator();
+			
 			while (it.hasNext()) {
 				it.next().setEnabled(false);
 			}
@@ -32,6 +33,7 @@ public class JToggleButtonObserver implements Observer {
 
 			while (it.hasNext()) {
 				JToggleButton jtb = it.next();
+			
 				if (jtb.equals(frame.getBtnModify())) {
 					jtb.setEnabled(true);
 				} else if (jtb.equals(frame.getBtnDelete())) {

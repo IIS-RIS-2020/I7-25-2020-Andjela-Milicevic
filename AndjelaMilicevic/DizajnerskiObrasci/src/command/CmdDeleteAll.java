@@ -36,7 +36,6 @@ public class CmdDeleteAll implements Command, Serializable {
 		}
 	}
 
-	// add
 	public void addDeletedCommand(CmdDelete cmd) {
 		listOfDeleteCommands.add(cmd);
 	}
@@ -56,9 +55,9 @@ public class CmdDeleteAll implements Command, Serializable {
 	}
 
 	private void sortByIndex() {
+		int i = 0;
 		CmdDelete deleteCommand;
 		CmdDelete[] array = new CmdDelete[listOfDeleteCommands.size()];
-		int i = 0;
 		Iterator<CmdDelete> it = listOfDeleteCommands.iterator();
 
 		while (it.hasNext()) {
@@ -67,8 +66,8 @@ public class CmdDeleteAll implements Command, Serializable {
 			i++;
 		}
 
-		bubbleSort(array);
 		i = 0;
+		bubbleSort(array);
 		listOfDeleteCommands.removeAll(listOfDeleteCommands);
 
 		for (; i < array.length; i++) {
@@ -76,7 +75,7 @@ public class CmdDeleteAll implements Command, Serializable {
 		}
 	}
 
-	void bubbleSort(CmdDelete arr[]) {
+	private void bubbleSort(CmdDelete arr[]) {
 		int n = arr.length;
 
 		for (int i = 0; i < n - 1; i++)

@@ -10,7 +10,6 @@ public abstract class AreaShape extends Shape {
 	public AreaShape() {
 	}
 
-//	abstract double area();
 	protected abstract void areaShape(Graphics graphics);
 
 	public Color getAreaColor() {

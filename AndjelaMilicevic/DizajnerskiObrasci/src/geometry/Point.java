@@ -26,9 +26,7 @@ public class Point extends Shape implements Cloneable {
 
 	@Override
 	public void draw(Graphics graphics) {
-		System.out.println("draw for point");
 		graphics.setColor(getBorderColor());
-		System.out.println("U draw point x je " + xCoordinate + " y je " + yCoordinate);
 
 		graphics.drawLine(this.xCoordinate - POINT_LINE_GAP, yCoordinate, this.xCoordinate + POINT_LINE_GAP,
 				yCoordinate);
@@ -48,7 +46,6 @@ public class Point extends Shape implements Cloneable {
 				SELECT_RECTANGLE_SIDE_LENGTH, SELECT_RECTANGLE_SIDE_LENGTH);
 	}
 
-	// DA LI SADRZI TACKU
 	@Override
 	public boolean contains(int xCoordinate, int yCoordinate) {
 		if (this.calculateDistance(xCoordinate, yCoordinate) <= POINT_CLICK_THRESHOLD)
@@ -56,14 +53,12 @@ public class Point extends Shape implements Cloneable {
 		return false;
 	}
 
-	// DISTANCE
 	public double calculateDistance(int xCoordinate, int yCoordinate) {
 		int distanceXsquare = this.xCoordinate - xCoordinate;
 		int distanceYsquare = this.yCoordinate - yCoordinate;
 		return Math.sqrt(distanceXsquare * distanceXsquare + distanceYsquare * distanceYsquare);
 	}
 
-	// EQUALS da li je tacka jednaka sa drugom
 	@Override
 	public boolean equals(Object object) {
 		if (object instanceof Point) {
@@ -121,7 +116,6 @@ public class Point extends Shape implements Cloneable {
 		}
 	}
 
-	// Getters and setters
 	public int getXcoordinate() {
 		return xCoordinate;
 	}

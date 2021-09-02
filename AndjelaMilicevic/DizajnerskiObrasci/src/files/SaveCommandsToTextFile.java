@@ -1,4 +1,4 @@
-package mvc;
+package files;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,8 +7,10 @@ import java.util.Iterator;
 
 import javax.swing.JFileChooser;
 
+import mvc.DrawingController;
+
 public class SaveCommandsToTextFile implements Saving {
-	DrawingController controller;
+	private DrawingController controller;
 
 	public SaveCommandsToTextFile(DrawingController controller) {
 		this.controller = controller;
@@ -19,7 +21,6 @@ public class SaveCommandsToTextFile implements Saving {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Save a file");
-		// fc.setFileFilter(new FileTypeFilter(".bin", "File"));
 		int result = fc.showSaveDialog(null);
 
 		if (result == JFileChooser.APPROVE_OPTION) {

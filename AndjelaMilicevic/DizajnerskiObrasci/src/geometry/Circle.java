@@ -33,8 +33,9 @@ public class Circle extends AreaShape implements Cloneable {
 
 		areaShape(graphics);
 
-		if (isSelected())
+		if (isSelected()) {
 			drawSelection(graphics);
+		}
 	}
 
 	@Override
@@ -103,7 +104,6 @@ public class Circle extends AreaShape implements Cloneable {
 		return "Circle:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ") " + "R:"
 				+ this.getRadius() + ", BC(" + getBorderColor().getRGB() + "), " + "FC(" + getAreaColor().getRGB()
 				+ "), " + selected;
-
 	}
 
 	@Override
@@ -130,7 +130,6 @@ public class Circle extends AreaShape implements Cloneable {
 			this.setBorderColor(getCircle.getBorderColor());
 			this.setAreaColor(getCircle.getAreaColor());
 		}
-
 	}
 
 	public int getRadius() {

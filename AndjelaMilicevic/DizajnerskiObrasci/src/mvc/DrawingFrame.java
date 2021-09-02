@@ -24,50 +24,45 @@ import javax.swing.border.EmptyBorder;
 
 public class DrawingFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	// panel na kom se iscrtavaju oblici - view
-	// kontroler kome se prosledjuje klik da bi ga obradio
 	private JPanel contentPane;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	JToolBar toolBar = new JToolBar();
-	JToolBar southToolbar = new JToolBar();
-	JToggleButton tglBtnPoint = new JToggleButton("Point");
-	JToggleButton tglBtnLine = new JToggleButton("Line");
-	JToggleButton tglBtnCircle = new JToggleButton("Circle");
-	JToggleButton tglBtnRectangle = new JToggleButton("Rectangle");
-	JToggleButton tglBtnDonut = new JToggleButton("Donut");
-	JToggleButton tglBtnModify = new JToggleButton("Modify");
-	JToggleButton tglBtnSelect = new JToggleButton("Select");
-	JToggleButton tglBtnDelete = new JToggleButton("Delete");
-	JToggleButton tglBtnHexagon = new JToggleButton("Hexagon");
-	JToggleButton tglBtnBringToBack = new JToggleButton("Bring to back");
-	JToggleButton tglBtnRedo = new JToggleButton("Redo");
-	JToggleButton tglBtnBringToTop = new JToggleButton("Bring to top");
-	JToggleButton tglBtnUndo = new JToggleButton("Undo");
-	JToggleButton tglBtnToFront = new JToggleButton("To front");
-	JToggleButton tglBtnToBack = new JToggleButton("To back");
-	JToggleButton tglBtnSave = new JToggleButton("Save");
-	JToggleButton tglBtnSaveFile = new JToggleButton("Save file");
-	JToggleButton tglBtnOpen = new JToggleButton("Open");
-	JToggleButton tglBtnOpenFile = new JToggleButton("Open file");
-	JToggleButton tglBtnNextLine = new JToggleButton("Next line");
-	JButton btnAreaColor = new JButton("");
-	JButton btnBorderColor = new JButton("");
-	JList<Object> jlistOfCommands = new JList<>();
-	DefaultListModel<Object> dlm = new DefaultListModel<>();
+	private JToolBar toolBar = new JToolBar();
+	private JToolBar southToolbar = new JToolBar();
+	private JToggleButton tglBtnPoint = new JToggleButton("Point");
+	private JToggleButton tglBtnLine = new JToggleButton("Line");
+	private JToggleButton tglBtnCircle = new JToggleButton("Circle");
+	private JToggleButton tglBtnRectangle = new JToggleButton("Rectangle");
+	private JToggleButton tglBtnDonut = new JToggleButton("Donut");
+	private JToggleButton tglBtnModify = new JToggleButton("Modify");
+	private JToggleButton tglBtnSelect = new JToggleButton("Select");
+	private JToggleButton tglBtnDelete = new JToggleButton("Delete");
+	private JToggleButton tglBtnHexagon = new JToggleButton("Hexagon");
+	private JToggleButton tglBtnBringToBack = new JToggleButton("Bring to back");
+	private JToggleButton tglBtnRedo = new JToggleButton("Redo");
+	private JToggleButton tglBtnBringToTop = new JToggleButton("Bring to top");
+	private JToggleButton tglBtnUndo = new JToggleButton("Undo");
+	private JToggleButton tglBtnToFront = new JToggleButton("To front");
+	private JToggleButton tglBtnToBack = new JToggleButton("To back");
+	private JToggleButton tglBtnSave = new JToggleButton("Save");
+	private JToggleButton tglBtnSaveFile = new JToggleButton("Save file");
+	private JToggleButton tglBtnOpen = new JToggleButton("Open");
+	private JToggleButton tglBtnOpenFile = new JToggleButton("Open file");
+	private JToggleButton tglBtnNextLine = new JToggleButton("Next line");
+	private JButton btnAreaColor = new JButton("");
+	private JButton btnBorderColor = new JButton("");
+	private JList<Object> jlistOfCommands = new JList<>();
+	private DefaultListModel<Object> dlm = new DefaultListModel<>();
 	private DrawingView view = new DrawingView();
 	private DrawingController controller;
 	private final JScrollPane scrollPane = new JScrollPane();
-
-	// u konstruktoru se postavlja listener na view (panel)
 
 	public DrawingFrame() {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
 		setTitle("Andjela Milicevic I7 25/2020");
 		setBounds(10, 10, 1920, 1080);
-
+		
 		jlistOfCommands.setModel(dlm);
-		// TODO setuj i lista se nalazi u kontroleru
 		scrollPane.setViewportView(jlistOfCommands);
 
 		buttonGroup.add(tglBtnPoint);
@@ -226,8 +221,6 @@ public class DrawingFrame extends JFrame {
 			}
 		});
 
-		// getContentPane().add(view, BorderLayout.CENTER);
-
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -247,7 +240,6 @@ public class DrawingFrame extends JFrame {
 		btnAreaColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// boja unutrasnjosti
 				controller.clickedAreaColor();
 			}
 		});
@@ -276,7 +268,6 @@ public class DrawingFrame extends JFrame {
 		btnBorderColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// boja unutrasnjosti
 				controller.clickedBorderColor();
 			}
 		});
@@ -289,11 +280,10 @@ public class DrawingFrame extends JFrame {
 
 	}
 
-	public void addToDLM(Object object) {
+	void addToDLM(Object object) {
 		dlm.addElement(object);
 	}
 
-	// Getters and setters
 	public DrawingView getView() {
 		return view;
 	}

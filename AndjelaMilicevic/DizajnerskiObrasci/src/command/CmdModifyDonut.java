@@ -37,12 +37,10 @@ public class CmdModifyDonut implements Command, Serializable, CmdModify {
 	public Object redo() {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
-				return true;
-				// treba oldState dodati u listu
-			} else {
-				// treba oldState izbaciti iz liste
-				return false;
-			}
+				return true;	
+			} 
+			
+			return false;
 		}
 
 		return null;
@@ -53,9 +51,9 @@ public class CmdModifyDonut implements Command, Serializable, CmdModify {
 		if (oldState.isSelected() != originalState.isSelected()) {
 			if (originalState.isSelected()) {
 				return true;
-			} else {
-				return false;
 			}
+		
+			return false;
 		}
 
 		return null;

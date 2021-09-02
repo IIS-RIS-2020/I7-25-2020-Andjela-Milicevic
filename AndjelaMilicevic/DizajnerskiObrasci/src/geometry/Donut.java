@@ -101,7 +101,7 @@ public class Donut extends Circle implements Cloneable {
 				+ getBorderColor().getRGB() + "), FillColor(" + getAreaColor().getRGB() + "), " + selected;
 	}
 
-	public double area() {
+	private double area() {
 		return getRadius() * getRadius() * Math.PI - innerRadius * innerRadius * Math.PI;
 	}
 

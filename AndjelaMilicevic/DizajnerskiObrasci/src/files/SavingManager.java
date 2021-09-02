@@ -1,4 +1,4 @@
-package mvc;
+package files;
 
 public class SavingManager implements Saving {
 	private Saving saving;
@@ -12,7 +12,6 @@ public class SavingManager implements Saving {
 		saving.saveDrawingOrLog();
 	}
 
-	// da li je potrebno
 	public void setSaving(Saving saving) {
 		this.saving = saving;
 	}

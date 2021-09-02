@@ -56,11 +56,6 @@ public class LineTests {
 	}
 
 	@Test
-	public void testEqualsNotSameType() {
-		assertFalse(line.equals(new Point(1, 2)));
-	}
-
-	@Test
 	public void testEqualsFalseExpectedStartPoint() {
 		assertFalse(line.equals(new Line(new Point(2, 2), new Point(3, 4))));
 	}

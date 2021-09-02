@@ -35,11 +35,6 @@ public class PointTests {
 	}
 
 	@Test
-	public void testEqualsNotSameType() {
-		assertFalse(point.equals(new Line(new Point(0, 2), new Point(1, 2))));
-	}
-
-	@Test
 	public void testEqualsFalseExpectedXcoordinate() {
 		assertFalse(point.equals(new Point(0, 2)));
 	}

@@ -20,7 +20,6 @@ public class DrawingView extends JPanel {
 		}
 	}
 
-	// Getters and setters
 	public DrawingModel getModel() {
 		return model;
 	}

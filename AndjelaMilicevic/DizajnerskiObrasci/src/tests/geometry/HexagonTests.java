@@ -33,12 +33,7 @@ public class HexagonTests {
 	public void testContainsFalseExcepted() {
 		assertFalse(hexagonAdapter.contains(21, 61));
 	}
-
-	@Test
-	public void testEqualsNotSameType() {
-		assertFalse(hexagonAdapter.equals(new Point(1, 2)));
-	}
-
+	
 	@Test
 	public void testEqualsFalseExpectedRadius() {
 		assertFalse(hexagonAdapter.equals(new HexagonAdapter(new Hexagon(1, 2, 4), false, Color.BLACK, Color.WHITE)));

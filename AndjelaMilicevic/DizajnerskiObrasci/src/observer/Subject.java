@@ -1,6 +1,6 @@
 package observer;
 
-public interface Subject {
+interface Subject {
 	public void notifyObservers();
 
 	public void addObserver(Observer o);

@@ -114,7 +114,7 @@ public class Rectangle extends AreaShape implements Cloneable {
 		upperLeftPoint.moveBy(xCoordinate, yCoordinate);
 	}
 
-	public double area() {
+	private double area() {
 		return (height * width);
 	}
 

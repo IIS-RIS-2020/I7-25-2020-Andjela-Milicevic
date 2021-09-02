@@ -3,11 +3,7 @@ package tests.geometry;
 import static org.junit.Assert.*;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
-
 import geometry.*;
 
 import org.junit.Before;
@@ -54,11 +50,6 @@ public class DonutTests {
 	}
 
 	@Test
-	public void testEqualsNotSameType() {
-		assertFalse(donut.equals(new Point(1, 2)));
-	}
-
-	@Test
 	public void testEqualsFalseExpectedRadius() {
 		assertFalse(donut.equals(new Donut(new Point(1, 2), 1, 2)));
 	}
@@ -77,5 +68,4 @@ public class DonutTests {
 	public void testEqualsFalseExpected() {
 		assertFalse(donut.equals(new Donut(new Point(1, 2), 8, 5)));
 	}
-
 }

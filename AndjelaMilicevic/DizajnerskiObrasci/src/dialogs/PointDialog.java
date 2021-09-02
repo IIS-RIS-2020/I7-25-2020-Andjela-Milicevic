@@ -106,7 +106,6 @@ public class PointDialog extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						// treba da se preuzmu vrednosti
 						try {
 							Integer.parseInt(getTxtCoordX());
 							Integer.parseInt(getTxtCoordY());
@@ -140,7 +139,6 @@ public class PointDialog extends JDialog {
 		}
 	}
 
-	// Getters and setters
 	public void setColor(Color color) {
 		this.color = color;
 	}

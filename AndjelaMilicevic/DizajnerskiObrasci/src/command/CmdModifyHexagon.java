@@ -38,11 +38,9 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
 				return true;
-				// treba oldState dodati u listu
-			} else {
-				// treba oldState izbaciti iz liste
-				return false;
-			}
+			} 
+
+			return false;
 		}
 
 		return null;
@@ -53,15 +51,14 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 		if (oldState.isSelected() != originalState.isSelected()) {
 			if (originalState.isSelected()) {
 				return true;
-			} else {
-				return false;
 			}
+				
+			return false;
 		}
 
 		return null;
 	}
 
-	// Getters and setters
 	public Shape getNewState() {
 		return newState;
 	}

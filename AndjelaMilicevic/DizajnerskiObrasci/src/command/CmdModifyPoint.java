@@ -38,11 +38,10 @@ public class CmdModifyPoint implements Command, Serializable, CmdModify {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
 				return true;
-				// treba oldState dodati u listu
-			} else {
-				// treba oldState izbaciti iz liste
-				return false;
-			}
+			
+			} 
+
+			return false;
 		}
 
 		return null;

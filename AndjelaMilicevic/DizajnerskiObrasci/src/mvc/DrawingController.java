@@ -1,11 +1,6 @@
 package mvc;
 
-//TODO proveri sta se desava kada se sacuva prazan fajl
 import java.awt.Color;
-//ako se ne prosledjuje komandi onda provera pre uexecute i unexecute (zbog undo,redo, da li je u komandi
-//original state tj. new state selected ako jeste treba da se izbaci/ubaci u listu )
-//TODO izbrisi initial state, dovoljno original; to string se poziva pre execute u cmdExecute, pa treba
-// da se original uzme u kontruktoru, ako je to izvodljivo
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,6 +35,9 @@ import dialogs.HexagonDialog;
 import dialogs.LineDialog;
 import dialogs.PointDialog;
 import dialogs.RectangleDialog;
+import files.SaveCommandsToTextFile;
+import files.SaveSerializedDrawing;
+import files.SavingManager;
 import geometry.Circle;
 import geometry.Donut;
 import geometry.HexagonAdapter;
@@ -49,16 +47,12 @@ import geometry.Rectangle;
 import geometry.Shape;
 import observer.CollectionOfSelectedShapes;
 
-//TODO indexOf za komande ne moze, pogledaj executeCommand i clickedUndo za objasnjenje
-
-//TODO 25.12. undoredo pogledaj sta se desava
 public class DrawingController {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private Point clickedPoint;
 	private ArrayList<Command> commandList = new ArrayList<>();
 	private CollectionOfSelectedShapes selectedShapes = new CollectionOfSelectedShapes();
-	// private ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
 	private Command commandPointer;
 	private int commandPointerIndex = -2;
 	private Shape selectedShape;
@@ -68,13 +62,12 @@ public class DrawingController {
 	private ArrayList<String> stringCommandsToWriteToFile = new ArrayList<>();
 	private int readLineFromFile = 0;
 
-	public DrawingController(DrawingModel model, DrawingFrame frame) {
+	DrawingController(DrawingModel model, DrawingFrame frame) {
 		this.model = model;
 		this.frame = frame;
 	}
 
-	// odavde ce se pozivati repaint() nad view-om
-	public void mouseClickedOnPanel(MouseEvent e) {
+	void mouseClickedOnPanel(MouseEvent e) {
 		if (frame.getTglBtnPoint()) {
 			PointDialog pd = new PointDialog();
 			pd.setTxtCoordX(Integer.toString(e.getX()));
@@ -85,8 +78,6 @@ public class DrawingController {
 
 			if (pd.getIsOk()) {
 				clickedPoint = new Point();
-				// mora da se uvek napravi nova inace se samo menjaju vrednosti nad referencom
-				// na istu tacku
 				clickedPoint.setXcoordinate(e.getX());
 				clickedPoint.setYcoordinate(e.getY());
 				clickedPoint.setBorderColor(getBorderColor(pd.getColor()));
@@ -98,9 +89,7 @@ public class DrawingController {
 		} else if (frame.getTglBtnLine()) {
 			if (clickedPoint == null) {
 				clickedPoint = new Point(e.getX(), e.getY());
-//				JOptionPane.showMessageDialog(new JFrame(), "Odaberite drugu tacku linije", "Obavestenje", JOptionPane.PLAIN_MESSAGE);
-			} // ukoliko ne postoji onda se dodeljuje klik, u suprotnom, znaci da vec postoji
-				// prva tacka:
+			} 
 			else {
 				Line l = new Line(clickedPoint, new Point(e.getX(), e.getY()));
 				LineDialog ld = new LineDialog();
@@ -119,8 +108,7 @@ public class DrawingController {
 					CmdAdd cmd = new CmdAdd(l, model);
 					executeCommand(cmd);
 				}
-				// postavlja se na null, pri sledecem pokusaju da se napravi linija treba nova
-				// tacka
+	
 				clickedPoint = null;
 			}
 
@@ -203,13 +191,7 @@ public class DrawingController {
 
 			clickedPoint = null;
 		} else if (frame.getTglBtnSelected()) {
-			// ako je kliknuo na neko drugo dugme posle odabira prve tacke, posle kad
-			// izabere liniju opet trazi prvu
-			// TODO pogledaj da li jos negde treba
 			clickedPoint = null;
-			// treba da postavimo koji je objekat selektovan, selektovacemo poslednjeg na
-			// kojeg naidjemo u listi
-			// da mu pripada tacka, jer je on na najvisem nivou
 			Iterator<Shape> iterator = model.getShapes().iterator();
 
 			while (iterator.hasNext()) {
@@ -230,9 +212,6 @@ public class DrawingController {
 			}
 
 		}
-
-		System.out.println("Click uspesno prosledjen" + e.getY() + e.getY());
-		// frame.repaint();
 	}
 
 	private Color getBorderColor(Color color) {
@@ -242,7 +221,6 @@ public class DrawingController {
 		}
 
 		return borderColor;
-
 	}
 
 	private Color getAreaColor(Color color) {
@@ -301,7 +279,7 @@ public class DrawingController {
 
 	}
 
-	public void clickedUndo() {
+	void clickedUndo() {
 		if (commandPointerIndex > -2) {
 			if (commandPointer != null && commandPointerIndex > -2) {
 				String command = "Undo " + this.commandPointer.toString();
@@ -309,22 +287,11 @@ public class DrawingController {
 				stringCommandsToWriteToFile.add(command);
 				frame.addToDLM(command);
 				this.commandPointer.unexecute();
-				// int index = 0;
-				// int index = this.commandList.indexOf(commandPointer);
-				// problem jer mozemo da imamo vise komandi npr. cmdchangelayer nad istim
-				// oblikom sa indeksa 0 na 1
-				// equals nailazi na prvu i pomera pokazivac na nju, umesto na onu koja se
-				// desila posle
-				/*
-				 * Iterator<Command> it = commandList.iterator(); int i = 0; while(it.hasNext())
-				 * { if(it.next().equals(commandPointer)) { index=i;
-				 * System.out.println("index je: "+index); } i++; }
-				 */
+		
 				if (commandPointerIndex != 0) {
 					commandPointer = this.commandList.get(commandPointerIndex - 1);
 					commandPointerIndex--;
 				} else {
-					// ako je undo na prvoj komandi
 					frame.getBtnUndo().setEnabled(false);
 					commandPointer = null;
 					commandPointerIndex--;
@@ -340,7 +307,7 @@ public class DrawingController {
 
 	}
 
-	public void addRemoveSelectedExecute(Command commandPointer) {
+	private void addRemoveSelectedExecute(Command commandPointer) {
 		if (commandPointer instanceof CmdModifyCircle || commandPointer instanceof CmdModifyRectangle
 				|| commandPointer instanceof CmdModifyDonut || commandPointer instanceof CmdModifyLine
 				|| commandPointer instanceof CmdModifyHexagon || commandPointer instanceof CmdModifyPoint) {
@@ -362,7 +329,7 @@ public class DrawingController {
 		}
 	}
 
-	public void addRemoveSelectedUnexecute(Command commandPointer) {
+	private void addRemoveSelectedUnexecute(Command commandPointer) {
 		if (commandPointer instanceof CmdModifyCircle || commandPointer instanceof CmdModifyRectangle
 				|| commandPointer instanceof CmdModifyDonut || commandPointer instanceof CmdModifyLine
 				|| commandPointer instanceof CmdModifyHexagon || commandPointer instanceof CmdModifyPoint) {
@@ -384,11 +351,9 @@ public class DrawingController {
 		}
 	}
 
-	public void clickedRedo() {
+	void clickedRedo() {
 		if (commandPointerIndex > -2) {
-			// mora jer jer je commandPointer null i kad nema komanda
 			if (commandPointer == null) {
-				// ako je undo bio na prvoj komandi
 				commandPointer = commandList.get(0);
 				commandPointerIndex = 0;
 				addRemoveSelectedExecute(commandPointer);
@@ -398,21 +363,9 @@ public class DrawingController {
 				commandPointer.execute();
 
 				if (commandList.size() == 1) {
-					// ako postoji samo jedna komanda
 					frame.getBtnRedo().setEnabled(false);
 				}
 			} else {
-				// int index = 0;
-				// int index = this.commandList.indexOf(commandPointer);
-				// problem jer mozemo da imamo vise komandi npr. cmdchangelayer nad istim
-				// oblikom sa indeksa 0 na 1
-				// equals nailazi na prvu i pomera pokazivac na nju, umesto na onu koja se
-				// desila posle
-				/*
-				 * Iterator<Command> it = commandList.iterator(); int i = 0; while(it.hasNext())
-				 * { if(it.next().equals(commandPointer)) { index=i;
-				 * System.out.println("index je: "+index); } i++; }
-				 */
 				if (commandPointerIndex < this.commandList.size() - 1) {
 					commandPointer = commandList.get(commandPointerIndex + 1);
 					addRemoveSelectedExecute(commandPointer);
@@ -425,7 +378,6 @@ public class DrawingController {
 					frame.getBtnRedo().setEnabled(false);
 					commandPointerIndex++;
 				} else if (commandPointerIndex == commandList.size() - 1) {
-					// kada nema vise komandi za redo, izvrsena poslednja komanda u nizu
 					frame.getBtnRedo().setEnabled(false);
 				}
 
@@ -437,12 +389,9 @@ public class DrawingController {
 				frame.getBtnUndo().setEnabled(true);
 			}
 		}
-		// problem da se proverava da je samo null jer je na pocetku aplikacije null
-
 	}
 
-	public void clickedDelete() {
-		// set clickedPoint null
+	void clickedDelete() {
 		if (selectedShapes.getNumberOfSelectedShapes() != 0) {
 			if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),
@@ -468,18 +417,11 @@ public class DrawingController {
 					selectedShapes.removeAllSelectedShapes();
 				}
 			}
-		} else {
-			// nema selektovanih
 		}
-
 	}
 
-	public void clickedBringToBack() {
-		System.out.println("clickedBringToBack");
-		System.out.println(selectedShapes.getNumberOfSelectedShapes());
-
+	void clickedBringToBack() {
 		if (selectedShapes.getNumberOfSelectedShapes() == 1) {
-			System.out.println("One selected shape");
 			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 
 			if (index != 0) {
@@ -487,15 +429,10 @@ public class DrawingController {
 				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.getSelectedShapeByIndex(0), model, newIndex);
 				executeCommand(cmd);
 			}
-		} else {
-			System.out.println("Selektovano vise od jednog objekta");
-			// selektovano je vise od jednog objekta
 		}
 	}
 
-	public void clickedBringToTop() {
-		System.out.println();
-
+	void clickedBringToTop() {
 		if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 
@@ -504,15 +441,11 @@ public class DrawingController {
 				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.getSelectedShapeByIndex(0), model, newIndex);
 				executeCommand(cmd);
 			}
-		} else {
-			// selektovano je vise od jednog objekta
-			System.out.println("Selektovano vise od jednog objekta");
 		}
 	}
 
-	public void clickedToBack() {
+	void clickedToBack() {
 		if (selectedShapes.getNumberOfSelectedShapes() == 1) {
-			System.out.println("One selected shape");
 			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 
 			if (index != 0) {
@@ -520,14 +453,11 @@ public class DrawingController {
 				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.getSelectedShapeByIndex(0), model, newIndex);
 				executeCommand(cmd);
 			}
-		} else {
-			System.out.println("Selektovano vise od jednog objekta");
-			// selektovano je vise od jednog objekta
 		}
 
 	}
 
-	public void clickedToFront() {
+	void clickedToFront() {
 		if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 
@@ -536,26 +466,13 @@ public class DrawingController {
 				CmdChangeLayer cmd = new CmdChangeLayer(selectedShapes.getSelectedShapeByIndex(0), model, newIndex);
 				executeCommand(cmd);
 			}
-		} else {
-			// selektovano je vise od jednog objekta
 		}
 	}
 
-	public void executeCommand(Command cmd) {
+	private void executeCommand(Command cmd) {
 		if (commandPointerIndex == -2) {
-			// prva komanda
 			commandPointerIndex = 0;
 		} else {
-			// int index = this.commandList.indexOf(commandPointer);
-			// problem jer mozemo da imamo vise komandi npr. cmdchangelayer nad istim
-			// oblikom sa indeksa 0 na 1
-			// equals nailazi na prvu i pomera pokazivac na nju, umesto na onu koja se
-			// desila posle
-			/*
-			 * Iterator<Command> it = commandList.iterator(); int i = 0; while(it.hasNext())
-			 * { if(it.next().equals(commandPointer)) { index=i;
-			 * System.out.println("index je: "+index); } i++; }
-			 */
 			if (commandPointerIndex < commandList.size() - 1) {
 				int index = 0;
 				int iterator = commandPointerIndex;
@@ -566,8 +483,6 @@ public class DrawingController {
 					commandList.remove(index);
 					iterator++;
 				}
-				// nova komanda se dodaje posle undo, pointer nije na poslednjoj komandi
-
 			}
 
 			commandPointerIndex++;
@@ -584,11 +499,10 @@ public class DrawingController {
 			frame.getBtnUndo().setEnabled(true);
 		}
 
-		System.out.println(this.model.getShapes().size());
 		frame.repaint();
 	}
 
-	public void clickedModify() {
+	void clickedModify() {
 		if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 			if (selectedShapes.getSelectedShapeByIndex(0) instanceof Point) {
 				Point p = (Point) selectedShapes.getSelectedShapeByIndex(0);
@@ -643,8 +557,10 @@ public class DrawingController {
 
 				if (rd.isOk()) {
 					Rectangle newRect = new Rectangle();
+				
 					newRect.setUpperLeftPoint(new Point(Integer.parseInt(rd.getTxtXCoordinate()),
 							Integer.parseInt(rd.getTxtYCoordinate())));
+					
 					newRect.setHeight(Integer.parseInt(rd.getTxtHeight()));
 					newRect.setWidth(Integer.parseInt(rd.getTxtWidth()));
 					newRect.setAreaColor(rd.getColorIn());
@@ -682,7 +598,6 @@ public class DrawingController {
 				}
 			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Circle) {
 				Circle c = (Circle) selectedShapes.getSelectedShapeByIndex(0);
-				// mora posle donuta jer ulazi u if i ako je donut jer je donut insanca kruga
 				CircleDialog cd = new CircleDialog();
 				cd.setTxtCentarX(Integer.toString(c.getCenter().getXcoordinate()));
 				cd.setTxtCentarY(Integer.toString(c.getCenter().getYcoordinate()));
@@ -731,61 +646,48 @@ public class DrawingController {
 
 			}
 
-		} else {
-			System.out.println("Selektovano vise od jednog oblika ili nijedan");
 		}
-
 	}
 
-	public void clickedSave() {
-		// TODO skontaj da li je potrebno ovo da radis
-		/*
-		 * Iterator <Shape> it = selectedShapes.getSelectedShapes().iterator();
-		 * while(it.hasNext()) { Shape selectedShape = (it.next());
-		 * selectedShape.setSelected(false); } selectedShapes.removeAll();
-		 */
-		// problem jer izgledaju da su selektovani a u stvari nisu u listi
+	void clickedSave() {
 		SaveSerializedDrawing ssd = new SaveSerializedDrawing(this);
 		SavingManager sm = new SavingManager(ssd);
 		sm.saveDrawingOrLog();
-
 	}
 
-	// saveDrawing?!
-	public void clickedSaveFile() {
+	void clickedSaveFile() {
 		SaveCommandsToTextFile scttf = new SaveCommandsToTextFile(this);
 		SavingManager sm = new SavingManager(scttf);
 		sm.saveDrawingOrLog();
 	}
 
-	public void clickedNextLine() {
+	void clickedNextLine() {
 		if (readLineFromFile < stringCommandsFromFile.size()) {
 			makeCommand(stringCommandsFromFile.get(readLineFromFile));
 			readLineFromFile++;
-			System.out.println("NEXT");
 		}
 	}
 
-	public void clickedOpen() {
+	void clickedOpen() {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Choose a file");
-		// fc.setFileFilter(new FileTypeFilter(".bin", "File"));
 		int result = fc.showOpenDialog(null);
+		
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			String filePath = file.getPath();
+			
 			try {
-				// ArrayList<Shape> shapesFromFile =
-				// SerializableCommandList.readFromFile(filePath);
 				ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filePath));
 				@SuppressWarnings("unchecked")
 				ArrayList<Shape> shapesFromFile = (ArrayList<Shape>) objectInputStream.readObject();
 				Iterator<Shape> it = shapesFromFile.iterator();
+			
 				while (it.hasNext()) {
 					model.addShape(it.next());
 				}
-				// TODO dodato zatvaranje stream-a
+				
 				objectInputStream.close();
 				frame.repaint();
 			} catch (IOException e1) {
@@ -796,24 +698,24 @@ public class DrawingController {
 		}
 	}
 
-	public void clickedOpenFile() {
+	void clickedOpenFile() {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Choose a file");
-		// fc.setFileFilter(new FileTypeFilter(".bin", "File"));
 		int result = fc.showOpenDialog(null);
+		
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			String filePath = file.getPath();
+		
 			try {
 				BufferedReader reader = new BufferedReader(new FileReader(filePath));
 				String line = reader.readLine();
 				while (line != null) {
 					stringCommandsFromFile.add(line);
-					System.out.println(line);
 					line = reader.readLine();
 				}
-				// TODO dodato zatvaranje reader-a
+	
 				reader.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -823,26 +725,29 @@ public class DrawingController {
 		}
 	}
 
-	public void clickedBorderColor() {
+	void clickedBorderColor() {
 		Color colorOfBorder = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
+		
 		if (colorOfBorder != null) {
 			borderColor = colorOfBorder;
 		}
+	
 		frame.getBtnBorderColor().setBackground(borderColor);
 	}
 
-	public void clickedAreaColor() {
+	void clickedAreaColor() {
 		Color colorOfArea = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
+		
 		if (colorOfArea != null) {
 			areaColor = colorOfArea;
 		}
+		
 		frame.getBtnAreaColor().setBackground(areaColor);
 	}
 
 	private void makeCommand(String line) {
-		System.out.println("make command");
 		String[] splits = line.split("[, =():]");
-		System.out.println("sta mi ovo znaci" + splits[1]);
+	
 		if (splits[0].equals("Added")) {
 			Command cmd = makeAddCommand(splits);
 			executeCommand(cmd);
@@ -851,14 +756,16 @@ public class DrawingController {
 			executeCommand(cmd);
 		} else if (splits[0].equals("Deleted")) {
 			String[] deleteCommands = line.split(";");
+			
 			if (deleteCommands.length > 1) {
 				CmdDeleteAll cmd = new CmdDeleteAll();
+				
 				for (String deleteCommand : deleteCommands) {
-					System.out.println("delete command:" + deleteCommand);
 					String[] splitsForCmdDelete = deleteCommand.split("[, =():]");
 					CmdDelete cmdDelete = (CmdDelete) makeDeleteCommand(splitsForCmdDelete);
 					cmd.addDeletedCommand(cmdDelete);
 				}
+				
 				executeCommand(cmd);
 			} else {
 				Command cmd = makeDeleteCommand(splits);
@@ -880,6 +787,7 @@ public class DrawingController {
 		case "Rectangle": {
 			Rectangle rect = makeRectangle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
 				if (shapeFromList.equals(rect)) {
@@ -887,30 +795,34 @@ public class DrawingController {
 					break;
 				}
 			}
+			
 			int index = Integer.parseInt(splits[27]);
 			Command cmd = new CmdChangeLayer(rect, this.model, index);
-
 			return cmd;
 		}
+		
 		case "Hexagon": {
-
 			HexagonAdapter hex = makeHexagon(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+			
 				if (shapeFromList.equals(hex)) {
 					hex = (HexagonAdapter) shapeFromList;
 					break;
 				}
 			}
+			
 			int index = Integer.parseInt(splits[24]);
 			Command cmd = new CmdChangeLayer(hex, this.model, index);
 			return cmd;
 		}
+		
 		case "Donut": {
-
 			Donut donut = makeDonut(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+		
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
 				if (shapeFromList.equals(donut)) {
@@ -918,14 +830,16 @@ public class DrawingController {
 					break;
 				}
 			}
+		
 			int index = Integer.parseInt(splits[27]);
 			Command cmd = new CmdChangeLayer(donut, this.model, index);
 			return cmd;
 		}
+		
 		case "Circle": {
-
 			Circle circle = makeCircle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
 				if (shapeFromList.equals(circle)) {
@@ -933,30 +847,37 @@ public class DrawingController {
 					break;
 				}
 			}
+			
 			int index = Integer.parseInt(splits[24]);
 			Command cmd = new CmdChangeLayer(circle, this.model, index);
 			return cmd;
 		}
+		
 		case "Line": {
-
 			Line l = makeLine(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+				
 				if (shapeFromList.equals(l)) {
 					l = (Line) shapeFromList;
 					break;
 				}
 			}
+			
 			int index = Integer.parseInt(splits[19]);
 			Command cmd = new CmdChangeLayer(l, this.model, index);
 			return cmd;
 		}
+		
 		case "Point": {
 			Point point = makePoint(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+			
 				if (shapeFromList.equals(point)) {
 					point = (Point) shapeFromList;
 					break;
@@ -968,28 +889,34 @@ public class DrawingController {
 			return cmd;
 		}
 		}
+		
 		return null;
 	}
 
 	private Command makeDeleteCommand(String[] splits) {
 		switch (splits[1]) {
+		
 		case "Rectangle": {
 			Rectangle rect = makeRectangle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+		
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+			
 				if (shapeFromList.equals(rect)) {
 					rect = (Rectangle) shapeFromList;
 					break;
 				}
 			}
+			
 			Command cmd = new CmdDelete(rect, this.model);
 			return cmd;
 		}
+		
 		case "Hexagon": {
-
 			HexagonAdapter hex = makeHexagon(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
 				if (shapeFromList.equals(hex)) {
@@ -997,57 +924,66 @@ public class DrawingController {
 					break;
 				}
 			}
+			
 			Command cmd = new CmdDelete(hex, this.model);
 			return cmd;
 		}
+		
 		case "Donut": {
-
 			Donut donut = makeDonut(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+			
 				if (shapeFromList.equals(donut)) {
 					donut = (Donut) shapeFromList;
 					break;
 				}
 			}
+			
 			Command cmd = new CmdDelete(donut, this.model);
 			return cmd;
 		}
 		case "Circle": {
-
 			Circle circle = makeCircle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+			
 				if (shapeFromList.equals(circle)) {
 					circle = (Circle) shapeFromList;
 					break;
 				}
 			}
+		
 			Command cmd = new CmdDelete(circle, this.model);
 			return cmd;
 		}
 		case "Line": {
-
 			Line l = makeLine(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+			
 				if (shapeFromList.equals(l)) {
 					l = (Line) shapeFromList;
 					break;
 				}
 			}
+			
 			Command cmd = new CmdDelete(l, this.model);
 			return cmd;
 		}
 		case "Point": {
-
 			Point point = makePoint(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+			
 				if (shapeFromList.equals(point)) {
 					point = (Point) shapeFromList;
 					break;
@@ -1058,66 +994,70 @@ public class DrawingController {
 			return cmd;
 		}
 		}
+		
 		return null;
 	}
 
 	private Command makeModifyCommand(String[] splits) {
 		switch (splits[1]) {
+		
 		case "Rectangle": {
-			System.out.println("rectangle case in modified");
 			Rectangle oldRect = makeRectangle(splits, 0);
-
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+				
 				if (shapeFromList.equals(oldRect)) {
-					System.out.println("found oldRect in shapeFromList");
 					oldRect = (Rectangle) shapeFromList;
 					break;
 				}
-
 			}
 
 			Rectangle newRect = makeRectangle(splits, 25);
 			Command cmd = new CmdModifyRectangle(oldRect, newRect);
 			addRemoveSelectedExecute(cmd);
 			return cmd;
-
 		}
+		
 		case "Hexagon": {
-
 			HexagonAdapter oldHex = makeHexagon(splits, 0);
-
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+			
 				if (shapeFromList.equals(oldHex)) {
 					oldHex = (HexagonAdapter) shapeFromList;
 					break;
 				}
 			}
+			
 			HexagonAdapter newHex = makeHexagon(splits, 22);
 			Command cmd = new CmdModifyHexagon(oldHex, newHex);
 			addRemoveSelectedExecute(cmd);
 			return cmd;
 		}
+		
 		case "Donut": {
-
 			Donut oldDonut = makeDonut(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+				
 				if (shapeFromList.equals(oldDonut)) {
 					oldDonut = (Donut) shapeFromList;
 					break;
 				}
 			}
+			
 			Donut newDonut = makeDonut(splits, 25);
-			System.out.println(newDonut.isSelected());
 			Command cmd = new CmdModifyDonut(oldDonut, newDonut);
 			addRemoveSelectedExecute(cmd);
 			return cmd;
 		}
+		
 		case "Circle": {
 			Circle oldCircle = makeCircle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
@@ -1141,6 +1081,7 @@ public class DrawingController {
 
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+			
 				if (shapeFromList.equals(oldLine)) {
 					oldLine = (Line) shapeFromList;
 					break;
@@ -1155,17 +1096,19 @@ public class DrawingController {
 		}
 
 		case "Point": {
-
 			Point oldPoint = makePoint(splits, 0);
 
 			Iterator<Shape> iterator = model.getShapes().iterator();
+			
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
+			
 				if (shapeFromList.equals(oldPoint)) {
 					oldPoint = (Point) shapeFromList;
 					break;
 				}
 			}
+			
 			Point newPoint = makePoint(splits, 12);
 			Command cmd = new CmdModifyPoint(oldPoint, newPoint);
 			addRemoveSelectedExecute(cmd);
@@ -1179,8 +1122,8 @@ public class DrawingController {
 
 	private Command makeAddCommand(String[] splits) {
 		switch (splits[1]) {
+		
 		case "Rectangle": {
-			System.out.println("rectangle case");
 			Rectangle rect = makeRectangle(splits, 0);
 			Command cmd = new CmdAdd(rect, this.model);
 			return cmd;
@@ -1286,7 +1229,6 @@ public class DrawingController {
 		donut.setAreaColor(fill);
 		donut.setBorderColor(border);
 		donut.setSelected(selected);
-		System.out.println(donut.toString());
 		return donut;
 
 	}
@@ -1315,25 +1257,18 @@ public class DrawingController {
 
 	private Line makeLine(String[] splits, int diff) {
 		int x = Integer.parseInt(splits[3 + diff]);
-		System.out.println("prva X koo " + splits[3 + diff]);
 		int y = Integer.parseInt(splits[4 + diff]);
-		System.out.println("prva Y koo " + splits[4 + diff]);
 		int x1 = Integer.parseInt(splits[7 + diff]);
-		System.out.println("dryga X koo " + splits[7 + diff]);
 		int y1 = Integer.parseInt(splits[8 + diff]);
-		System.out.println("druga Y koo " + splits[8 + diff]);
 		Point startPoint = new Point(x, y);
 		Point endPoint = new Point(x1, y1);
 		Color border = new Color(Integer.parseInt(splits[11 + diff]));
-		System.out.println("border " + splits[11 + diff]);
 		boolean selected;
 
 		if (splits[14 + diff].equals("selected")) {
 			selected = true;
-			System.out.println("selekcija " + splits[14 + diff]);
 		} else {
 			selected = false;
-			System.out.println("selekcija " + splits[14 + diff]);
 		}
 
 		Line l = new Line(startPoint, endPoint);
@@ -1344,18 +1279,14 @@ public class DrawingController {
 
 	private Point makePoint(String[] splits, int diff) {
 		int x = Integer.parseInt(splits[3 + diff]);
-		System.out.println("X " + splits[3]);
 		int y = Integer.parseInt(splits[4 + diff]);
-		System.out.println("Y " + splits[4]);
 		Color border = new Color(Integer.parseInt(splits[7 + diff]));
-		System.out.println("Border " + splits[7]);
 		boolean selected;
 
 		if (splits[9 + diff].equals("selected")) {
 			selected = true;
 		} else {
 			selected = false;
-			System.out.println("sel " + splits[9]);
 		}
 
 		Point point = new Point(x, y);
@@ -1364,7 +1295,6 @@ public class DrawingController {
 		return point;
 	}
 
-	// Getters and setters
 	public ArrayList<Command> getCommandList() {
 		return commandList;
 	}

@@ -6,12 +6,13 @@ import java.util.Iterator;
 import geometry.Shape;
 
 public class CollectionOfSelectedShapes implements Subject {
-	ArrayList<Shape> selectedShapes = new ArrayList<>();
-	ArrayList<Observer> observers = new ArrayList<>();
+	private ArrayList<Shape> selectedShapes = new ArrayList<>();
+	private ArrayList<Observer> observers = new ArrayList<>();
 
 	@Override
 	public void notifyObservers() {
 		Iterator<Observer> it = observers.iterator();
+		
 		while (it.hasNext()) {
 			it.next().updateSelectedShape(selectedShapes.size());
 		}
@@ -46,12 +47,10 @@ public class CollectionOfSelectedShapes implements Subject {
 		notifyObservers();
 	}
 
-	// size
 	public int getNumberOfSelectedShapes() {
 		return selectedShapes.size();
 	}
 
-	// get
 	public Shape getSelectedShapeByIndex(int indexOfShape) {
 		return selectedShapes.get(indexOfShape);
 	}

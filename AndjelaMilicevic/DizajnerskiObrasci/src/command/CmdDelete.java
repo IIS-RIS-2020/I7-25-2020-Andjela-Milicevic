@@ -12,23 +12,19 @@ public class CmdDelete implements Command, Serializable {
 	private int index;
 
 	public CmdDelete(Shape shape, DrawingModel model) {
-		// TODO dodata linija ispod umesto u execute-u zbog deleteAll
 		this.shape = shape;
 		this.model = model;
-		this.index = this.model.getIndexOfShape(shape);
+		index = model.getIndexOfShape(shape);
 	}
 
 	@Override
 	public void execute() {
-		System.out.println("index of shape:" + index);
-		this.model.removeShape(shape);
+		model.removeShape(shape);
 	}
 
 	@Override
 	public void unexecute() {
-		System.out.println("unexecute");
-		// problem ako pri execute deleteall pokusa da stavi na indeks 1 a size je nula
-		this.model.addShapeToIndex(index, shape);
+		model.addShapeToIndex(index, shape);
 	}
 
 	@Override

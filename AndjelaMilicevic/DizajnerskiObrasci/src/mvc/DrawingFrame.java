@@ -61,7 +61,7 @@ public class DrawingFrame extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		setTitle("Andjela Milicevic I7 25/2020");
 		setBounds(10, 10, 1920, 1080);
-		
+
 		jlistOfCommands.setModel(dlm);
 		scrollPane.setViewportView(jlistOfCommands);
 

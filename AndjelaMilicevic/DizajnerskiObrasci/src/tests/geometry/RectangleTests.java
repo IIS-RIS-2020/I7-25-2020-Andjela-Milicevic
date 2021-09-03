@@ -1,6 +1,8 @@
 package tests.geometry;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -27,9 +29,34 @@ public class RectangleTests {
 		width = 2;
 		borderColor = Color.BLACK;
 		fillColor = Color.WHITE;
+		graphics = mock(Graphics.class);
 
 		rectangle = new Rectangle(new Point(xCoordinate, yCoordinate, false, Color.BLACK), height, width, false,
 				borderColor, fillColor);
+	}
+
+	@Test
+	public void testDrawShapeNotSelected() {
+		rectangle.draw(graphics);
+		verify(graphics).setColor(rectangle.getBorderColor());
+		verify(graphics).drawRect(xCoordinate, yCoordinate, width, height);
+		verify(graphics).setColor(rectangle.getAreaColor());
+		verify(graphics).fillRect(xCoordinate + 1, yCoordinate + 1, width - 1, height - 1);
+	}
+
+	@Test
+	public void testDrawShapeSelected() {
+		rectangle.setSelected(true);
+		rectangle.draw(graphics);
+		verify(graphics).setColor(borderColor);
+		verify(graphics).drawRect(xCoordinate, yCoordinate, width, height);
+		verify(graphics).setColor(fillColor);
+		verify(graphics).fillRect(xCoordinate + 1, yCoordinate + 1, width - 1, height - 1);
+		verify(graphics).setColor(Color.BLUE);
+		verify(graphics).drawRect(xCoordinate - 3, yCoordinate - 3, 6, 6);
+		verify(graphics).drawRect(xCoordinate - 3 + width, yCoordinate - 3, 6, 6);
+		verify(graphics).drawRect(xCoordinate - 3, yCoordinate - 3 + height, 6, 6);
+		verify(graphics).drawRect(xCoordinate + width - 3, yCoordinate + height - 3, 6, 6);
 	}
 
 	@Test
@@ -60,5 +87,23 @@ public class RectangleTests {
 	@Test
 	public void testEqualsTrueExpected() {
 		assertTrue(rectangle.equals(new Rectangle(new Point(1, 2), 1, 2)));
+	}
+
+	@Test
+	public void testToString() {
+		String selected;
+
+		if (rectangle.isSelected()) {
+			selected = "selected";
+		} else {
+			selected = "unselected";
+		}
+
+		assertEquals(
+				"Rectangle:(" + rectangle.getUpperLeftPoint().getXcoordinate() + ","
+						+ rectangle.getUpperLeftPoint().getYcoordinate() + ") " + "Width:" + rectangle.getWidth()
+						+ ", Height:" + rectangle.getHeight() + ", BorderColor(" + rectangle.getBorderColor().getRGB()
+						+ "), " + "FillColor(" + rectangle.getAreaColor().getRGB() + "), " + selected,
+				rectangle.toString());
 	}
 }

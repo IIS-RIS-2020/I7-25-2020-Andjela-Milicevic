@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 
-import javax.swing.JFileChooser;
-
 import mvc.DrawingController;
 
 public class SaveCommandsToTextFile implements Saving {
@@ -17,27 +15,18 @@ public class SaveCommandsToTextFile implements Saving {
 	}
 
 	@Override
-	public void saveDrawingOrLog() {
-		JFileChooser fc = new JFileChooser();
-		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
-		fc.setDialogTitle("Save a file");
-		int result = fc.showSaveDialog(null);
+	public void saveDrawingOrLog(File file) {
+		try {
+			PrintWriter writer = new PrintWriter(file);
+			Iterator<String> it = controller.getStringCommandsToWriteToFile().iterator();
 
-		if (result == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-
-			try {
-				PrintWriter writer = new PrintWriter(file);
-				Iterator<String> it = controller.getStringCommandsToWriteToFile().iterator();
-
-				while (it.hasNext()) {
-					writer.println(it.next());
-				}
-
-				writer.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+			while (it.hasNext()) {
+				writer.println(it.next());
 			}
+
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 }

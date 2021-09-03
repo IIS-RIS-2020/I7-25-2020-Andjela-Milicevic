@@ -38,11 +38,12 @@ public class Donut extends Circle implements Cloneable {
 		graphics2d.draw(area);
 		areaShape(graphics);
 
-		if (isSelected())
+		if (isSelected()) {
 			drawSelection(graphics);
+		}
 	}
 
-	private void createDonut() {
+	public void createDonut() {
 		Ellipse2D outer = new Ellipse2D.Double(getCenter().getXcoordinate() - getRadius(),
 				getCenter().getYcoordinate() - getRadius(), 2 * getRadius(), 2 * getRadius());
 
@@ -101,7 +102,7 @@ public class Donut extends Circle implements Cloneable {
 				+ getBorderColor().getRGB() + "), FillColor(" + getAreaColor().getRGB() + "), " + selected;
 	}
 
-	private double area() {
+	public double area() {
 		return getRadius() * getRadius() * Math.PI - innerRadius * innerRadius * Math.PI;
 	}
 
@@ -129,5 +130,9 @@ public class Donut extends Circle implements Cloneable {
 
 	public void setInnerRadius(int innerRadius) {
 		this.innerRadius = innerRadius;
+	}
+
+	public Area getArea() {
+		return area;
 	}
 }

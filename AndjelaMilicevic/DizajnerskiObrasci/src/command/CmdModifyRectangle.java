@@ -38,8 +38,8 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
 				return true;
-			} 
-				
+			}
+
 			return false;
 		}
 
@@ -51,8 +51,8 @@ public class CmdModifyRectangle implements Command, Serializable, CmdModify {
 		if (oldState.isSelected() != originalState.isSelected()) {
 			if (originalState.isSelected()) {
 				return true;
-			} 
-	
+			}
+
 			return false;
 		}
 

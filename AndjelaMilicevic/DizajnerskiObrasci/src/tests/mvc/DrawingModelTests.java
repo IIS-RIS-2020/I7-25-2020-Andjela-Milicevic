@@ -7,11 +7,11 @@ import org.junit.*;
 public class DrawingModelTests {
 	@Before
 	public void setUp() {
-		
+
 	}
-	
+
 	@Test
 	public void test() {
-		
+
 	}
 }

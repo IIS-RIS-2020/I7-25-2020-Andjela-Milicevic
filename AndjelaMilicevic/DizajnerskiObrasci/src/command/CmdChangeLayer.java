@@ -13,7 +13,7 @@ public class CmdChangeLayer implements Command, Serializable {
 	private DrawingModel model;
 
 	public CmdChangeLayer(Shape shape, DrawingModel model, int newIndex) {
-	    oldIndex = model.getShapes().indexOf(shape);
+		oldIndex = model.getShapes().indexOf(shape);
 		this.newIndex = newIndex;
 		this.shape = shape;
 		this.model = model;

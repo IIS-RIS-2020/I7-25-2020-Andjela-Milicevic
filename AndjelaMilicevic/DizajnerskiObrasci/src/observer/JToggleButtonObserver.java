@@ -24,7 +24,7 @@ public class JToggleButtonObserver implements Observer {
 	public void updateSelectedShape(int numberOfSelected) {
 		if (numberOfSelected == 0) {
 			it = buttons.iterator();
-			
+
 			while (it.hasNext()) {
 				it.next().setEnabled(false);
 			}
@@ -33,7 +33,7 @@ public class JToggleButtonObserver implements Observer {
 
 			while (it.hasNext()) {
 				JToggleButton jtb = it.next();
-			
+
 				if (jtb.equals(frame.getBtnModify())) {
 					jtb.setEnabled(true);
 				} else if (jtb.equals(frame.getBtnDelete())) {

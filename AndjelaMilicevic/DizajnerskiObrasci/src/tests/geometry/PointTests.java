@@ -1,6 +1,8 @@
 package tests.geometry;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -22,6 +24,26 @@ public class PointTests {
 		yCoordinate = 2;
 		borderColor = Color.BLACK;
 		point = new Point(xCoordinate, yCoordinate, false, borderColor);
+		graphics = mock(Graphics.class);
+	}
+
+	@Test
+	public void testDrawShapeNotSelected() {
+		point.draw(graphics);
+		verify(graphics).setColor(borderColor);
+		verify(graphics).drawLine(xCoordinate - 2, yCoordinate, xCoordinate + 2, yCoordinate);
+		verify(graphics).drawLine(xCoordinate, yCoordinate - 2, xCoordinate, yCoordinate + 2);
+	}
+
+	@Test
+	public void testDrawShapeSelected() {
+		point.setSelected(true);
+		point.draw(graphics);
+		verify(graphics).setColor(borderColor);
+		verify(graphics).drawLine(xCoordinate - 2, yCoordinate, xCoordinate + 2, yCoordinate);
+		verify(graphics).drawLine(xCoordinate, yCoordinate - 2, xCoordinate, yCoordinate + 2);
+		verify(graphics).setColor(Color.BLUE);
+		verify(graphics).drawRect(xCoordinate - 3, yCoordinate - 3, 6, 6);
 	}
 
 	@Test

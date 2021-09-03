@@ -12,7 +12,7 @@ public class CollectionOfSelectedShapes implements Subject {
 	@Override
 	public void notifyObservers() {
 		Iterator<Observer> it = observers.iterator();
-		
+
 		while (it.hasNext()) {
 			it.next().updateSelectedShape(selectedShapes.size());
 		}

@@ -1,6 +1,8 @@
 package tests.geometry;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -26,9 +28,34 @@ public class LineTests {
 		xCoordinateOfEndPoint = 3;
 		yCoordinateOfEndPoint = 4;
 		borderColor = Color.BLACK;
+		graphics = mock(Graphics.class);
 
 		line = new Line(new Point(xCoordinateOfStartPoint, yCoordinateOfStartPoint, false, borderColor),
 				new Point(xCoordinateOfEndPoint, yCoordinateOfEndPoint, false, borderColor), false, borderColor);
+	}
+
+	public void testDrawShapeNotSelected() {
+		line.draw(graphics);
+		verify(graphics).setColor(borderColor);
+		verify(graphics).drawLine(xCoordinateOfStartPoint, yCoordinateOfStartPoint, xCoordinateOfEndPoint,
+				yCoordinateOfEndPoint);
+	}
+
+	@Test
+	public void testDrawShapeSelected() {
+		line.setSelected(true);
+		line.draw(graphics);
+		verify(graphics).setColor(line.getBorderColor());
+
+		verify(graphics).drawLine(xCoordinateOfStartPoint, yCoordinateOfStartPoint, xCoordinateOfEndPoint,
+				yCoordinateOfEndPoint);
+
+		verify(graphics).setColor(Color.BLUE);
+		verify(graphics).drawRect(xCoordinateOfStartPoint - 3, yCoordinateOfStartPoint - 3, 6, 6);
+		verify(graphics).drawRect(xCoordinateOfEndPoint - 3, yCoordinateOfEndPoint - 3, 6, 6);
+
+		verify(graphics).drawRect(line.getMiddleOfLine().getXcoordinate() - 3,
+				line.getMiddleOfLine().getYcoordinate() - 3, 6, 6);
 	}
 
 	@Test
@@ -72,10 +99,18 @@ public class LineTests {
 
 	@Test
 	public void testToString() {
+		String selected;
+
+		if (line.isSelected()) {
+			selected = "selected";
+		} else {
+			selected = "unselected";
+		}
+
 		assertEquals("Line:StartPoint(" + line.getStartPoint().getXcoordinate() + ","
 				+ line.getStartPoint().getYcoordinate() + ") EndPoint(" + line.getEndPoint().getXcoordinate() + ","
-				+ line.getEndPoint().getYcoordinate() + ") " + "BorderColor(" + borderColor.getRGB() + "), "
-				+ line.isSelected(), line.toString());
+				+ line.getEndPoint().getYcoordinate() + ") " + "BorderColor(" + borderColor.getRGB() + "), " + selected,
+				line.toString());
 	}
 
 }

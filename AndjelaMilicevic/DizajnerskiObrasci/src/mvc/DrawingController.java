@@ -62,7 +62,7 @@ public class DrawingController {
 	private ArrayList<String> stringCommandsToWriteToFile = new ArrayList<>();
 	private int readLineFromFile = 0;
 
-	DrawingController(DrawingModel model, DrawingFrame frame) {
+	public DrawingController(DrawingModel model, DrawingFrame frame) {
 		this.model = model;
 		this.frame = frame;
 	}
@@ -89,8 +89,7 @@ public class DrawingController {
 		} else if (frame.getTglBtnLine()) {
 			if (clickedPoint == null) {
 				clickedPoint = new Point(e.getX(), e.getY());
-			} 
-			else {
+			} else {
 				Line l = new Line(clickedPoint, new Point(e.getX(), e.getY()));
 				LineDialog ld = new LineDialog();
 				ld.setTxtStartXEditable(false);
@@ -108,7 +107,7 @@ public class DrawingController {
 					CmdAdd cmd = new CmdAdd(l, model);
 					executeCommand(cmd);
 				}
-	
+
 				clickedPoint = null;
 			}
 
@@ -287,7 +286,7 @@ public class DrawingController {
 				stringCommandsToWriteToFile.add(command);
 				frame.addToDLM(command);
 				this.commandPointer.unexecute();
-		
+
 				if (commandPointerIndex != 0) {
 					commandPointer = this.commandList.get(commandPointerIndex - 1);
 					commandPointerIndex--;
@@ -557,10 +556,10 @@ public class DrawingController {
 
 				if (rd.isOk()) {
 					Rectangle newRect = new Rectangle();
-				
+
 					newRect.setUpperLeftPoint(new Point(Integer.parseInt(rd.getTxtXCoordinate()),
 							Integer.parseInt(rd.getTxtYCoordinate())));
-					
+
 					newRect.setHeight(Integer.parseInt(rd.getTxtHeight()));
 					newRect.setWidth(Integer.parseInt(rd.getTxtWidth()));
 					newRect.setAreaColor(rd.getColorIn());
@@ -652,13 +651,34 @@ public class DrawingController {
 	void clickedSave() {
 		SaveSerializedDrawing ssd = new SaveSerializedDrawing(this);
 		SavingManager sm = new SavingManager(ssd);
-		sm.saveDrawingOrLog();
+		File file = getFile();
+
+		if (file != null) {
+			sm.saveDrawingOrLog(getFile());
+		}
 	}
 
 	void clickedSaveFile() {
 		SaveCommandsToTextFile scttf = new SaveCommandsToTextFile(this);
 		SavingManager sm = new SavingManager(scttf);
-		sm.saveDrawingOrLog();
+		File file = getFile();
+
+		if (file != null) {
+			sm.saveDrawingOrLog(getFile());
+		}
+	}
+
+	File getFile() {
+		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new java.io.File("C:/Users/Natalija/Documents"));
+		fc.setDialogTitle("Save a file");
+		int result = fc.showSaveDialog(null);
+
+		if (result == JFileChooser.APPROVE_OPTION) {
+			return fc.getSelectedFile();
+		}
+
+		return null;
 	}
 
 	void clickedNextLine() {
@@ -673,21 +693,21 @@ public class DrawingController {
 		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Choose a file");
 		int result = fc.showOpenDialog(null);
-		
+
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			String filePath = file.getPath();
-			
+
 			try {
 				ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filePath));
 				@SuppressWarnings("unchecked")
 				ArrayList<Shape> shapesFromFile = (ArrayList<Shape>) objectInputStream.readObject();
 				Iterator<Shape> it = shapesFromFile.iterator();
-			
+
 				while (it.hasNext()) {
 					model.addShape(it.next());
 				}
-				
+
 				objectInputStream.close();
 				frame.repaint();
 			} catch (IOException e1) {
@@ -703,11 +723,11 @@ public class DrawingController {
 		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Choose a file");
 		int result = fc.showOpenDialog(null);
-		
+
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			String filePath = file.getPath();
-		
+
 			try {
 				BufferedReader reader = new BufferedReader(new FileReader(filePath));
 				String line = reader.readLine();
@@ -715,7 +735,7 @@ public class DrawingController {
 					stringCommandsFromFile.add(line);
 					line = reader.readLine();
 				}
-	
+
 				reader.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -727,27 +747,27 @@ public class DrawingController {
 
 	void clickedBorderColor() {
 		Color colorOfBorder = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
-		
+
 		if (colorOfBorder != null) {
 			borderColor = colorOfBorder;
 		}
-	
+
 		frame.getBtnBorderColor().setBackground(borderColor);
 	}
 
 	void clickedAreaColor() {
 		Color colorOfArea = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
-		
+
 		if (colorOfArea != null) {
 			areaColor = colorOfArea;
 		}
-		
+
 		frame.getBtnAreaColor().setBackground(areaColor);
 	}
 
 	private void makeCommand(String line) {
 		String[] splits = line.split("[, =():]");
-	
+
 		if (splits[0].equals("Added")) {
 			Command cmd = makeAddCommand(splits);
 			executeCommand(cmd);
@@ -756,16 +776,16 @@ public class DrawingController {
 			executeCommand(cmd);
 		} else if (splits[0].equals("Deleted")) {
 			String[] deleteCommands = line.split(";");
-			
+
 			if (deleteCommands.length > 1) {
 				CmdDeleteAll cmd = new CmdDeleteAll();
-				
+
 				for (String deleteCommand : deleteCommands) {
 					String[] splitsForCmdDelete = deleteCommand.split("[, =():]");
 					CmdDelete cmdDelete = (CmdDelete) makeDeleteCommand(splitsForCmdDelete);
 					cmd.addDeletedCommand(cmdDelete);
 				}
-				
+
 				executeCommand(cmd);
 			} else {
 				Command cmd = makeDeleteCommand(splits);
@@ -787,7 +807,7 @@ public class DrawingController {
 		case "Rectangle": {
 			Rectangle rect = makeRectangle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
 				if (shapeFromList.equals(rect)) {
@@ -795,34 +815,34 @@ public class DrawingController {
 					break;
 				}
 			}
-			
+
 			int index = Integer.parseInt(splits[27]);
 			Command cmd = new CmdChangeLayer(rect, this.model, index);
 			return cmd;
 		}
-		
+
 		case "Hexagon": {
 			HexagonAdapter hex = makeHexagon(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-			
+
 				if (shapeFromList.equals(hex)) {
 					hex = (HexagonAdapter) shapeFromList;
 					break;
 				}
 			}
-			
+
 			int index = Integer.parseInt(splits[24]);
 			Command cmd = new CmdChangeLayer(hex, this.model, index);
 			return cmd;
 		}
-		
+
 		case "Donut": {
 			Donut donut = makeDonut(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-		
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
 				if (shapeFromList.equals(donut)) {
@@ -830,16 +850,16 @@ public class DrawingController {
 					break;
 				}
 			}
-		
+
 			int index = Integer.parseInt(splits[27]);
 			Command cmd = new CmdChangeLayer(donut, this.model, index);
 			return cmd;
 		}
-		
+
 		case "Circle": {
 			Circle circle = makeCircle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
 				if (shapeFromList.equals(circle)) {
@@ -847,37 +867,37 @@ public class DrawingController {
 					break;
 				}
 			}
-			
+
 			int index = Integer.parseInt(splits[24]);
 			Command cmd = new CmdChangeLayer(circle, this.model, index);
 			return cmd;
 		}
-		
+
 		case "Line": {
 			Line l = makeLine(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-				
+
 				if (shapeFromList.equals(l)) {
 					l = (Line) shapeFromList;
 					break;
 				}
 			}
-			
+
 			int index = Integer.parseInt(splits[19]);
 			Command cmd = new CmdChangeLayer(l, this.model, index);
 			return cmd;
 		}
-		
+
 		case "Point": {
 			Point point = makePoint(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-			
+
 				if (shapeFromList.equals(point)) {
 					point = (Point) shapeFromList;
 					break;
@@ -889,34 +909,34 @@ public class DrawingController {
 			return cmd;
 		}
 		}
-		
+
 		return null;
 	}
 
 	private Command makeDeleteCommand(String[] splits) {
 		switch (splits[1]) {
-		
+
 		case "Rectangle": {
 			Rectangle rect = makeRectangle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-		
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-			
+
 				if (shapeFromList.equals(rect)) {
 					rect = (Rectangle) shapeFromList;
 					break;
 				}
 			}
-			
+
 			Command cmd = new CmdDelete(rect, this.model);
 			return cmd;
 		}
-		
+
 		case "Hexagon": {
 			HexagonAdapter hex = makeHexagon(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
 				if (shapeFromList.equals(hex)) {
@@ -924,66 +944,66 @@ public class DrawingController {
 					break;
 				}
 			}
-			
+
 			Command cmd = new CmdDelete(hex, this.model);
 			return cmd;
 		}
-		
+
 		case "Donut": {
 			Donut donut = makeDonut(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-			
+
 				if (shapeFromList.equals(donut)) {
 					donut = (Donut) shapeFromList;
 					break;
 				}
 			}
-			
+
 			Command cmd = new CmdDelete(donut, this.model);
 			return cmd;
 		}
 		case "Circle": {
 			Circle circle = makeCircle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-			
+
 				if (shapeFromList.equals(circle)) {
 					circle = (Circle) shapeFromList;
 					break;
 				}
 			}
-		
+
 			Command cmd = new CmdDelete(circle, this.model);
 			return cmd;
 		}
 		case "Line": {
 			Line l = makeLine(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-			
+
 				if (shapeFromList.equals(l)) {
 					l = (Line) shapeFromList;
 					break;
 				}
 			}
-			
+
 			Command cmd = new CmdDelete(l, this.model);
 			return cmd;
 		}
 		case "Point": {
 			Point point = makePoint(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-			
+
 				if (shapeFromList.equals(point)) {
 					point = (Point) shapeFromList;
 					break;
@@ -994,20 +1014,20 @@ public class DrawingController {
 			return cmd;
 		}
 		}
-		
+
 		return null;
 	}
 
 	private Command makeModifyCommand(String[] splits) {
 		switch (splits[1]) {
-		
+
 		case "Rectangle": {
 			Rectangle oldRect = makeRectangle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-				
+
 				if (shapeFromList.equals(oldRect)) {
 					oldRect = (Rectangle) shapeFromList;
 					break;
@@ -1019,45 +1039,45 @@ public class DrawingController {
 			addRemoveSelectedExecute(cmd);
 			return cmd;
 		}
-		
+
 		case "Hexagon": {
 			HexagonAdapter oldHex = makeHexagon(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-			
+
 				if (shapeFromList.equals(oldHex)) {
 					oldHex = (HexagonAdapter) shapeFromList;
 					break;
 				}
 			}
-			
+
 			HexagonAdapter newHex = makeHexagon(splits, 22);
 			Command cmd = new CmdModifyHexagon(oldHex, newHex);
 			addRemoveSelectedExecute(cmd);
 			return cmd;
 		}
-		
+
 		case "Donut": {
 			Donut oldDonut = makeDonut(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-				
+
 				if (shapeFromList.equals(oldDonut)) {
 					oldDonut = (Donut) shapeFromList;
 					break;
 				}
 			}
-			
+
 			Donut newDonut = makeDonut(splits, 25);
 			Command cmd = new CmdModifyDonut(oldDonut, newDonut);
 			addRemoveSelectedExecute(cmd);
 			return cmd;
 		}
-		
+
 		case "Circle": {
 			Circle oldCircle = makeCircle(splits, 0);
 			Iterator<Shape> iterator = model.getShapes().iterator();
@@ -1081,7 +1101,7 @@ public class DrawingController {
 
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-			
+
 				if (shapeFromList.equals(oldLine)) {
 					oldLine = (Line) shapeFromList;
 					break;
@@ -1099,16 +1119,16 @@ public class DrawingController {
 			Point oldPoint = makePoint(splits, 0);
 
 			Iterator<Shape> iterator = model.getShapes().iterator();
-			
+
 			while (iterator.hasNext()) {
 				Shape shapeFromList = (iterator.next());
-			
+
 				if (shapeFromList.equals(oldPoint)) {
 					oldPoint = (Point) shapeFromList;
 					break;
 				}
 			}
-			
+
 			Point newPoint = makePoint(splits, 12);
 			Command cmd = new CmdModifyPoint(oldPoint, newPoint);
 			addRemoveSelectedExecute(cmd);
@@ -1122,7 +1142,7 @@ public class DrawingController {
 
 	private Command makeAddCommand(String[] splits) {
 		switch (splits[1]) {
-		
+
 		case "Rectangle": {
 			Rectangle rect = makeRectangle(splits, 0);
 			Command cmd = new CmdAdd(rect, this.model);

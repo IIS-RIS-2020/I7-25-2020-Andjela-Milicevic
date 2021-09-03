@@ -7,12 +7,12 @@ import org.junit.*;
 public class ObserverTests {
 	@Before
 	public void setUp() {
-		
+
 	}
-	
+
 	@Test
 	public void test() {
-		
+
 	}
 
 }

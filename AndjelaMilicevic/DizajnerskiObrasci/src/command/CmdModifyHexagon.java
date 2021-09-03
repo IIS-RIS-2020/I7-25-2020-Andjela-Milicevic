@@ -38,7 +38,7 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 		if (oldState.isSelected() != newState.isSelected()) {
 			if (newState.isSelected()) {
 				return true;
-			} 
+			}
 
 			return false;
 		}
@@ -52,7 +52,7 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 			if (originalState.isSelected()) {
 				return true;
 			}
-				
+
 			return false;
 		}
 

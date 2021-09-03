@@ -1,5 +1,7 @@
 package files;
 
+import java.io.File;
+
 interface Saving {
-	void saveDrawingOrLog();
+	void saveDrawingOrLog(File file);
 }

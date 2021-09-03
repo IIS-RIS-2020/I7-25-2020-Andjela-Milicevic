@@ -1,7 +1,7 @@
 package tests.geometry;
 
 import static org.junit.Assert.*;
-
+import static org.mockito.Mockito.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import geometry.*;
@@ -28,6 +28,32 @@ public class CircleTests {
 		fillColor = Color.WHITE;
 		center = new Point(xCoordinate, yCoordinate, false, borderColor);
 		circle = new Circle(radius, center, false, borderColor, fillColor);
+		graphics = mock(Graphics.class);
+	}
+
+	@Test
+	public void testDrawShapeNotSelected() {
+		circle.draw(graphics);
+		verify(graphics).setColor(borderColor);
+		verify(graphics).drawOval(xCoordinate - radius, yCoordinate - radius, radius * 2, radius * 2);
+		verify(graphics).setColor(fillColor);
+		verify(graphics).fillOval(xCoordinate - radius + 1, yCoordinate - radius + 1, radius * 2 - 2, radius * 2 - 2);
+	}
+
+	@Test
+	public void testDrawShapeSelected() {
+		circle.setSelected(true);
+		circle.draw(graphics);
+		verify(graphics).setColor(borderColor);
+		verify(graphics).drawOval(xCoordinate - radius, yCoordinate - radius, radius * 2, radius * 2);
+		verify(graphics).setColor(fillColor);
+		verify(graphics).fillOval(xCoordinate - radius + 1, yCoordinate - radius + 1, radius * 2 - 2, radius * 2 - 2);
+		verify(graphics).setColor(Color.BLUE);
+		verify(graphics).drawRect(xCoordinate - 3, yCoordinate - 3, 6, 6);
+		verify(graphics).drawRect(xCoordinate + radius - 3, yCoordinate - 3, 6, 6);
+		verify(graphics).drawRect(xCoordinate - radius - 3, yCoordinate - 3, 6, 6);
+		verify(graphics).drawRect(xCoordinate - 3, yCoordinate + radius - 3, 6, 6);
+		verify(graphics).drawRect(xCoordinate - 3, yCoordinate - radius - 3, 6, 6);
 	}
 
 	@Test
@@ -55,4 +81,12 @@ public class CircleTests {
 		assertFalse(circle.equals(new Circle(new Point(2, 3), 1)));
 	}
 
+	@Test
+	public void testToString() {
+		assertEquals(
+				"Circle:(" + circle.getCenter().getXcoordinate() + "," + circle.getCenter().getYcoordinate() + ") "
+						+ "R:" + circle.getRadius() + ", BC(" + circle.getBorderColor().getRGB() + "), " + "FC("
+						+ circle.getAreaColor().getRGB() + "), " + (circle.isSelected() ? "selected" : "unselected"),
+				circle.toString());
+	}
 }

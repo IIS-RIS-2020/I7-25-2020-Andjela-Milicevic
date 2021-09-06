@@ -1,7 +1,6 @@
 package command;
 
 import java.io.Serializable;
-
 import geometry.Shape;
 import mvc.DrawingModel;
 

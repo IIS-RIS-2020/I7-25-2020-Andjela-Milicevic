@@ -1,8 +1,6 @@
 package geometry;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
+import java.awt.*;
 import hexagon.Hexagon;
 
 public class HexagonAdapter extends AreaShape {
@@ -21,31 +19,31 @@ public class HexagonAdapter extends AreaShape {
 		setAreaColor(areaColor);
 	}
 
-	public HexagonAdapter(Point center, int r) {
+	public HexagonAdapter(Point center, int radius) {
 		this.center = center;
-		this.radius = r;
-		this.hexagon = new Hexagon(center.getXcoordinate(), center.getYcoordinate(), r);
+		this.radius = radius;
+		hexagon = new Hexagon(center.getXcoordinate(), center.getYcoordinate(), radius);
 		hexagon.setR(radius);
 		hexagon.setX(center.getXcoordinate());
 		hexagon.setY(center.getYcoordinate());
 		hexagon.setBorderColor(getBorderColor());
 		hexagon.setAreaColor(getAreaColor());
 		hexagon.setSelected(isSelected());
-
 	}
 
 	@Override
 	public void draw(Graphics graphics) {
 		hexagon.setSelected(isSelected());
 
-		if (this.getAreaColor() != null) {
-			hexagon.setAreaColor(this.getAreaColor());
+		if (getAreaColor() != null) {
+			hexagon.setAreaColor(getAreaColor());
 		} else {
 			Color color = new Color(0f, 0f, 0f, 0f);
 			hexagon.setAreaColor(color);
 		}
+
 		if (getBorderColor() != null) {
-			hexagon.setBorderColor(this.getBorderColor());
+			hexagon.setBorderColor(getBorderColor());
 		} else {
 			hexagon.setBorderColor(Color.BLACK);
 		}
@@ -82,24 +80,24 @@ public class HexagonAdapter extends AreaShape {
 
 	@Override
 	public HexagonAdapter clone() {
-		HexagonAdapter newHex = new HexagonAdapter();
-		newHex.setFields(this);
-		return newHex;
+		HexagonAdapter newHexagon = new HexagonAdapter();
+		newHexagon.setFields(this);
+		return newHexagon;
 	}
 
 	@Override
 	public String toString() {
 		String selected;
 
-		if (this.isSelected()) {
+		if (isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
 
-		return "Hexagon:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ") "
-				+ "Radius:" + this.getRadius() + ", BorderColor(" + getBorderColor().getRGB() + "), " + "FillColor("
-				+ getAreaColor().getRGB() + "), " + selected;
+		return "Hexagon:(" + center.getXcoordinate() + "," + center.getYcoordinate() + ") " + "Radius:" + radius
+				+ ", BorderColor(" + getBorderColor().getRGB() + "), " + "FillColor(" + getAreaColor().getRGB() + "), "
+				+ selected;
 	}
 
 	@Override
@@ -114,19 +112,19 @@ public class HexagonAdapter extends AreaShape {
 	@Override
 	public void setFields(Shape shape) {
 		if (shape instanceof HexagonAdapter) {
-			HexagonAdapter getHexagon = (HexagonAdapter) shape;
-			this.setAreaColor(getHexagon.getAreaColor());
-			this.setBorderColor(getHexagon.getBorderColor());
-			this.setSelected(getHexagon.isSelected());
-			this.getCenter().setXcoordinate(getHexagon.getCenter().getXcoordinate());
-			this.getCenter().setYcoordinate(getHexagon.getCenter().getYcoordinate());
-			this.setRadius(getHexagon.getRadius());
-			this.getHexagon().setAreaColor(getHexagon.getHexagon().getAreaColor());
-			this.getHexagon().setBorderColor(getHexagon.getHexagon().getBorderColor());
-			this.getHexagon().setR(getHexagon.getHexagon().getR());
-			this.getHexagon().setX(getHexagon.getHexagon().getX());
-			this.getHexagon().setY(getHexagon.getHexagon().getY());
-			this.getHexagon().setSelected(getHexagon.getHexagon().isSelected());
+			HexagonAdapter hexagon = (HexagonAdapter) shape;
+			setAreaColor(hexagon.getAreaColor());
+			setBorderColor(hexagon.getBorderColor());
+			setSelected(hexagon.isSelected());
+			center.setXcoordinate(hexagon.getCenter().getXcoordinate());
+			center.setYcoordinate(hexagon.getCenter().getYcoordinate());
+			radius = hexagon.getRadius();
+			this.hexagon.setAreaColor(hexagon.getHexagon().getAreaColor());
+			this.hexagon.setBorderColor(hexagon.getHexagon().getBorderColor());
+			this.hexagon.setR(hexagon.getHexagon().getR());
+			this.hexagon.setX(hexagon.getHexagon().getX());
+			this.hexagon.setY(hexagon.getHexagon().getY());
+			this.hexagon.setSelected(hexagon.getHexagon().isSelected());
 		}
 	}
 

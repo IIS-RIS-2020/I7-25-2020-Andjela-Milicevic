@@ -1,7 +1,6 @@
 package geometry;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class Point extends Shape implements Cloneable {
 	private static final long serialVersionUID = 1L;
@@ -27,12 +26,8 @@ public class Point extends Shape implements Cloneable {
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(getBorderColor());
-
-		graphics.drawLine(this.xCoordinate - POINT_LINE_GAP, yCoordinate, this.xCoordinate + POINT_LINE_GAP,
-				yCoordinate);
-
-		graphics.drawLine(xCoordinate, this.yCoordinate - POINT_LINE_GAP, xCoordinate,
-				this.yCoordinate + POINT_LINE_GAP);
+		graphics.drawLine(xCoordinate - POINT_LINE_GAP, yCoordinate, xCoordinate + POINT_LINE_GAP, yCoordinate);
+		graphics.drawLine(xCoordinate, yCoordinate - POINT_LINE_GAP, xCoordinate, yCoordinate + POINT_LINE_GAP);
 
 		if (isSelected()) {
 			graphics.setColor(getSelectionColor());
@@ -48,12 +43,14 @@ public class Point extends Shape implements Cloneable {
 
 	@Override
 	public boolean contains(int xCoordinate, int yCoordinate) {
-		if (this.calculateDistance(xCoordinate, yCoordinate) <= POINT_CLICK_THRESHOLD)
+		if (calculateDistance(xCoordinate, yCoordinate) <= POINT_CLICK_THRESHOLD) {
 			return true;
+		}
+
 		return false;
 	}
 
-	public double calculateDistance(int xCoordinate, int yCoordinate) {
+	double calculateDistance(int xCoordinate, int yCoordinate) {
 		int distanceXsquare = this.xCoordinate - xCoordinate;
 		int distanceYsquare = this.yCoordinate - yCoordinate;
 		return Math.sqrt(distanceXsquare * distanceXsquare + distanceYsquare * distanceYsquare);
@@ -97,22 +94,23 @@ public class Point extends Shape implements Cloneable {
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Point) {
-			Point p = (Point) o;
-			return (int) (p.calculateDistance(0, 0) - this.calculateDistance(0, 0));
-		} else
+	public int compareTo(Object object) {
+		if (object instanceof Point) {
+			Point point = (Point) object;
+			return (int) (point.calculateDistance(0, 0) - calculateDistance(0, 0));
+		} else {
 			return 0;
+		}
 	}
 
 	@Override
 	public void setFields(Shape shape) {
 		if (shape instanceof Point) {
-			Point getPoint = (Point) shape;
-			this.setXcoordinate(getPoint.getXcoordinate());
-			this.setYcoordinate(getPoint.getYcoordinate());
-			this.setBorderColor(getPoint.getBorderColor());
-			this.setSelected(getPoint.isSelected());
+			Point point = (Point) shape;
+			xCoordinate = point.getXcoordinate();
+			yCoordinate = point.getYcoordinate();
+			setBorderColor(point.getBorderColor());
+			setSelected(point.isSelected());
 		}
 	}
 

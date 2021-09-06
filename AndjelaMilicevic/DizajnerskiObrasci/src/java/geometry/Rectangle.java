@@ -1,22 +1,20 @@
 package geometry;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class Rectangle extends AreaShape implements Cloneable {
 	private static final long serialVersionUID = 1L;
-	private Point upperLeftPoint;
+	private Point upperLeftPoint = new Point();
 	private int height;
 	private int width;
 
 	public Rectangle() {
-		this.upperLeftPoint = new Point();
 	}
 
 	public Rectangle(Point upperLeftPoint, int height, int width) {
 		this.upperLeftPoint = upperLeftPoint;
-		setHeight(height);
-		setWidth(width);
+		this.height = height;
+		this.width = width;
 	}
 
 	public Rectangle(Point upperLeftPoint, int height, int width, boolean selected, Color borderColor, Color areColor) {
@@ -29,10 +27,7 @@ public class Rectangle extends AreaShape implements Cloneable {
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(getBorderColor());
-
-		graphics.drawRect(this.getUpperLeftPoint().getXcoordinate(), this.getUpperLeftPoint().getYcoordinate(),
-				this.width, this.getHeight());
-
+		graphics.drawRect(upperLeftPoint.getXcoordinate(), upperLeftPoint.getYcoordinate(), width, height);
 		areaShape(graphics);
 
 		if (isSelected()) {
@@ -88,24 +83,23 @@ public class Rectangle extends AreaShape implements Cloneable {
 
 	@Override
 	public Rectangle clone() {
-		Rectangle newRect = new Rectangle();
-		newRect.setFields(this);
-		return newRect;
+		Rectangle newRectangle = new Rectangle();
+		newRectangle.setFields(this);
+		return newRectangle;
 	}
 
 	@Override
 	public String toString() {
 		String selected;
 
-		if (this.isSelected()) {
+		if (isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
 		}
 
-		return "Rectangle:(" + this.getUpperLeftPoint().getXcoordinate() + ","
-				+ this.getUpperLeftPoint().getYcoordinate() + ") " + "Width:" + this.getWidth() + ", Height:"
-				+ this.getHeight() + ", BorderColor(" + getBorderColor().getRGB() + "), " + "FillColor("
+		return "Rectangle:(" + upperLeftPoint.getXcoordinate() + "," + upperLeftPoint.getYcoordinate() + ") " + "Width:"
+				+ width + ", Height:" + height + ", BorderColor(" + getBorderColor().getRGB() + "), " + "FillColor("
 				+ getAreaColor().getRGB() + "), " + selected;
 	}
 
@@ -115,39 +109,40 @@ public class Rectangle extends AreaShape implements Cloneable {
 	}
 
 	private double area() {
-		return (height * width);
+		return height * width;
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Rectangle) {
-			return (int) (((Rectangle) o).area() - this.area());
-		} else
+	public int compareTo(Object object) {
+		if (object instanceof Rectangle) {
+			return (int) (((Rectangle) object).area() - area());
+		} else {
 			return 0;
+		}
 	}
 
 	@Override
 	public void setFields(Shape shape) {
 		if (shape instanceof Rectangle) {
-			Rectangle getRect = (Rectangle) shape;
-			this.getUpperLeftPoint().setXcoordinate(getRect.getUpperLeftPoint().getXcoordinate());
-			this.getUpperLeftPoint().setYcoordinate(getRect.getUpperLeftPoint().getYcoordinate());
+			Rectangle rectangle = (Rectangle) shape;
+			upperLeftPoint.setXcoordinate(rectangle.getUpperLeftPoint().getXcoordinate());
+			upperLeftPoint.setYcoordinate(rectangle.getUpperLeftPoint().getYcoordinate());
 
 			try {
-				this.setHeight(getRect.getHeight());
+				height = rectangle.getHeight();
 			} catch (Exception exceptionHeight) {
 				exceptionHeight.printStackTrace();
 			}
 
 			try {
-				this.setWidth(getRect.getWidth());
+				width = rectangle.getWidth();
 			} catch (Exception exceptionWidth) {
 				exceptionWidth.printStackTrace();
 			}
 
-			this.setSelected(getRect.isSelected());
-			this.setBorderColor(getRect.getBorderColor());
-			this.setAreaColor(getRect.getAreaColor());
+			setSelected(rectangle.isSelected());
+			setBorderColor(rectangle.getBorderColor());
+			setAreaColor(rectangle.getAreaColor());
 		}
 	}
 
@@ -173,6 +168,5 @@ public class Rectangle extends AreaShape implements Cloneable {
 
 	public void setWidth(int width) {
 		this.width = width;
-
 	}
 }

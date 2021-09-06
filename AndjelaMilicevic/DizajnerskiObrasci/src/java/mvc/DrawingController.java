@@ -1,50 +1,14 @@
 package mvc;
 
+import java.io.*;
+import java.util.*;
+import javax.swing.*;
+import command.*;
+import dialogs.*;
+import files.*;
+import geometry.*;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JColorChooser;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import command.CmdAdd;
-import command.CmdChangeLayer;
-import command.CmdDelete;
-import command.CmdDeleteAll;
-import command.CmdModify;
-import command.CmdModifyCircle;
-import command.CmdModifyDonut;
-import command.CmdModifyHexagon;
-import command.CmdModifyLine;
-import command.CmdModifyPoint;
-import command.CmdModifyRectangle;
-import command.Command;
-import dialogs.CircleDialog;
-import dialogs.DonutDialog;
-import dialogs.HexagonDialog;
-import dialogs.LineDialog;
-import dialogs.PointDialog;
-import dialogs.RectangleDialog;
-import files.SaveCommandsToTextFile;
-import files.SaveSerializedDrawing;
-import files.SavingManager;
-import geometry.Circle;
-import geometry.Donut;
-import geometry.HexagonAdapter;
-import geometry.Line;
-import geometry.Point;
-import geometry.Rectangle;
-import geometry.Shape;
 import observer.SelectedShapes;
 
 public class DrawingController {
@@ -70,13 +34,13 @@ public class DrawingController {
 	void mouseClickedOnPanel(MouseEvent e) {
 		if (frame.getTglBtnPoint()) {
 			PointDialog pd = new PointDialog();
-			pd.setTxtCoordX(Integer.toString(e.getX()));
-			pd.setTxtCoordY(Integer.toString(e.getY()));
-			pd.setTxtCoordXEditable(false);
-			pd.setTxtCoordYEditable(false);
+			pd.setTxtCoordinateX(Integer.toString(e.getX()));
+			pd.setTxtCoordinateY(Integer.toString(e.getY()));
+			pd.setTxtCoordinateXeditable(false);
+			pd.setTxtCoordinateYeditable(false);
 			pd.setVisible(true);
 
-			if (pd.getIsOk()) {
+			if (pd.isOk()) {
 				clickedPoint = new Point();
 				clickedPoint.setXcoordinate(e.getX());
 				clickedPoint.setYcoordinate(e.getY());
@@ -92,10 +56,10 @@ public class DrawingController {
 			} else {
 				Line l = new Line(clickedPoint, new Point(e.getX(), e.getY()));
 				LineDialog ld = new LineDialog();
-				ld.setTxtStartXEditable(false);
-				ld.setTxtStartYEditable(false);
-				ld.setTxtEndXEditable(false);
-				ld.setTxtEndYXEditable(false);
+				ld.setTxtStartXeditable(false);
+				ld.setTxtStartYeditable(false);
+				ld.setTxtEndXeditable(false);
+				ld.setTxtEndYeditable(false);
 				ld.setTxtStartX(Integer.toString(l.getStartPoint().getXcoordinate()));
 				ld.setTxtStartY(Integer.toString(l.getStartPoint().getYcoordinate()));
 				ld.setTxtEndX(Integer.toString(l.getEndPoint().getXcoordinate()));
@@ -114,13 +78,13 @@ public class DrawingController {
 		} else if (frame.getTglBtnCircle()) {
 			Point center = new Point(e.getX(), e.getY());
 			CircleDialog cd = new CircleDialog();
-			cd.setTxtCentarX(Integer.toString(center.getXcoordinate()));
-			cd.setTxtCentarY(Integer.toString(center.getYcoordinate()));
-			cd.setTxtCentarXEditable(false);
-			cd.setTxtCentarYEditable(false);
+			cd.setTxtCenterX(Integer.toString(center.getXcoordinate()));
+			cd.setTxtCenterY(Integer.toString(center.getYcoordinate()));
+			cd.setTxtCenterXeditable(false);
+			cd.setTxtCenterYeditable(false);
 			cd.setVisible(true);
 
-			if (cd.getisOk()) {
+			if (cd.isOk()) {
 				int radius = Integer.parseInt(cd.getTxtRadius());
 				Circle c = new Circle(center, radius);
 				c.setAreaColor(getAreaColor(cd.getColorIn()));
@@ -133,10 +97,10 @@ public class DrawingController {
 		} else if (frame.getTglBtnRectangle()) {
 			Point upperLeft = new Point(e.getX(), e.getY());
 			RectangleDialog rd = new RectangleDialog();
-			rd.setTxtXCoordinate(Integer.toString(upperLeft.getXcoordinate()));
-			rd.setTxtYCoordinate(Integer.toString(upperLeft.getYcoordinate()));
-			rd.setTxtCoordXEditable(false);
-			rd.setTxtCoordYEditable(false);
+			rd.setTxtXcoordinate(Integer.toString(upperLeft.getXcoordinate()));
+			rd.setTxtYcoordinate(Integer.toString(upperLeft.getYcoordinate()));
+			rd.setTxtCoordXeditable(false);
+			rd.setTxtCoordYeditable(false);
 			rd.setVisible(true);
 
 			if (rd.isOk()) {
@@ -153,10 +117,10 @@ public class DrawingController {
 		} else if (frame.getTglBtnDonut()) {
 			Point center = new Point(e.getX(), e.getY());
 			DonutDialog dd = new DonutDialog();
-			dd.setTxtCentarX(Integer.toString(center.getXcoordinate()));
-			dd.setTxtCentarY(Integer.toString(center.getYcoordinate()));
-			dd.setTxtCentarXEditable(false);
-			dd.setTxtCentarYEditable(false);
+			dd.setTxtCentеrX(Integer.toString(center.getXcoordinate()));
+			dd.setTxtCentеrY(Integer.toString(center.getYcoordinate()));
+			dd.setTxtCenterXeditable(false);
+			dd.setTxtCentеrYеditable(false);
 			dd.setVisible(true);
 
 			if (dd.isOk()) {
@@ -173,13 +137,13 @@ public class DrawingController {
 		} else if (frame.getTglBtnHexagon()) {
 			Point center = new Point(e.getX(), e.getY());
 			HexagonDialog hd = new HexagonDialog();
-			hd.setTxtCentarX(Integer.toString(center.getXcoordinate()));
-			hd.setTxtCentarY(Integer.toString(center.getYcoordinate()));
-			hd.setTxtCentarXEditable(false);
-			hd.setTxtCentarYEditable(false);
+			hd.setTxtCenterX(Integer.toString(center.getXcoordinate()));
+			hd.setTxtCenterY(Integer.toString(center.getYcoordinate()));
+			hd.setTxtCenterXeditable(false);
+			hd.setTxtCenterYeditable(false);
 			hd.setVisible(true);
 
-			if (hd.getisOk()) {
+			if (hd.isOk()) {
 				int radius = Integer.parseInt(hd.getTxtRadius());
 				HexagonAdapter hex = new HexagonAdapter(center, radius);
 				hex.setAreaColor(getAreaColor(hd.getColorIn()));
@@ -284,7 +248,7 @@ public class DrawingController {
 				String command = "Undo " + this.commandPointer.toString();
 				addRemoveSelectedUnexecute(commandPointer);
 				stringCommandsToWriteToFile.add(command);
-				frame.addToDLM(command);
+				frame.addToListModel(command);
 				this.commandPointer.unexecute();
 
 				if (commandPointerIndex != 0) {
@@ -358,7 +322,7 @@ public class DrawingController {
 				addRemoveSelectedExecute(commandPointer);
 				String command = "Redo " + this.commandPointer.toString();
 				stringCommandsToWriteToFile.add(command);
-				frame.addToDLM(command);
+				frame.addToListModel(command);
 				commandPointer.execute();
 
 				if (commandList.size() == 1) {
@@ -370,7 +334,7 @@ public class DrawingController {
 					addRemoveSelectedExecute(commandPointer);
 					String command = "Redo " + this.commandPointer.toString();
 					stringCommandsToWriteToFile.add(command);
-					frame.addToDLM(command);
+					frame.addToListModel(command);
 					commandPointer.execute();
 					commandPointerIndex++;
 				} else if (commandPointerIndex + 1 == commandList.size() - 1) {
@@ -394,7 +358,7 @@ public class DrawingController {
 		if (selectedShapes.getNumberOfSelectedShapes() != 0) {
 			if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),
-						"Da li ste sigurni da �elite da obri�ete selektovani oblik?", "Potvrda",
+						"Da li ste sigurni da želite da obrišete selektovani oblik?", "Potvrda",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					CmdDelete cmd = new CmdDelete(selectedShapes.getSelectedShapeByIndex(0), model);
 					executeCommand(cmd);
@@ -402,9 +366,9 @@ public class DrawingController {
 				}
 			} else {
 				if (JOptionPane.showConfirmDialog(new JFrame(),
-						"Da li ste sigurni da �elite da obri�ete selektovane oblike?", "Potvrda",
+						"Da li ste sigurni da želite da obrišete selektovane oblike?", "Potvrda",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					Iterator<Shape> it = selectedShapes.iterator();
+					Iterator<Shape> it = selectedShapes.getSelectedShapes().iterator();
 					CmdDeleteAll cmdAll = new CmdDeleteAll();
 
 					while (it.hasNext()) {
@@ -489,7 +453,7 @@ public class DrawingController {
 
 		String command = cmd.toString();
 		stringCommandsToWriteToFile.add(command);
-		frame.addToDLM(cmd);
+		frame.addToListModel(cmd);
 		cmd.execute();
 		commandList.add(cmd);
 		commandPointer = cmd;
@@ -506,15 +470,15 @@ public class DrawingController {
 			if (selectedShapes.getSelectedShapeByIndex(0) instanceof Point) {
 				Point p = (Point) selectedShapes.getSelectedShapeByIndex(0);
 				PointDialog pd = new PointDialog();
-				pd.setTxtCoordX(Integer.toString(p.getXcoordinate()));
-				pd.setTxtCoordY(Integer.toString(p.getYcoordinate()));
+				pd.setTxtCoordinateX(Integer.toString(p.getXcoordinate()));
+				pd.setTxtCoordinateY(Integer.toString(p.getYcoordinate()));
 				pd.setColor(p.getBorderColor());
 				pd.setVisible(true);
 
-				if (pd.getIsOk()) {
+				if (pd.isOk()) {
 					Point newPoint = new Point();
-					newPoint.setXcoordinate(Integer.parseInt(pd.getTxtCoordX()));
-					newPoint.setYcoordinate(Integer.parseInt(pd.getTxtCoordY()));
+					newPoint.setXcoordinate(Integer.parseInt(pd.getTxtCoordinateX()));
+					newPoint.setYcoordinate(Integer.parseInt(pd.getTxtCoordinateY()));
 					newPoint.setBorderColor(pd.getColor());
 					newPoint.setSelected(true);
 					CmdModifyPoint cmd = new CmdModifyPoint(p, newPoint);
@@ -546,8 +510,8 @@ public class DrawingController {
 			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Rectangle) {
 				Rectangle r = (Rectangle) selectedShapes.getSelectedShapeByIndex(0);
 				RectangleDialog rd = new RectangleDialog();
-				rd.setTxtXCoordinate((Integer.toString(r.getUpperLeftPoint().getXcoordinate())));
-				rd.setTxtYCoordinate(Integer.toString(r.getUpperLeftPoint().getYcoordinate()));
+				rd.setTxtXcoordinate((Integer.toString(r.getUpperLeftPoint().getXcoordinate())));
+				rd.setTxtYcoordinate(Integer.toString(r.getUpperLeftPoint().getYcoordinate()));
 				rd.setTxtHeight(Integer.toString(r.getHeight()));
 				rd.setTxtWidth(Integer.toString(r.getWidth()));
 				rd.setColorIn(r.getAreaColor());
@@ -557,8 +521,8 @@ public class DrawingController {
 				if (rd.isOk()) {
 					Rectangle newRect = new Rectangle();
 
-					newRect.setUpperLeftPoint(new Point(Integer.parseInt(rd.getTxtXCoordinate()),
-							Integer.parseInt(rd.getTxtYCoordinate())));
+					newRect.setUpperLeftPoint(new Point(Integer.parseInt(rd.getTxtXcoordinate()),
+							Integer.parseInt(rd.getTxtYcoordinate())));
 
 					newRect.setHeight(Integer.parseInt(rd.getTxtHeight()));
 					newRect.setWidth(Integer.parseInt(rd.getTxtWidth()));
@@ -572,8 +536,8 @@ public class DrawingController {
 			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Donut) {
 				Donut d = (Donut) selectedShapes.getSelectedShapeByIndex(0);
 				DonutDialog dd = new DonutDialog();
-				dd.setTxtCentarX(Integer.toString(d.getCenter().getXcoordinate()));
-				dd.setTxtCentarY(Integer.toString(d.getCenter().getYcoordinate()));
+				dd.setTxtCentеrX(Integer.toString(d.getCenter().getXcoordinate()));
+				dd.setTxtCentеrY(Integer.toString(d.getCenter().getYcoordinate()));
 				dd.setTxtInnerRadius(Integer.toString(d.getInnerRadius()));
 				dd.setTxtRadius(Integer.toString(d.getRadius()));
 				dd.setColorIn(d.getAreaColor());
@@ -584,7 +548,7 @@ public class DrawingController {
 					Donut newDonut = new Donut();
 
 					newDonut.setCenter(
-							new Point(Integer.parseInt(dd.getTxtCentarX()), Integer.parseInt(dd.getTxtCentarY())));
+							new Point(Integer.parseInt(dd.getTxtCentеrX()), Integer.parseInt(dd.getTxtCentеrY())));
 
 					newDonut.setRadius(Integer.parseInt(dd.getTxtRadius()));
 					newDonut.setInnerRadius(Integer.parseInt(dd.getTxtInnerRadius()));
@@ -598,18 +562,18 @@ public class DrawingController {
 			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Circle) {
 				Circle c = (Circle) selectedShapes.getSelectedShapeByIndex(0);
 				CircleDialog cd = new CircleDialog();
-				cd.setTxtCentarX(Integer.toString(c.getCenter().getXcoordinate()));
-				cd.setTxtCentarY(Integer.toString(c.getCenter().getYcoordinate()));
+				cd.setTxtCenterX(Integer.toString(c.getCenter().getXcoordinate()));
+				cd.setTxtCenterY(Integer.toString(c.getCenter().getYcoordinate()));
 				cd.setTxtRadius(Integer.toString(c.getRadius()));
 				cd.setColorIn(c.getAreaColor());
 				cd.setColorOut(c.getBorderColor());
 				cd.setVisible(true);
 
-				if (cd.getisOk()) {
+				if (cd.isOk()) {
 					Circle newCircle = new Circle();
 
 					newCircle.setCenter(
-							new Point(Integer.parseInt(cd.getTxtCentarX()), Integer.parseInt(cd.getTxtCentarY())));
+							new Point(Integer.parseInt(cd.getTxtCenterX()), Integer.parseInt(cd.getTxtCenterY())));
 
 					newCircle.setRadius(Integer.parseInt(cd.getTxtRadius()));
 					newCircle.setAreaColor(cd.getColorIn());
@@ -622,16 +586,16 @@ public class DrawingController {
 			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof HexagonAdapter) {
 				HexagonAdapter h = (HexagonAdapter) selectedShapes.getSelectedShapeByIndex(0);
 				HexagonDialog hd = new HexagonDialog();
-				hd.setTxtCentarX(Integer.toString(h.getCenter().getXcoordinate()));
-				hd.setTxtCentarY(Integer.toString(h.getCenter().getYcoordinate()));
+				hd.setTxtCenterX(Integer.toString(h.getCenter().getXcoordinate()));
+				hd.setTxtCenterY(Integer.toString(h.getCenter().getYcoordinate()));
 				hd.setTxtRadius(Integer.toString(h.getRadius()));
 				hd.setColorIn(h.getAreaColor());
 				hd.setColorOut(h.getBorderColor());
 				hd.setVisible(true);
 
-				if (hd.getisOk()) {
-					Point center = new Point(Integer.parseInt(hd.getTxtCentarX()),
-							Integer.parseInt(hd.getTxtCentarY()));
+				if (hd.isOk()) {
+					Point center = new Point(Integer.parseInt(hd.getTxtCenterX()),
+							Integer.parseInt(hd.getTxtCenterY()));
 
 					int radius = Integer.parseInt(hd.getTxtRadius());
 					HexagonAdapter newHex = new HexagonAdapter(center, radius);
@@ -654,7 +618,7 @@ public class DrawingController {
 		File file = getFile();
 
 		if (file != null) {
-			sm.saveDrawingOrLog(getFile());
+			sm.saveFile(getFile());
 		}
 	}
 
@@ -664,11 +628,11 @@ public class DrawingController {
 		File file = getFile();
 
 		if (file != null) {
-			sm.saveDrawingOrLog(getFile());
+			sm.saveFile(getFile());
 		}
 	}
 
-	File getFile() {
+	private File getFile() {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File("C:/Users/Natalija/Documents"));
 		fc.setDialogTitle("Save a file");

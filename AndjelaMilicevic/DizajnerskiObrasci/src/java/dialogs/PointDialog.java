@@ -1,72 +1,54 @@
 package dialogs;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.GroupLayout;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 public class PointDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel pnlPoint = new JPanel();
-	private JTextField txtCoordX;
-	private JTextField txtCoordY;
+	private JTextField txtCoordinateX;
+	private JTextField txtCoordinateY;
 	private Color color;
 	private boolean isOk;
+	private JButton okButton;
+	private JButton cancelButton;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	public static void main(String[] arguments) {
 		try {
 			PointDialog dialog = new PointDialog();
 			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public PointDialog() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		pnlPoint.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.setModal(true);
+		setModal(true);
 		getContentPane().add(pnlPoint, BorderLayout.CENTER);
 
 		JLabel lblXCoord = new JLabel("X koordinata");
 		JLabel lblYCoord = new JLabel("Y koordinata");
 
-		txtCoordX = new JTextField();
-		txtCoordX.setColumns(10);
+		txtCoordinateX = new JTextField();
+		txtCoordinateX.setColumns(10);
 
-		txtCoordY = new JTextField();
-		txtCoordY.setColumns(10);
+		txtCoordinateY = new JTextField();
+		txtCoordinateY.setColumns(10);
 
 		JButton btnColor = new JButton("Boja");
 
 		btnColor.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				color = JColorChooser.showDialog(null, "Izaberite boju tacke", null);
+			public void actionPerformed(ActionEvent event) {
+				color = JColorChooser.showDialog(null, "Izaberite boju tačke", null);
 			}
-
 		});
 
 		GroupLayout gl_pnlPoint = new GroupLayout(pnlPoint);
@@ -79,62 +61,64 @@ public class PointDialog extends JDialog {
 								.createParallelGroup(Alignment.LEADING).addComponent(lblXCoord).addComponent(lblYCoord))
 						.addGap(67)
 						.addGroup(gl_pnlPoint.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtCoordY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								.addComponent(txtCoordinateY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCoordX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								.addComponent(txtCoordinateX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))))
 				.addContainerGap(137, Short.MAX_VALUE)));
 
 		gl_pnlPoint.setVerticalGroup(gl_pnlPoint.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlPoint
 				.createSequentialGroup().addGap(34)
-				.addGroup(gl_pnlPoint.createParallelGroup(Alignment.BASELINE).addComponent(lblXCoord).addComponent(
-						txtCoordX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnlPoint
+						.createParallelGroup(Alignment.BASELINE).addComponent(lblXCoord).addComponent(txtCoordinateX,
+								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGap(45)
 				.addGroup(gl_pnlPoint.createParallelGroup(Alignment.BASELINE).addComponent(lblYCoord).addComponent(
-						txtCoordY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						txtCoordinateY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
 				.addGap(35).addComponent(btnColor).addContainerGap(42, Short.MAX_VALUE)));
 
 		pnlPoint.setLayout(gl_pnlPoint);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			JPanel buttonPanel = new JPanel();
+			buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				okButton = new JButton("Potvrdi");
 
 				okButton.addActionListener(new ActionListener() {
 					@Override
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent event) {
 						try {
-							Integer.parseInt(getTxtCoordX());
-							Integer.parseInt(getTxtCoordY());
+							Integer.parseInt(getTxtCoordinateX());
+							Integer.parseInt(getTxtCoordinateY());
 							setIsOK(true);
 							dispose();
-						} catch (NumberFormatException e1) {
+						} catch (NumberFormatException exception) {
 							JOptionPane.showMessageDialog(new JFrame(),
-									"Neispravan unos podataka.Proverite da li su sva polja popunjena brojnim vrednostima!",
-									"Gre�ka", JOptionPane.WARNING_MESSAGE);
+									"Neispravan unos podataka. Proverite da li su sva polja popunjena brojnim vrednostima!",
+									"Greška", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				});
 
 				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
+				buttonPanel.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Poništi");
 
 				cancelButton.addActionListener(new ActionListener() {
 					@Override
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent event) {
 						dispose();
 					}
 				});
 
 				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				buttonPanel.add(cancelButton);
 			}
 		}
 	}
@@ -144,38 +128,46 @@ public class PointDialog extends JDialog {
 	}
 
 	public Color getColor() {
-		return this.color;
+		return color;
 	}
 
-	public void setTxtCoordX(String txtCoordX) {
-		this.txtCoordX.setText(txtCoordX);
+	public void setTxtCoordinateX(String xCoordinate) {
+		txtCoordinateX.setText(xCoordinate);
 	}
 
-	public String getTxtCoordX() {
-		return this.txtCoordX.getText();
+	public String getTxtCoordinateX() {
+		return txtCoordinateX.getText();
 	}
 
-	public void setTxtCoordY(String txtCoordY) {
-		this.txtCoordY.setText(txtCoordY);
+	public void setTxtCoordinateY(String yCoordinate) {
+		txtCoordinateY.setText(yCoordinate);
 	}
 
-	public String getTxtCoordY() {
-		return this.txtCoordY.getText();
+	public String getTxtCoordinateY() {
+		return txtCoordinateY.getText();
 	}
 
 	public void setIsOK(boolean isOk) {
 		this.isOk = isOk;
 	}
 
-	public boolean getIsOk() {
-		return this.isOk;
+	public boolean isOk() {
+		return isOk;
 	}
 
-	public void setTxtCoordXEditable(boolean b) {
-		this.txtCoordX.setEditable(b);
+	public void setTxtCoordinateXeditable(boolean value) {
+		txtCoordinateX.setEditable(value);
 	}
 
-	public void setTxtCoordYEditable(boolean b) {
-		this.txtCoordY.setEditable(b);
+	public void setTxtCoordinateYeditable(boolean value) {
+		txtCoordinateY.setEditable(value);
+	}
+
+	public JButton getOkButton() {
+		return okButton;
+	}
+
+	public JButton getCancelButton() {
+		return cancelButton;
 	}
 }

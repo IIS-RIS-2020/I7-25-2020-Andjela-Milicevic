@@ -1,31 +1,30 @@
 package observer;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
+import java.util.*;
 import geometry.Shape;
 
+// TODO tests
 public class SelectedShapes implements Subject {
 	private ArrayList<Shape> selectedShapes = new ArrayList<>();
 	private ArrayList<Observer> observers = new ArrayList<>();
 
 	@Override
 	public void notifyObservers() {
-		Iterator<Observer> it = observers.iterator();
+		Iterator<Observer> iterator = observers.iterator();
 
-		while (it.hasNext()) {
-			it.next().updateSelectedShape(selectedShapes.size());
+		while (iterator.hasNext()) {
+			iterator.next().updateSelectedShape(selectedShapes.size());
 		}
 	}
 
 	@Override
-	public void addObserver(Observer o) {
-		observers.add(o);
+	public void addObserver(Observer observer) {
+		observers.add(observer);
 	}
 
 	@Override
-	public void removeObserver(Observer o) {
-		observers.remove(o);
+	public void removeObserver(Observer observer) {
+		observers.remove(observer);
 	}
 
 	public ArrayList<Shape> getSelectedShapes() {
@@ -53,9 +52,5 @@ public class SelectedShapes implements Subject {
 
 	public Shape getSelectedShapeByIndex(int indexOfShape) {
 		return selectedShapes.get(indexOfShape);
-	}
-
-	public Iterator<Shape> iterator() {
-		return selectedShapes.iterator();
 	}
 }

@@ -1,16 +1,9 @@
 package geometry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.awt.Color;
-import java.awt.Graphics;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import java.awt.*;
+import org.junit.*;
 
 public class CircleTests {
 	private Graphics graphics;
@@ -86,9 +79,10 @@ public class CircleTests {
 
 	@Test
 	public void testToString() {
-		assertEquals("Circle:(" + circle.getCenter().getXcoordinate() + "," + circle.getCenter().getYcoordinate() + ") " + "R:"
-				+ circle.getRadius() + ", BC(" + circle.getBorderColor().getRGB() + "), " + "FC(" + circle.getAreaColor().getRGB()
-				+ "), " + (circle.isSelected() ? "selected" : "unselected"),
+		assertEquals(
+				"Circle:(" + circle.getCenter().getXcoordinate() + "," + circle.getCenter().getYcoordinate() + ") "
+						+ "R:" + circle.getRadius() + ", BC(" + circle.getBorderColor().getRGB() + "), " + "FC("
+						+ circle.getAreaColor().getRGB() + "), " + (circle.isSelected() ? "selected" : "unselected"),
 				circle.toString());
 	}
 }

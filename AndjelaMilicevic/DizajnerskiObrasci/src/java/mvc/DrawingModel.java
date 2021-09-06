@@ -1,9 +1,7 @@
 package mvc;
 
+import java.util.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import geometry.Shape;
 
 public class DrawingModel implements Serializable {
@@ -28,9 +26,5 @@ public class DrawingModel implements Serializable {
 
 	public int getIndexOfShape(Shape shape) {
 		return shapes.indexOf(shape);
-	}
-
-	public int getNumberOfShapes() {
-		return shapes.size();
 	}
 }

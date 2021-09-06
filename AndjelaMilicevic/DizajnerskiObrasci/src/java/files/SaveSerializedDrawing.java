@@ -1,13 +1,9 @@
 package files;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
+import java.io.*;
 import mvc.DrawingController;
 
-public class SaveSerializedDrawing implements Saving {
+public class SaveSerializedDrawing implements SavingStrategy {
 	private DrawingController controller;
 
 	public SaveSerializedDrawing(DrawingController controller) {
@@ -15,16 +11,13 @@ public class SaveSerializedDrawing implements Saving {
 	}
 
 	@Override
-	public void saveDrawingOrLog(File file) {
-
-		String filePath = file.getPath();
-
+	public void saveFile(File file) {
 		try {
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(filePath));
-			objectOutputStream.writeObject(controller.getModel().getShapes());
-			objectOutputStream.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			ObjectOutputStream objectOutput = new ObjectOutputStream(new FileOutputStream(file.getPath()));
+			objectOutput.writeObject(controller.getModel().getShapes());
+			objectOutput.close();
+		} catch (IOException exception) {
+			exception.printStackTrace();
 		}
 	}
 }

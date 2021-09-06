@@ -1,9 +1,9 @@
 package command;
 
+import org.junit.*;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.awt.Color;
 
 import geometry.Point;
 import mvc.DrawingModel;
@@ -16,7 +16,7 @@ public class CmdChangeLayerTests {
 	@Before
 	public void setUp() {
 		model = new DrawingModel();
-		point = new Point(1, 2);
+		point = new Point(1, 2, false, Color.BLACK);
 		model.addShape(new Point(1, 1));
 		model.addShape(point);
 		cmdChangeLayer = new CmdChangeLayer(point, model, 0);
@@ -39,5 +39,11 @@ public class CmdChangeLayerTests {
 		cmdChangeLayer.execute();
 		cmdChangeLayer.unexecute();
 		assertEquals(1, model.getIndexOfShape(point));
+	}
+
+	@Test
+	public void testToString() {
+		cmdChangeLayer.execute();
+		assertEquals("Moved " + point.toString() + " to layer " + 0, cmdChangeLayer.toString());
 	}
 }

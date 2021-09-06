@@ -1,70 +1,53 @@
 package dialogs;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.GroupLayout;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 public class DonutDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel pnlDonut = new JPanel();
-	private JTextField txtCentarX;
-	private JTextField txtCentarY;
+	private JTextField txtCenterX;
+	private JTextField txtCenterY;
 	private JTextField txtInnerRadius;
 	private JTextField txtRadius;
 	private Color colorIn;
 	private Color colorOut;
 	private boolean isOk;
+	private JButton okButton;
+	private JButton cancelButton;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	public static void main(String[] arguments) {
 		try {
 			DonutDialog dialog = new DonutDialog();
 			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public DonutDialog() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		pnlDonut.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.setModal(true);
+		setModal(true);
 		getContentPane().add(pnlDonut, BorderLayout.CENTER);
 
-		JLabel lblXCC = new JLabel("X koordinata centra");
-		JLabel lblYCC = new JLabel("Y koordinata centra");
+		JLabel lblXcenter = new JLabel("X koordinata centra");
+		JLabel lblYcenter = new JLabel("Y koordinata centra");
 
-		JLabel lblInnerRadius = new JLabel("Unutrasnji radius");
-		JLabel lblOutterRadius = new JLabel("Spoljasnji radius");
+		JLabel lblInnerRadius = new JLabel("Unutrašnji radijus");
+		JLabel lblOutterRadius = new JLabel("Spoljašnji radijus");
 
-		txtCentarX = new JTextField();
-		txtCentarX.setColumns(10);
+		txtCenterX = new JTextField();
+		txtCenterX.setColumns(10);
 
-		txtCentarY = new JTextField();
-		txtCentarY.setColumns(10);
+		txtCenterY = new JTextField();
+		txtCenterY.setColumns(10);
 
 		txtInnerRadius = new JTextField();
 		txtInnerRadius.setColumns(10);
@@ -72,20 +55,20 @@ public class DonutDialog extends JDialog {
 		txtRadius = new JTextField();
 		txtRadius.setColumns(10);
 
-		JButton btnColorIn = new JButton("Boja unutrasnjosti");
+		JButton btnColorIn = new JButton("Boja unutrašnjosti");
 
 		btnColorIn.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				colorIn = JColorChooser.showDialog(null, "Izaberite boju", Color.WHITE);
 			}
 		});
 
-		JButton btnColorOut = new JButton("Boja ivica");
+		JButton btnColorOut = new JButton("Boja ivice");
 
 		btnColorOut.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				colorOut = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 			}
 		});
@@ -95,18 +78,18 @@ public class DonutDialog extends JDialog {
 		gl_pnlDonut.setHorizontalGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlDonut
 				.createSequentialGroup()
 				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_pnlDonut.createSequentialGroup().addGap(41).addComponent(lblXCC))
+						.addGroup(gl_pnlDonut.createSequentialGroup().addGap(41).addComponent(lblXcenter))
 						.addGroup(gl_pnlDonut.createSequentialGroup().addGap(43)
-								.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addComponent(lblYCC)
+								.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addComponent(lblYcenter)
 										.addGroup(gl_pnlDonut.createParallelGroup(Alignment.TRAILING)
 												.addComponent(lblOutterRadius).addComponent(lblInnerRadius)
 												.addComponent(btnColorIn)))))
 				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlDonut
 						.createSequentialGroup().addGap(77)
 						.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtCentarY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								.addComponent(txtCenterY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCentarX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								.addComponent(txtCenterX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtInnerRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)
@@ -118,11 +101,11 @@ public class DonutDialog extends JDialog {
 
 		gl_pnlDonut.setVerticalGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlDonut
 				.createSequentialGroup().addGap(23)
-				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(lblXCC).addComponent(
-						txtCentarX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(lblXcenter).addComponent(
+						txtCenterX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGap(18)
-				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(lblYCC).addComponent(
-						txtCentarY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(lblYcenter).addComponent(
+						txtCenterY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGap(18)
 				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_pnlDonut.createSequentialGroup().addComponent(lblInnerRadius).addGap(18)
@@ -138,53 +121,64 @@ public class DonutDialog extends JDialog {
 
 		pnlDonut.setLayout(gl_pnlDonut);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			JPanel buttonPanel = new JPanel();
+			buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				okButton = new JButton("Potvrdi");
 
 				okButton.addActionListener(new ActionListener() {
 					@Override
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent event) {
 						try {
-
-							Integer.parseInt(getTxtCentarX());
-							Integer.parseInt(getTxtCentarY());
+							Integer.parseInt(getTxtCentеrX());
+							Integer.parseInt(getTxtCentеrY());
 
 							if (Integer.parseInt(getTxtRadius()) < 0 || Integer.parseInt(getTxtInnerRadius()) < 0) {
-								throw new Exception();
+								JOptionPane.showMessageDialog(new JFrame(),
+										"Neispravan unos. Radijusi moraju biti pozitivni brojevi.", "Greška!",
+										JOptionPane.ERROR_MESSAGE);
 							} else {
 								if (Integer.parseInt(getTxtRadius()) <= Integer.parseInt(getTxtInnerRadius())) {
-									throw new Exception();
+									JOptionPane.showMessageDialog(new JFrame(),
+											"Neispravan unos. Spoljašnji radijus mora biti veći od unutrašnjeg.",
+											"Greška!", JOptionPane.ERROR_MESSAGE);
 								} else {
 									setOk(true);
 								}
 							}
+
 							dispose();
-						} catch (NumberFormatException e1) {
+						} catch (NumberFormatException exception) {
 							JOptionPane.showMessageDialog(new JFrame(),
-									"Neispravan unos podataka.Proverite da li su sva polja popunjena brojnim vrednostima!",
-									"Gre�ka", JOptionPane.WARNING_MESSAGE);
+									"Neispravan unos podataka. Proverite da li su sva polja popunjena brojnim vrednostima!",
+									"Greška", JOptionPane.WARNING_MESSAGE);
 
-						} catch (Exception e1) {
+						} catch (Exception exception) {
 							JOptionPane.showMessageDialog(new JFrame(),
-									"Vrednosti poluprecnika moraju da budu pozitivne! Unutrasnji radius mora da bude manji od spoljasnjeg!",
-									"Gre�ka", JOptionPane.WARNING_MESSAGE);
-
+									"Vrednosti poluprečnika moraju da budu pozitivne! Unutrašnji radijus mora da bude manji od spoljašnjeg!",
+									"Greška", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				});
 
 				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
+				buttonPanel.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Poništi");
+
+				cancelButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent event) {
+						dispose();
+					}
+				});
+
 				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				buttonPanel.add(cancelButton);
 			}
 		}
 	}
@@ -205,36 +199,36 @@ public class DonutDialog extends JDialog {
 		this.colorOut = colorOut;
 	}
 
-	public String getTxtCentarX() {
-		return txtCentarX.getText();
+	public String getTxtCentеrX() {
+		return txtCenterX.getText();
 	}
 
-	public void setTxtCentarX(String txtCentarX) {
-		this.txtCentarX.setText(txtCentarX);
+	public void setTxtCentеrX(String centerX) {
+		txtCenterX.setText(centerX);
 	}
 
-	public String getTxtCentarY() {
-		return txtCentarY.getText();
+	public String getTxtCentеrY() {
+		return txtCenterY.getText();
 	}
 
-	public void setTxtCentarY(String txtCentarY) {
-		this.txtCentarY.setText(txtCentarY);
+	public void setTxtCentеrY(String centerY) {
+		txtCenterY.setText(centerY);
 	}
 
 	public String getTxtInnerRadius() {
 		return txtInnerRadius.getText();
 	}
 
-	public void setTxtInnerRadius(String txtInnerRadius) {
-		this.txtInnerRadius.setText(txtInnerRadius);
+	public void setTxtInnerRadius(String innerRadius) {
+		txtInnerRadius.setText(innerRadius);
 	}
 
 	public String getTxtRadius() {
 		return txtRadius.getText();
 	}
 
-	public void setTxtRadius(String txtRadius) {
-		this.txtRadius.setText(txtRadius);
+	public void setTxtRadius(String radius) {
+		txtRadius.setText(radius);
 	}
 
 	public boolean isOk() {
@@ -245,19 +239,27 @@ public class DonutDialog extends JDialog {
 		this.isOk = isOk;
 	}
 
-	public void setTxtCentarXEditable(boolean b) {
-		this.txtCentarX.setEditable(b);
+	public void setTxtCenterXeditable(boolean value) {
+		txtCenterX.setEditable(value);
 	}
 
-	public void setTxtCentarYEditable(boolean b) {
-		this.txtCentarY.setEditable(b);
+	public void setTxtCentеrYеditable(boolean value) {
+		txtCenterY.setEditable(value);
 	}
 
-	public void setTxtRadiusEditable(boolean b) {
-		this.txtRadius.setEditable(b);
+	public void setTxtRadiusEditable(boolean value) {
+		txtRadius.setEditable(value);
 	}
 
-	public void setTxtInnerRadiusXEditable(boolean b) {
-		this.txtInnerRadius.setEditable(b);
+	public void setTxtInnerRadiusXеditable(boolean value) {
+		txtInnerRadius.setEditable(value);
+	}
+
+	public JButton getOkButton() {
+		return okButton;
+	}
+
+	public JButton getCancelButton() {
+		return cancelButton;
 	}
 }

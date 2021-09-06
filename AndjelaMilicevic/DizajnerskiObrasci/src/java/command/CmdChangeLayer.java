@@ -1,7 +1,6 @@
 package command;
 
 import java.io.Serializable;
-
 import geometry.Shape;
 import mvc.DrawingModel;
 
@@ -34,13 +33,5 @@ public class CmdChangeLayer implements Command, Serializable {
 	@Override
 	public String toString() {
 		return "Moved " + shape.toString() + " to layer " + newIndex;
-	}
-
-	public Shape getShape() {
-		return shape;
-	}
-
-	public int getOldIndex() {
-		return oldIndex;
 	}
 }

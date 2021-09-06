@@ -1,13 +1,11 @@
 package command;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.awt.Color;
 
-import geometry.Point;
-import geometry.Shape;
+import org.junit.*;
+import geometry.*;
 import mvc.DrawingModel;
 
 public class CmdDeleteTests {
@@ -18,16 +16,17 @@ public class CmdDeleteTests {
 	@Before
 	public void setUp() {
 		model = new DrawingModel();
-		shape = new Point(1, 2);
+		shape = new Point(1, 2, false, Color.BLACK);
 		model.addShape(shape);
 		cmdDelete = new CmdDelete(shape, model);
 	}
 
-//	@Test
-//	public void testExecuteListEmpty() {
-//		cmdDelete.execute();
-//		assertFalse(model.getShapes().contains(shape));
-//	}
+	@Test
+	public void testExecuteListEmpty() {
+		model.removeShape(shape);
+		cmdDelete.execute();
+		assertFalse(model.getShapes().contains(shape));
+	}
 
 	@Test
 	public void testExecute() {
@@ -46,5 +45,11 @@ public class CmdDeleteTests {
 		cmdDelete.execute();
 		cmdDelete.unexecute();
 		assertTrue(model.getShapes().contains(shape));
+	}
+
+	@Test
+	public void testToString() {
+		cmdDelete.execute();
+		assertEquals("Deleted " + shape.toString(), cmdDelete.toString());
 	}
 }

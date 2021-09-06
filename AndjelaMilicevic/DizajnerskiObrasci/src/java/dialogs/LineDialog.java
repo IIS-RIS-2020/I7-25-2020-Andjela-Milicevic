@@ -1,22 +1,9 @@
 package dialogs;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.GroupLayout;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 public class LineDialog extends JDialog {
@@ -28,23 +15,19 @@ public class LineDialog extends JDialog {
 	private JTextField txtEndY;
 	private boolean isOk;
 	private Color colorLine;
+	private JButton okButton;
+	private JButton cancelButton;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	public static void main(String[] arguments) {
 		try {
 			LineDialog dialog = new LineDialog();
 			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public LineDialog() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -52,10 +35,10 @@ public class LineDialog extends JDialog {
 		this.setModal(true);
 		getContentPane().add(pnlLine, BorderLayout.CENTER);
 
-		JLabel lblXKoordinataPoetne = new JLabel("X koordinata pocetne tacke ");
-		JLabel lblYKoordinataPoetne = new JLabel("Y koordinata pocetne tacke");
-		JLabel lblXKoordinataKrajnje = new JLabel("X koordinata krajnje tacke");
-		JLabel lblYKoordinataKranje = new JLabel("Y koordinata krajnje tacke");
+		JLabel lblXcoordinateStart = new JLabel("X koordinata početne tačke");
+		JLabel lblYcoordinateStart = new JLabel("Y koordinata početne tačke");
+		JLabel lblXcoordinateEnd = new JLabel("X koordinata krajnje tačke");
+		JLabel lblYcoordinateEnd = new JLabel("Y koordinata krajnje tačke");
 
 		txtStartX = new JTextField();
 		txtStartX.setColumns(10);
@@ -69,13 +52,12 @@ public class LineDialog extends JDialog {
 		txtEndY = new JTextField();
 		txtEndY.setColumns(10);
 
-		JButton btnNewButton = new JButton("Izaberi boju");
+		JButton btnColor = new JButton("Izaberite boju");
 
-		btnNewButton.addActionListener(new ActionListener() {
+		btnColor.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				colorLine = JColorChooser.showDialog(null, "Izaberite boju linije", null);
-
 			}
 		});
 
@@ -86,52 +68,52 @@ public class LineDialog extends JDialog {
 						gl_pnlLine.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_pnlLine.createSequentialGroup().addGap(53)
 										.addGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblXKoordinataPoetne).addComponent(lblYKoordinataPoetne)
-												.addComponent(lblXKoordinataKrajnje).addComponent(lblYKoordinataKranje))
+												.addComponent(lblXcoordinateStart).addComponent(lblYcoordinateStart)
+												.addComponent(lblXcoordinateEnd).addComponent(lblYcoordinateEnd))
 										.addGap(46)
-										.addGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING)
-												.addComponent(btnNewButton)
-												.addComponent(txtEndY, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtEndX, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtStartY, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtStartX, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(
+												gl_pnlLine.createParallelGroup(Alignment.LEADING).addComponent(btnColor)
+														.addComponent(txtEndY, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(txtEndX, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(txtStartY, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(txtStartX, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addContainerGap(94, Short.MAX_VALUE)));
 
 		gl_pnlLine.setVerticalGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pnlLine.createSequentialGroup().addGap(26)
-						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblXKoordinataPoetne)
+						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblXcoordinateStart)
 								.addComponent(txtStartX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
-						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblYKoordinataPoetne)
+						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblYcoordinateStart)
 								.addComponent(txtStartY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
-						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblXKoordinataKrajnje)
+						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblXcoordinateEnd)
 								.addComponent(txtEndX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
-						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblYKoordinataKranje)
+						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblYcoordinateEnd)
 								.addComponent(txtEndY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
-						.addGap(18).addComponent(btnNewButton).addContainerGap(18, Short.MAX_VALUE)));
+						.addGap(18).addComponent(btnColor).addContainerGap(18, Short.MAX_VALUE)));
 
 		pnlLine.setLayout(gl_pnlLine);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			JPanel buttonPanel = new JPanel();
+			buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				okButton = new JButton("Potvrdi");
 
 				okButton.addActionListener(new ActionListener() {
 					@Override
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent event) {
 						try {
 							Integer.parseInt(getTxtStartX());
 							Integer.parseInt(getTxtStartY());
@@ -139,31 +121,30 @@ public class LineDialog extends JDialog {
 							Integer.parseInt(getTxtEndY());
 							setIsOk(true);
 							dispose();
-						} catch (NumberFormatException e1) {
+						} catch (NumberFormatException exception) {
 							JOptionPane.showMessageDialog(new JFrame(),
-									"Neispravan unos podataka.Proverite da li su sva polja popunjena brojnim vrednostima!",
-									"Gre�ka", JOptionPane.WARNING_MESSAGE);
+									"Neispravan unos podataka. Proverite da li su sva polja popunjena brojnim vrednostima!",
+									"Greška", JOptionPane.WARNING_MESSAGE);
 						}
-
 					}
 				});
 
 				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
+				buttonPanel.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Poništi");
 
 				cancelButton.addActionListener(new ActionListener() {
 					@Override
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent event) {
 						dispose();
 					}
 				});
 
 				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				buttonPanel.add(cancelButton);
 			}
 		}
 	}
@@ -172,8 +153,8 @@ public class LineDialog extends JDialog {
 		return txtStartX.getText();
 	}
 
-	public void setTxtStartX(String txtStartX) {
-		this.txtStartX.setText(txtStartX);
+	public void setTxtStartX(String startX) {
+		txtStartX.setText(startX);
 	}
 
 	public String getTxtStartY() {
@@ -181,23 +162,23 @@ public class LineDialog extends JDialog {
 	}
 
 	public void setTxtStartY(String txStartY) {
-		this.txtStartY.setText(txStartY);
+		txtStartY.setText(txStartY);
 	}
 
 	public String getTxtEndX() {
 		return txtEndX.getText();
 	}
 
-	public void setTxtEndX(String txtEndX) {
-		this.txtEndX.setText(txtEndX);
+	public void setTxtEndX(String endX) {
+		txtEndX.setText(endX);
 	}
 
 	public String getTxtEndY() {
 		return txtEndY.getText();
 	}
 
-	public void setTxtEndY(String txtEndY) {
-		this.txtEndY.setText(txtEndY);
+	public void setTxtEndY(String endY) {
+		txtEndY.setText(endY);
 	}
 
 	public boolean isOk() {
@@ -212,24 +193,31 @@ public class LineDialog extends JDialog {
 		return colorLine;
 	}
 
-	public void setTxtStartXEditable(boolean b) {
-		this.txtStartX.setEditable(b);
+	public void setTxtStartXeditable(boolean value) {
+		txtStartX.setEditable(value);
 	}
 
-	public void setTxtStartYEditable(boolean b) {
-		this.txtStartY.setEditable(b);
+	public void setTxtStartYeditable(boolean value) {
+		txtStartY.setEditable(value);
 	}
 
-	public void setTxtEndYXEditable(boolean b) {
-		this.txtEndY.setEditable(b);
+	public void setTxtEndYeditable(boolean value) {
+		txtEndY.setEditable(value);
 	}
 
-	public void setTxtEndXEditable(boolean b) {
-		this.txtEndX.setEditable(b);
+	public void setTxtEndXeditable(boolean value) {
+		txtEndX.setEditable(value);
 	}
 
 	public void setColorLine(Color colorLIne) {
 		this.colorLine = colorLine;
 	}
 
+	public JButton getOkButton() {
+		return okButton;
+	}
+
+	public JButton getCancelButton() {
+		return cancelButton;
+	}
 }

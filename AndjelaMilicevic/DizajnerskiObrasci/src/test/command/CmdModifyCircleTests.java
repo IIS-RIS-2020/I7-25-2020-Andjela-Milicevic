@@ -1,14 +1,9 @@
 package command;
 
+import org.junit.*;
+import geometry.*;
 import static org.junit.Assert.assertEquals;
-
 import java.awt.Color;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import geometry.Circle;
-import geometry.Point;
 
 public class CmdModifyCircleTests {
 	private Circle oldState;

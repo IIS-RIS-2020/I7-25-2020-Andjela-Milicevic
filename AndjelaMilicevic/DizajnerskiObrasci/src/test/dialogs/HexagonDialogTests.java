@@ -1,16 +1,32 @@
 package dialogs;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import org.junit.*;
 
 public class HexagonDialogTests {
+	private HexagonDialog dialogHexagon;
+	private HexagonDialog dialogHexagonMock;
+
 	@Before
 	public void setUp() {
-
+		dialogHexagon = new HexagonDialog();
+		dialogHexagonMock = spy(HexagonDialog.class);
 	}
 
 	@Test
-	public void test() {
+	public void testBtnOkClicked() {
+		dialogHexagon.setTxtCenterX("1");
+		dialogHexagon.setTxtCenterY("2");
+		dialogHexagon.setTxtRadius("3");
+		dialogHexagon.getOkButton().doClick();
+		assertTrue(dialogHexagon.isOk());
+		assertFalse(dialogHexagon.isVisible());
+	}
 
+	@Test
+	public void testBtnCancelClicked() {
+		dialogHexagonMock.getCancelButton().doClick();
+		verify(dialogHexagonMock).dispose();
 	}
 }

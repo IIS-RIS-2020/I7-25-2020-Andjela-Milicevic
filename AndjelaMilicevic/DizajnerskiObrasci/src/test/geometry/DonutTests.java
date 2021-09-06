@@ -1,18 +1,10 @@
 package geometry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import java.awt.*;
+import org.junit.*;
+import java.awt.geom.*;
 
 public class DonutTests {
 	private Graphics2D graphics;
@@ -121,10 +113,9 @@ public class DonutTests {
 			selected = "unselected";
 		}
 
-		assertEquals(
-				"Donut:(" + donut.getCenter().getXcoordinate() + "," + donut.getCenter().getYcoordinate() + ")"
-						+ " outerRadius:" + donut.getRadius() + ", innerRadius:" + donut.getInnerRadius() + ", " + "BorderColor("
-						+ donut.getBorderColor().getRGB() + "), FillColor(" + donut.getAreaColor().getRGB() + "), " +selected,
-				donut.toString());
+		assertEquals("Donut:(" + donut.getCenter().getXcoordinate() + "," + donut.getCenter().getYcoordinate() + ")"
+				+ " outerRadius:" + donut.getRadius() + ", innerRadius:" + donut.getInnerRadius() + ", "
+				+ "BorderColor(" + donut.getBorderColor().getRGB() + "), FillColor(" + donut.getAreaColor().getRGB()
+				+ "), " + selected, donut.toString());
 	}
 }

@@ -1,9 +1,8 @@
 package mvc;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
-public class DrawingApplicationTests {
+public class DrawingControllerTests {
 	@Before
 	public void setUp() {
 

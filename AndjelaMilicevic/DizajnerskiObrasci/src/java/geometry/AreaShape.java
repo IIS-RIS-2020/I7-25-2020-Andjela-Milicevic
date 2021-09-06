@@ -1,9 +1,8 @@
 package geometry;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
-public abstract class AreaShape extends Shape {
+abstract class AreaShape extends Shape {
 	private static final long serialVersionUID = 1L;
 	private Color areaColor;
 

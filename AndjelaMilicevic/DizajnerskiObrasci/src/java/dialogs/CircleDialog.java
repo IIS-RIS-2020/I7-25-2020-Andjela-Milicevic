@@ -1,51 +1,34 @@
 package dialogs;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.GroupLayout;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 public class CircleDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel pnlCircle = new JPanel();
-	private JTextField txtCentarX;
-	private JTextField txtCentarY;
+	private JTextField txtCenterX;
+	private JTextField txtCenterY;
 	private JTextField txtRadius;
 	private Color colorIn;
 	private Color colorOut;
 	private boolean isOk;
+	private JButton okButton;
+	private JButton cancelButton;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	public static void main(String[] arguments) {
 		try {
 			CircleDialog dialog = new CircleDialog();
 			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public CircleDialog() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -53,33 +36,33 @@ public class CircleDialog extends JDialog {
 		getContentPane().add(pnlCircle, BorderLayout.CENTER);
 		this.setModal(true);
 
-		JLabel lblXCC = new JLabel("X koordinata centra");
-		JLabel lblYCC = new JLabel("Y koordinata centra");
-		JLabel lblDuinaPoluprenika = new JLabel("Duzina poluprecnika");
+		JLabel lblXcenter = new JLabel("X koordinata centra");
+		JLabel lblYcenter = new JLabel("Y koordinata centra");
+		JLabel lblRadius = new JLabel("Dužina poluprečnika");
 
-		txtCentarX = new JTextField();
-		txtCentarX.setColumns(10);
+		txtCenterX = new JTextField();
+		txtCenterX.setColumns(10);
 
-		txtCentarY = new JTextField();
-		txtCentarY.setColumns(10);
+		txtCenterY = new JTextField();
+		txtCenterY.setColumns(10);
 
 		txtRadius = new JTextField();
 		txtRadius.setColumns(10);
 
-		JButton btnBoja = new JButton("Boja unutrasnjosti");
+		JButton btnColorIn = new JButton("Boja unutrašnjosti");
 
-		btnBoja.addActionListener(new ActionListener() {
+		btnColorIn.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				colorIn = JColorChooser.showDialog(null, "Izaberite boju", Color.WHITE);
 			}
 		});
 
-		JButton btnBojaIvica = new JButton("Boja ivica");
+		JButton btnColorOut = new JButton("Boja ivice");
 
-		btnBojaIvica.addActionListener(new ActionListener() {
+		btnColorOut.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				colorOut = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 			}
 		});
@@ -89,87 +72,86 @@ public class CircleDialog extends JDialog {
 		gl_pnlCircle.setHorizontalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlCircle
 				.createSequentialGroup().addGap(51)
 				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_pnlCircle.createSequentialGroup().addComponent(btnBoja)
-										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btnBojaIvica))
+						.addGroup(gl_pnlCircle.createSequentialGroup().addComponent(btnColorIn)
+								.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btnColorOut))
 						.addGroup(gl_pnlCircle.createSequentialGroup()
-								.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addComponent(lblXCC)
-										.addComponent(lblYCC).addComponent(lblDuinaPoluprenika))
+								.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addComponent(lblXcenter)
+										.addComponent(lblYcenter).addComponent(lblRadius))
 								.addGap(56)
 								.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
 										.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtCentarY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										.addComponent(txtCenterY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtCentarX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										.addComponent(txtCenterX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE))))
 				.addContainerGap(123, Short.MAX_VALUE)));
+
 		gl_pnlCircle.setVerticalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlCircle
 				.createSequentialGroup().addGap(30)
-				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblXCC).addComponent(
-						txtCentarX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblXcenter).addComponent(
+						txtCenterX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGap(18)
-				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblYCC).addComponent(
-						txtCentarY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblYcenter).addComponent(
+						txtCenterY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGap(34)
-				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblDuinaPoluprenika)
-						.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblRadius).addComponent(
+						txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE).addGroup(gl_pnlCircle
-						.createParallelGroup(Alignment.BASELINE).addComponent(btnBoja).addComponent(btnBojaIvica))
+						.createParallelGroup(Alignment.BASELINE).addComponent(btnColorIn).addComponent(btnColorOut))
 				.addGap(26)));
 
 		pnlCircle.setLayout(gl_pnlCircle);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			JPanel buttonPanel = new JPanel();
+			buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				okButton = new JButton("Potvrdi");
 
 				okButton.addActionListener(new ActionListener() {
 					@Override
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent event) {
 						try {
 							if (Integer.parseInt(getTxtRadius()) <= 0) {
-								throw new Exception();
+								JOptionPane.showMessageDialog(new JFrame(),
+										"Neispravan unos. Poluprečnik mora biti pozitivan broj.", "Greška!",
+										JOptionPane.ERROR_MESSAGE);
 							} else {
-								Integer.parseInt(getTxtCentarX());
-								Integer.parseInt(getTxtCentarY());
+								Integer.parseInt(getTxtCenterX());
+								Integer.parseInt(getTxtCenterY());
 								setIsOk(true);
 							}
 
 							dispose();
-						} catch (NumberFormatException e1) {
+						} catch (NumberFormatException exception) {
 							JOptionPane.showMessageDialog(new JFrame(),
-									"Neispravan unos podataka.Proverite da li su sva polja popunjena brojnim vrednostima!!",
-									"Gre�ka", JOptionPane.WARNING_MESSAGE);
-						} catch (Exception e1) {
-							JOptionPane.showMessageDialog(new JFrame(), "Vrednost poluprecnika mora da bude pozitivna!",
-									"Gre�ka", JOptionPane.WARNING_MESSAGE);
+									"Neispravan unos podataka.Proverite da li su sva polja popunjena brojnim vrednostima!",
+									"Greška", JOptionPane.WARNING_MESSAGE);
+						} catch (Exception exception) {
+							JOptionPane.showMessageDialog(new JFrame(), "Vrednost poluprečnika mora da bude pozitivna!",
+									"Greška", JOptionPane.WARNING_MESSAGE);
 						}
 					}
-
 				});
 
 				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
+				buttonPanel.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Poništi");
 
 				cancelButton.addActionListener(new ActionListener() {
 					@Override
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent event) {
 						dispose();
 					}
-
 				});
 
 				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				buttonPanel.add(cancelButton);
 			}
 		}
 	}
@@ -194,45 +176,51 @@ public class CircleDialog extends JDialog {
 		this.isOk = isOk;
 	}
 
-	public boolean getisOk() {
+	public boolean isOk() {
 		return isOk;
 	}
 
-	public String getTxtCentarX() {
-		return txtCentarX.getText();
+	public String getTxtCenterX() {
+		return txtCenterX.getText();
 	}
 
-	public void setTxtCentarX(String txtCentarX) {
-		this.txtCentarX.setText(txtCentarX);
+	public void setTxtCenterX(String centerX) {
+		txtCenterX.setText(centerX);
 	}
 
-	public String getTxtCentarY() {
-		return txtCentarY.getText();
+	public String getTxtCenterY() {
+		return txtCenterY.getText();
 	}
 
-	public void setTxtCentarY(String txtCentarY) {
-		this.txtCentarY.setText(txtCentarY);
-
+	public void setTxtCenterY(String centerY) {
+		txtCenterY.setText(centerY);
 	}
 
 	public String getTxtRadius() {
 		return txtRadius.getText();
 	}
 
-	public void setTxtRadius(String txtRadius) {
-		this.txtRadius.setText(txtRadius);
-
+	public void setTxtRadius(String radius) {
+		txtRadius.setText(radius);
 	}
 
-	public void setTxtCentarXEditable(boolean b) {
-		this.txtCentarX.setEditable(b);
+	public void setTxtCenterXeditable(boolean value) {
+		txtCenterX.setEditable(value);
 	}
 
-	public void setTxtCentarYEditable(boolean b) {
-		this.txtCentarY.setEditable(b);
+	public void setTxtCenterYeditable(boolean value) {
+		txtCenterY.setEditable(value);
 	}
 
-	public void setTxtRadiusEditable(boolean b) {
-		this.txtRadius.setEditable(b);
+	public void setTxtRadiusEditable(boolean value) {
+		txtRadius.setEditable(value);
+	}
+
+	public JButton getOkButton() {
+		return okButton;
+	}
+
+	public JButton getCancelButton() {
+		return cancelButton;
 	}
 }

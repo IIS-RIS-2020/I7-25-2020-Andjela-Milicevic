@@ -1,30 +1,14 @@
 package mvc;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JToggleButton;
-import javax.swing.JToolBar;
-import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 public class DrawingFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private JPanel contentPanel;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JToolBar toolBar = new JToolBar();
 	private JToolBar southToolbar = new JToolBar();
@@ -50,8 +34,8 @@ public class DrawingFrame extends JFrame {
 	private JToggleButton tglBtnNextLine = new JToggleButton("Next line");
 	private JButton btnAreaColor = new JButton("");
 	private JButton btnBorderColor = new JButton("");
-	private JList<Object> jlistOfCommands = new JList<>();
-	private DefaultListModel<Object> dlm = new DefaultListModel<>();
+	private JList<Object> listOfCommands = new JList<>();
+	private DefaultListModel<Object> listModel = new DefaultListModel<>();
 	private DrawingView view = new DrawingView();
 	private DrawingController controller;
 	private final JScrollPane scrollPane = new JScrollPane();
@@ -62,8 +46,8 @@ public class DrawingFrame extends JFrame {
 		setTitle("Andjela Milicevic I7 25/2020");
 		setBounds(10, 10, 1920, 1080);
 
-		jlistOfCommands.setModel(dlm);
-		scrollPane.setViewportView(jlistOfCommands);
+		listOfCommands.setModel(listModel);
+		scrollPane.setViewportView(listOfCommands);
 
 		buttonGroup.add(tglBtnPoint);
 		toolBar.add(tglBtnPoint);
@@ -92,7 +76,7 @@ public class DrawingFrame extends JFrame {
 
 		tglBtnModify.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent event) {
 				controller.clickedModify();
 			}
 		});
@@ -102,7 +86,7 @@ public class DrawingFrame extends JFrame {
 
 		tglBtnDelete.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent event) {
 				controller.clickedDelete();
 			}
 		});
@@ -114,7 +98,7 @@ public class DrawingFrame extends JFrame {
 
 		tglBtnToBack.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent event) {
 				controller.clickedToBack();
 			}
 		});
@@ -125,7 +109,7 @@ public class DrawingFrame extends JFrame {
 
 		tglBtnBringToBack.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent event) {
 				controller.clickedBringToBack();
 			}
 		});
@@ -136,7 +120,7 @@ public class DrawingFrame extends JFrame {
 
 		tglBtnToFront.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent event) {
 				controller.clickedToFront();
 			}
 		});
@@ -147,14 +131,14 @@ public class DrawingFrame extends JFrame {
 
 		tglBtnBringToTop.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent event) {
 				controller.clickedBringToTop();
 			}
 		});
 
 		tglBtnUndo.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent event) {
 				controller.clickedUndo();
 			}
 		});
@@ -165,7 +149,7 @@ public class DrawingFrame extends JFrame {
 
 		tglBtnRedo.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent event) {
 				controller.clickedRedo();
 			}
 		});
@@ -221,12 +205,12 @@ public class DrawingFrame extends JFrame {
 			}
 		});
 
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		contentPanel = new JPanel();
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPanel);
 		view.setBounds(10, 40, 5000, 5000);
 		view.setBackground(Color.BLUE);
-		contentPane.add(view);
+		contentPanel.add(view);
 
 		GroupLayout gl_panel = new GroupLayout(view);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGap(0, 1273, Short.MAX_VALUE));
@@ -239,14 +223,14 @@ public class DrawingFrame extends JFrame {
 
 		btnAreaColor.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				controller.clickedAreaColor();
 			}
 		});
 
-		contentPane.setLayout(new BorderLayout(0, 0));
-		contentPane.add(view);
-		contentPane.add(toolBar, BorderLayout.NORTH);
+		contentPanel.setLayout(new BorderLayout(0, 0));
+		contentPanel.add(view);
+		contentPanel.add(toolBar, BorderLayout.NORTH);
 
 		toolBar.add(tglBtnSave);
 		buttonGroup.add(tglBtnSave);
@@ -258,8 +242,8 @@ public class DrawingFrame extends JFrame {
 			}
 		});
 
-		JLabel lblNewLabel_1 = new JLabel("Area color");
-		southToolbar.add(lblNewLabel_1);
+		JLabel lblAreaColor = new JLabel("Area color");
+		southToolbar.add(lblAreaColor);
 		southToolbar.add(btnBorderColor);
 
 		btnBorderColor.setBackground(Color.BLACK);
@@ -267,41 +251,28 @@ public class DrawingFrame extends JFrame {
 
 		btnBorderColor.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				controller.clickedBorderColor();
 			}
 		});
 
-		contentPane.add(southToolbar, BorderLayout.SOUTH);
+		contentPanel.add(southToolbar, BorderLayout.SOUTH);
 
-		JLabel lblNewLabel = new JLabel("Border color");
-		southToolbar.add(lblNewLabel);
+		JLabel lblBorderColor = new JLabel("Border color");
+		southToolbar.add(lblBorderColor);
 		southToolbar.add(scrollPane);
-
 	}
 
-	void addToDLM(Object object) {
-		dlm.addElement(object);
+	void addToListModel(Object object) {
+		listModel.addElement(object);
 	}
 
 	public DrawingView getView() {
 		return view;
 	}
 
-	public void setView(DrawingView view) {
-		this.view = view;
-	}
-
-	public DrawingController getController() {
-		return controller;
-	}
-
 	public void setDrawingController(DrawingController controller) {
 		this.controller = controller;
-	}
-
-	public DefaultListModel<Object> getDefaultListModel() {
-		return dlm;
 	}
 
 	public boolean getTglBtnPoint() {

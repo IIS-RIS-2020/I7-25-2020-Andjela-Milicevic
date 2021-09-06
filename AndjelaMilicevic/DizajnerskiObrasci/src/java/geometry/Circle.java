@@ -1,15 +1,13 @@
 package geometry;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class Circle extends AreaShape implements Cloneable {
 	private static final long serialVersionUID = 1L;
 	private int radius;
-	private Point center;
+	private Point center = new Point();
 
 	public Circle() {
-		this.center = new Point();
 	}
 
 	public Circle(Point center, int radius) {
@@ -27,10 +25,7 @@ public class Circle extends AreaShape implements Cloneable {
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(getBorderColor());
-
-		graphics.drawOval(this.getCenter().getXcoordinate() - this.getRadius(),
-				this.getCenter().getYcoordinate() - this.getRadius(), this.getRadius() * 2, this.getRadius() * 2);
-
+		graphics.drawOval(center.getXcoordinate() - radius, center.getYcoordinate() - radius, radius * 2, radius * 2);
 		areaShape(graphics);
 
 		if (isSelected()) {
@@ -50,7 +45,7 @@ public class Circle extends AreaShape implements Cloneable {
 	public boolean equals(Object object) {
 		if (object instanceof Circle) {
 			Circle circle = (Circle) object;
-			return center.equals(circle.center) && this.radius == circle.radius;
+			return center.equals(circle.center) && radius == circle.radius;
 		}
 
 		return false;
@@ -61,7 +56,6 @@ public class Circle extends AreaShape implements Cloneable {
 		graphics.setColor(getSelectionColor());
 		int xCoordinate = center.getXcoordinate();
 		int yCoordinate = center.getYcoordinate();
-		int radius = getRadius();
 
 		graphics.drawRect(xCoordinate - SELECT_RECTANGLE_GAP, yCoordinate - SELECT_RECTANGLE_GAP,
 				SELECT_RECTANGLE_SIDE_LENGTH, SELECT_RECTANGLE_SIDE_LENGTH);
@@ -80,8 +74,8 @@ public class Circle extends AreaShape implements Cloneable {
 	}
 
 	@Override
-	public boolean contains(int x, int y) {
-		return center.calculateDistance(x, y) <= radius;
+	public boolean contains(int xCoordinate, int yCoordinate) {
+		return center.calculateDistance(xCoordinate, yCoordinate) <= radius;
 	}
 
 	@Override
@@ -101,9 +95,8 @@ public class Circle extends AreaShape implements Cloneable {
 			selected = "unselected";
 		}
 
-		return "Circle:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ") " + "R:"
-				+ this.getRadius() + ", BC(" + getBorderColor().getRGB() + "), " + "FC(" + getAreaColor().getRGB()
-				+ "), " + selected;
+		return "Circle:(" + center.getXcoordinate() + "," + center.getYcoordinate() + ") " + "R:" + radius + ", BC("
+				+ getBorderColor().getRGB() + "), " + "FC(" + getAreaColor().getRGB() + "), " + selected;
 	}
 
 	@Override
@@ -112,23 +105,24 @@ public class Circle extends AreaShape implements Cloneable {
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Circle) {
-			return (this.radius - ((Circle) o).getRadius());
-		} else
+	public int compareTo(Object object) {
+		if (object instanceof Circle) {
+			return (radius - ((Circle) object).getRadius());
+		} else {
 			return 0;
+		}
 	}
 
 	@Override
 	public void setFields(Shape shape) {
 		if (shape instanceof Circle) {
-			Circle getCircle = (Circle) shape;
-			this.getCenter().setXcoordinate(getCircle.getCenter().getXcoordinate());
-			this.getCenter().setYcoordinate(getCircle.getCenter().getYcoordinate());
-			this.setRadius(getCircle.getRadius());
-			this.setSelected(getCircle.isSelected());
-			this.setBorderColor(getCircle.getBorderColor());
-			this.setAreaColor(getCircle.getAreaColor());
+			Circle circle = (Circle) shape;
+			center.setXcoordinate(circle.getCenter().getXcoordinate());
+			center.setYcoordinate(circle.getCenter().getYcoordinate());
+			radius = circle.getRadius();
+			setSelected(circle.isSelected());
+			setBorderColor(circle.getBorderColor());
+			setAreaColor(circle.getAreaColor());
 		}
 	}
 

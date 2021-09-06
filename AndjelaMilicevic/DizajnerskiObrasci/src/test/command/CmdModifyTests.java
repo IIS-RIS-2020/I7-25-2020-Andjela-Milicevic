@@ -1,8 +1,8 @@
-package mvc;
+package command;
 
 import org.junit.*;
 
-public class DrawingFrameTests {
+public class CmdModifyTests {
 	@Before
 	public void setUp() {
 

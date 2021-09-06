@@ -1,10 +1,7 @@
 package geometry;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
+import java.awt.*;
+import java.awt.geom.*;
 
 public class Donut extends Circle implements Cloneable {
 	private static final long serialVersionUID = 1L;
@@ -17,8 +14,8 @@ public class Donut extends Circle implements Cloneable {
 	}
 
 	public Donut(Point center, int outerRadius, int innerRadius) {
-		setRadius(outerRadius);
 		setCenter(center);
+		setRadius(outerRadius);
 		this.innerRadius = innerRadius;
 	}
 
@@ -31,7 +28,6 @@ public class Donut extends Circle implements Cloneable {
 
 	@Override
 	public void draw(Graphics graphics) {
-		System.out.println("Iscrtavanje donut-a");
 		createDonut();
 		graphics.setColor(getBorderColor());
 		graphics2d = (Graphics2D) graphics;
@@ -43,17 +39,16 @@ public class Donut extends Circle implements Cloneable {
 		}
 	}
 
-	public void createDonut() {
-		Ellipse2D outer = new Ellipse2D.Double(getCenter().getXcoordinate() - getRadius(),
+	void createDonut() {
+		Ellipse2D outerArea = new Ellipse2D.Double(getCenter().getXcoordinate() - getRadius(),
 				getCenter().getYcoordinate() - getRadius(), 2 * getRadius(), 2 * getRadius());
 
-		area = new Area(outer);
+		area = new Area(outerArea);
 
-		Ellipse2D inner = new Ellipse2D.Double(getCenter().getXcoordinate() - innerRadius,
+		Ellipse2D innerArea = new Ellipse2D.Double(getCenter().getXcoordinate() - innerRadius,
 				getCenter().getYcoordinate() - innerRadius, 2 * innerRadius, 2 * innerRadius);
 
-		area.subtract(new Area(inner));
-
+		area.subtract(new Area(innerArea));
 	}
 
 	@Override
@@ -63,9 +58,9 @@ public class Donut extends Circle implements Cloneable {
 	}
 
 	@Override
-	public boolean contains(int x, int y) {
-		double dFromCenter = this.getCenter().calculateDistance(x, y);
-		return (dFromCenter < getRadius() && dFromCenter > this.innerRadius);
+	public boolean contains(int xCoordinate, int yCoordinate) {
+		double distanceFromCenter = getCenter().calculateDistance(xCoordinate, yCoordinate);
+		return distanceFromCenter < getRadius() && distanceFromCenter > innerRadius;
 	}
 
 	@Override
@@ -97,31 +92,31 @@ public class Donut extends Circle implements Cloneable {
 			selected = "unselected";
 		}
 
-		return "Donut:(" + this.getCenter().getXcoordinate() + "," + this.getCenter().getYcoordinate() + ")"
-				+ " outerRadius:" + this.getRadius() + ", innerRadius:" + this.getInnerRadius() + ", " + "BorderColor("
-				+ getBorderColor().getRGB() + "), FillColor(" + getAreaColor().getRGB() + "), " + selected;
+		return "Donut:(" + getCenter().getXcoordinate() + "," + getCenter().getYcoordinate() + ")" + " outerRadius:"
+				+ getRadius() + ", innerRadius:" + innerRadius + ", " + "BorderColor(" + getBorderColor().getRGB()
+				+ "), FillColor(" + getAreaColor().getRGB() + "), " + selected;
 	}
 
-	public double area() {
+	private double area() {
 		return getRadius() * getRadius() * Math.PI - innerRadius * innerRadius * Math.PI;
 	}
 
 	@Override
-	public void moveBy(int xCoordinate, int yCoordinate) {
-		getCenter().moveBy(xCoordinate, yCoordinate);
+	public int compareTo(Object object) {
+		if (object instanceof Donut) {
+			return (int) (((Donut) object).area() - area());
+		} else {
+			return 0;
+		}
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Donut) {
-			return (int) (((Donut) o).area() - this.area());
-		} else
-			return 0;
-	}
+	public void setFields(Shape shape) {
+		super.setFields(shape);
 
-	public void setFields(Donut donut) {
-		super.setFields(donut);
-		this.setInnerRadius(donut.getInnerRadius());
+		if (shape instanceof Donut) {
+			innerRadius = ((Donut) shape).getInnerRadius();
+		}
 	}
 
 	public int getInnerRadius() {

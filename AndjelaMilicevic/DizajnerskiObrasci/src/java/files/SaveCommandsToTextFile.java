@@ -1,13 +1,10 @@
 package files;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Iterator;
-
 import mvc.DrawingController;
 
-public class SaveCommandsToTextFile implements Saving {
+public class SaveCommandsToTextFile implements SavingStrategy {
 	private DrawingController controller;
 
 	public SaveCommandsToTextFile(DrawingController controller) {
@@ -15,18 +12,18 @@ public class SaveCommandsToTextFile implements Saving {
 	}
 
 	@Override
-	public void saveDrawingOrLog(File file) {
+	public void saveFile(File file) {
 		try {
 			PrintWriter writer = new PrintWriter(file);
-			Iterator<String> it = controller.getStringCommandsToWriteToFile().iterator();
+			Iterator<String> iterator = controller.getStringCommandsToWriteToFile().iterator();
 
-			while (it.hasNext()) {
-				writer.println(it.next());
+			while (iterator.hasNext()) {
+				writer.println(iterator.next());
 			}
 
 			writer.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		} catch (FileNotFoundException exception) {
+			exception.printStackTrace();
 		}
 	}
 }

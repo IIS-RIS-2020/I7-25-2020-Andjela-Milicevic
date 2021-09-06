@@ -1,16 +1,9 @@
 package geometry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.awt.Color;
-import java.awt.Graphics;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import java.awt.*;
+import org.junit.*;
 
 import hexagon.Hexagon;
 
@@ -77,9 +70,9 @@ public class HexagonTests {
 			selected = "unselected";
 		}
 
-		assertEquals("Hexagon:(" + hexagonAdapter.getCenter().getXcoordinate() + "," + hexagonAdapter.getCenter().getYcoordinate() + ") "
-				+ "Radius:" + hexagonAdapter.getRadius() + ", BorderColor(" + hexagonAdapter.getBorderColor().getRGB() + "), " + "FillColor("
-				+ hexagonAdapter.getAreaColor().getRGB() + "), " + selected,
-				hexagonAdapter.toString());
+		assertEquals("Hexagon:(" + hexagonAdapter.getCenter().getXcoordinate() + ","
+				+ hexagonAdapter.getCenter().getYcoordinate() + ") " + "Radius:" + hexagonAdapter.getRadius()
+				+ ", BorderColor(" + hexagonAdapter.getBorderColor().getRGB() + "), " + "FillColor("
+				+ hexagonAdapter.getAreaColor().getRGB() + "), " + selected, hexagonAdapter.toString());
 	}
 }

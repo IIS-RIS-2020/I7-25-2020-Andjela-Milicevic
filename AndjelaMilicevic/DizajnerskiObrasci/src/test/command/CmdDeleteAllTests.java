@@ -1,13 +1,8 @@
 package command;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import geometry.Point;
-import geometry.Shape;
+import static org.junit.Assert.*;
+import org.junit.*;
+import geometry.*;
 import mvc.DrawingModel;
 
 public class CmdDeleteAllTests {

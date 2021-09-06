@@ -1,11 +1,9 @@
 package mvc;
 
+import static org.mockito.Mockito.*;
+import org.junit.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import geometry.Point;
 
 public class DrawingViewTests {
@@ -18,13 +16,15 @@ public class DrawingViewTests {
 	public void setUp() {
 		model = new DrawingModel();
 		view = new DrawingView();
+		point = mock(Point.class);
 		model.addShape(point);
 		view.setModel(model);
 		graphics = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB).createGraphics();
 	}
+
 	@Test
 	public void testPaint() {
 		view.paint(graphics);
+		verify(point).draw(graphics);
 	}
-
 }

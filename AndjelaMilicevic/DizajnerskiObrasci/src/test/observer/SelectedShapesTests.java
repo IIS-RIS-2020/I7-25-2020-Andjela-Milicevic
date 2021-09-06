@@ -1,11 +1,7 @@
 package observer;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import org.junit.Before;
-import org.junit.Test;
-
+import static org.mockito.Mockito.*;
+import org.junit.*;
 import geometry.Point;
 
 public class SelectedShapesTests {

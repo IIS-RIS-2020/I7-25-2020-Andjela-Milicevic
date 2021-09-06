@@ -2,19 +2,19 @@ package files;
 
 import java.io.File;
 
-public class SavingManager implements Saving {
-	private Saving saving;
+public class SavingManager implements SavingStrategy {
+	private SavingStrategy saving;
 
-	public SavingManager(Saving saving) {
+	public SavingManager(SavingStrategy saving) {
 		this.saving = saving;
 	}
 
 	@Override
-	public void saveDrawingOrLog(File file) {
-		saving.saveDrawingOrLog(file);
+	public void saveFile(File file) {
+		saving.saveFile(file);
 	}
 
-	public void setSaving(Saving saving) {
+	public void setSaving(SavingStrategy saving) {
 		this.saving = saving;
 	}
 }

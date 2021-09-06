@@ -1,19 +1,15 @@
 package command;
 
 import java.io.Serializable;
-
 import geometry.HexagonAdapter;
-import geometry.Shape;
 
-public class CmdModifyHexagon implements Command, Serializable, CmdModify {
+public class CmdModifyHexagon extends CmdModify implements Command, Serializable {
 	private static final long serialVersionUID = 1L;
-	private HexagonAdapter oldState;
-	private HexagonAdapter newState;
-	private HexagonAdapter originalState = new HexagonAdapter();
 
 	public CmdModifyHexagon(HexagonAdapter oldHex, HexagonAdapter newHex) {
-		this.oldState = oldHex;
-		this.newState = newHex;
+		oldState = oldHex;
+		newState = newHex;
+		originalState = new HexagonAdapter();
 		originalState.setFields(oldState);
 	}
 
@@ -26,45 +22,5 @@ public class CmdModifyHexagon implements Command, Serializable, CmdModify {
 	@Override
 	public void unexecute() {
 		oldState.setFields(originalState);
-	}
-
-	@Override
-	public String toString() {
-		return "Modified " + originalState.toString() + " to " + newState.toString();
-	}
-
-	@Override
-	public Object redo() {
-		if (oldState.isSelected() != newState.isSelected()) {
-			if (newState.isSelected()) {
-				return true;
-			}
-
-			return false;
-		}
-
-		return null;
-	}
-
-	@Override
-	public Object undo() {
-		if (oldState.isSelected() != originalState.isSelected()) {
-			if (originalState.isSelected()) {
-				return true;
-			}
-
-			return false;
-		}
-
-		return null;
-	}
-
-	public Shape getNewState() {
-		return newState;
-	}
-
-	@Override
-	public Shape getOldState() {
-		return oldState;
 	}
 }

@@ -1,7 +1,6 @@
 package geometry;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.io.Serializable;
 
 public abstract class Shape implements Moveable, Comparable<Object>, Serializable {

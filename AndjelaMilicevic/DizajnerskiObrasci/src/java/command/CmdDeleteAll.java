@@ -1,25 +1,21 @@
 package command;
 
+import java.util.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
+//TODO tests
 public class CmdDeleteAll implements Command, Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<CmdDelete> listOfDeleteCommands = new ArrayList<>();
-
-	public CmdDeleteAll() {
-	}
 
 	@Override
 	public void execute() {
 		sortByIndex();
 		CmdDelete deleteCommand;
-		Iterator<CmdDelete> it = listOfDeleteCommands.iterator();
+		Iterator<CmdDelete> iterator = listOfDeleteCommands.iterator();
 
-		while (it.hasNext()) {
-			deleteCommand = it.next();
+		while (iterator.hasNext()) {
+			deleteCommand = iterator.next();
 			deleteCommand.execute();
 		}
 	}
@@ -28,63 +24,63 @@ public class CmdDeleteAll implements Command, Serializable {
 	public void unexecute() {
 		sortByIndex();
 		CmdDelete deleteCommand;
-		Iterator<CmdDelete> it = listOfDeleteCommands.iterator();
+		Iterator<CmdDelete> iterator = listOfDeleteCommands.iterator();
 
-		while (it.hasNext()) {
-			deleteCommand = it.next();
+		while (iterator.hasNext()) {
+			deleteCommand = iterator.next();
 			deleteCommand.unexecute();
 		}
-	}
-
-	public void addDeletedCommand(CmdDelete cmd) {
-		listOfDeleteCommands.add(cmd);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder compositionOfStrings = new StringBuilder("");
-		Iterator<CmdDelete> it = listOfDeleteCommands.iterator();
-		compositionOfStrings.append(it.next().toString());
+		Iterator<CmdDelete> iterator = listOfDeleteCommands.iterator();
+		compositionOfStrings.append(iterator.next().toString());
 
-		while (it.hasNext()) {
+		while (iterator.hasNext()) {
 			compositionOfStrings.append(";");
-			compositionOfStrings.append(it.next().toString());
+			compositionOfStrings.append(iterator.next().toString());
 		}
 
 		return compositionOfStrings.toString();
 	}
 
 	private void sortByIndex() {
-		int i = 0;
+		int index = 0;
 		CmdDelete deleteCommand;
 		CmdDelete[] array = new CmdDelete[listOfDeleteCommands.size()];
-		Iterator<CmdDelete> it = listOfDeleteCommands.iterator();
+		Iterator<CmdDelete> iterator = listOfDeleteCommands.iterator();
 
-		while (it.hasNext()) {
-			deleteCommand = it.next();
-			array[i] = deleteCommand;
-			i++;
+		while (iterator.hasNext()) {
+			deleteCommand = iterator.next();
+			array[index] = deleteCommand;
+			index++;
 		}
 
-		i = 0;
+		index = 0;
 		bubbleSort(array);
 		listOfDeleteCommands.removeAll(listOfDeleteCommands);
 
-		for (; i < array.length; i++) {
-			listOfDeleteCommands.add(array[i]);
+		for (; index < array.length; index++) {
+			listOfDeleteCommands.add(array[index]);
 		}
 	}
 
-	private void bubbleSort(CmdDelete arr[]) {
-		int n = arr.length;
+	private void bubbleSort(CmdDelete array[]) {
+		int length = array.length;
 
-		for (int i = 0; i < n - 1; i++)
-			for (int j = 0; j < n - i - 1; j++)
-				if (arr[j].getIndex() > arr[j + 1].getIndex()) {
-					CmdDelete temp = arr[j];
-					arr[j] = arr[j + 1];
-					arr[j + 1] = temp;
+		for (int i = 0; i < length - 1; i++)
+			for (int j = 0; j < length - i - 1; j++)
+				if (array[j].getIndex() > array[j + 1].getIndex()) {
+					CmdDelete temp = array[j];
+					array[j] = array[j + 1];
+					array[j + 1] = temp;
 				}
+	}
+
+	public void addDeletedCommand(CmdDelete command) {
+		listOfDeleteCommands.add(command);
 	}
 
 	public ArrayList<CmdDelete> getListOfDeleteCommands() {

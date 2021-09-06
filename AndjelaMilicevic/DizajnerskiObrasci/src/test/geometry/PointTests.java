@@ -1,15 +1,9 @@
 package geometry;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.awt.Color;
-import java.awt.Graphics;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import java.awt.*;
+import org.junit.*;
 
 public class PointTests {
 	private Graphics graphics;
@@ -45,7 +39,6 @@ public class PointTests {
 		verify(graphics).setColor(Color.BLUE);
 		verify(graphics).drawRect(xCoordinate - 3, yCoordinate - 3, 6, 6);
 	}
-
 
 	@Test
 	public void testContainsTrueExcepted() {

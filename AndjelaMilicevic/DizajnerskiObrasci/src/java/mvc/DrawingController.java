@@ -6,6 +6,7 @@ import javax.swing.*;
 import command.*;
 import dialogs.*;
 import files.*;
+import frame.DrawingFrame;
 import geometry.*;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -31,8 +32,8 @@ public class DrawingController {
 		this.frame = frame;
 	}
 
-	void mouseClickedOnPanel(MouseEvent e) {
-		if (frame.getTglBtnPoint()) {
+	public void mouseClickedOnPanel(MouseEvent e) {
+		if (frame.getNorthToolbar().getTglBtnPoint()) {
 			PointDialog pd = new PointDialog();
 			pd.setTxtXcoordinate(Integer.toString(e.getX()));
 			pd.setTxtYcoordinate(Integer.toString(e.getY()));
@@ -50,7 +51,7 @@ public class DrawingController {
 			}
 
 			clickedPoint = null;
-		} else if (frame.getTglBtnLine()) {
+		} else if (frame.getNorthToolbar().getTglBtnLine()) {
 			if (clickedPoint == null) {
 				clickedPoint = new Point(e.getX(), e.getY());
 			} else {
@@ -75,7 +76,7 @@ public class DrawingController {
 				clickedPoint = null;
 			}
 
-		} else if (frame.getTglBtnCircle()) {
+		} else if (frame.getNorthToolbar().getTglBtnCircle()) {
 			Point center = new Point(e.getX(), e.getY());
 			CircleDialog cd = new CircleDialog();
 			cd.setTxtXcoordinate(Integer.toString(center.getXcoordinate()));
@@ -94,7 +95,7 @@ public class DrawingController {
 			}
 
 			clickedPoint = null;
-		} else if (frame.getTglBtnRectangle()) {
+		} else if (frame.getNorthToolbar().getTglBtnRectangle()) {
 			Point upperLeft = new Point(e.getX(), e.getY());
 			RectangleDialog rd = new RectangleDialog();
 			rd.setTxtXcoordinate(Integer.toString(upperLeft.getXcoordinate()));
@@ -114,7 +115,7 @@ public class DrawingController {
 			}
 
 			clickedPoint = null;
-		} else if (frame.getTglBtnDonut()) {
+		} else if (frame.getNorthToolbar().getTglBtnDonut()) {
 			Point center = new Point(e.getX(), e.getY());
 			DonutDialog dd = new DonutDialog();
 			dd.setTxtXcoordinate(Integer.toString(center.getXcoordinate()));
@@ -134,7 +135,7 @@ public class DrawingController {
 			}
 
 			clickedPoint = null;
-		} else if (frame.getTglBtnHexagon()) {
+		} else if (frame.getNorthToolbar().getTglBtnHexagon()) {
 			Point center = new Point(e.getX(), e.getY());
 			HexagonDialog hd = new HexagonDialog();
 			hd.setTxtXcoordinate(Integer.toString(center.getXcoordinate()));
@@ -153,7 +154,7 @@ public class DrawingController {
 			}
 
 			clickedPoint = null;
-		} else if (frame.getTglBtnSelected()) {
+		} else if (frame.getNorthToolbar().getTglBtnSelected()) {
 			clickedPoint = null;
 			Iterator<Shape> iterator = model.getShapes().iterator();
 
@@ -179,7 +180,7 @@ public class DrawingController {
 
 	private Color getBorderColor(Color color) {
 		if (color != null) {
-			frame.getBtnBorderColor().setBackground(color);
+			frame.getSouthToolbar().getBtnBorderColor().setBackground(color);
 			this.borderColor = color;
 		}
 
@@ -188,7 +189,7 @@ public class DrawingController {
 
 	private Color getAreaColor(Color color) {
 		if (color != null) {
-			frame.getBtnAreaColor().setBackground(color);
+			frame.getSouthToolbar().getBtnAreaColor().setBackground(color);
 			this.areaColor = color;
 		}
 
@@ -242,27 +243,27 @@ public class DrawingController {
 
 	}
 
-	void clickedUndo() {
+	public void clickedUndo() {
 		if (commandPointerIndex > -2) {
 			if (commandPointer != null && commandPointerIndex > -2) {
 				String command = "Undo " + this.commandPointer.toString();
 				addRemoveSelectedUnexecute(commandPointer);
 				stringCommandsToWriteToFile.add(command);
-				frame.addToListModel(command);
+				frame.getNorthToolbar().addToListModel(command);
 				this.commandPointer.unexecute();
 
 				if (commandPointerIndex != 0) {
 					commandPointer = this.commandList.get(commandPointerIndex - 1);
 					commandPointerIndex--;
 				} else {
-					frame.getBtnUndo().setEnabled(false);
+					frame.getNorthToolbar().getBtnUndo().setEnabled(false);
 					commandPointer = null;
 					commandPointerIndex--;
 				}
 
 				frame.repaint();
-				if (!frame.getBtnRedo().isEnabled()) {
-					frame.getBtnRedo().setEnabled(true);
+				if (!frame.getNorthToolbar().getBtnRedo().isEnabled()) {
+					frame.getNorthToolbar().getBtnRedo().setEnabled(true);
 				}
 			}
 
@@ -314,7 +315,7 @@ public class DrawingController {
 		}
 	}
 
-	void clickedRedo() {
+	public void clickedRedo() {
 		if (commandPointerIndex > -2) {
 			if (commandPointer == null) {
 				commandPointer = commandList.get(0);
@@ -322,11 +323,11 @@ public class DrawingController {
 				addRemoveSelectedExecute(commandPointer);
 				String command = "Redo " + this.commandPointer.toString();
 				stringCommandsToWriteToFile.add(command);
-				frame.addToListModel(command);
+				frame.getNorthToolbar().addToListModel(command);
 				commandPointer.execute();
 
 				if (commandList.size() == 1) {
-					frame.getBtnRedo().setEnabled(false);
+					frame.getNorthToolbar().getBtnRedo().setEnabled(false);
 				}
 			} else {
 				if (commandPointerIndex < this.commandList.size() - 1) {
@@ -334,27 +335,27 @@ public class DrawingController {
 					addRemoveSelectedExecute(commandPointer);
 					String command = "Redo " + this.commandPointer.toString();
 					stringCommandsToWriteToFile.add(command);
-					frame.addToListModel(command);
+					frame.getNorthToolbar().addToListModel(command);
 					commandPointer.execute();
 					commandPointerIndex++;
 				} else if (commandPointerIndex + 1 == commandList.size() - 1) {
-					frame.getBtnRedo().setEnabled(false);
+					frame.getNorthToolbar().getBtnRedo().setEnabled(false);
 					commandPointerIndex++;
 				} else if (commandPointerIndex == commandList.size() - 1) {
-					frame.getBtnRedo().setEnabled(false);
+					frame.getNorthToolbar().getBtnRedo().setEnabled(false);
 				}
 
 			}
 
 			frame.repaint();
 
-			if (!frame.getBtnUndo().isEnabled()) {
-				frame.getBtnUndo().setEnabled(true);
+			if (!frame.getNorthToolbar().getBtnUndo().isEnabled()) {
+				frame.getNorthToolbar().getBtnUndo().setEnabled(true);
 			}
 		}
 	}
 
-	void clickedDelete() {
+	public void clickedDelete() {
 		if (selectedShapes.getNumberOfSelectedShapes() != 0) {
 			if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 				if (JOptionPane.showConfirmDialog(new JFrame(),
@@ -383,7 +384,7 @@ public class DrawingController {
 		}
 	}
 
-	void clickedBringToBack() {
+	public void clickedBringToBack() {
 		if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 
@@ -395,7 +396,7 @@ public class DrawingController {
 		}
 	}
 
-	void clickedBringToTop() {
+	public void clickedBringToTop() {
 		if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 
@@ -407,7 +408,7 @@ public class DrawingController {
 		}
 	}
 
-	void clickedToBack() {
+	public void clickedToBack() {
 		if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 
@@ -420,7 +421,7 @@ public class DrawingController {
 
 	}
 
-	void clickedToFront() {
+	public void clickedToFront() {
 		if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 			int index = model.getShapes().indexOf(selectedShapes.getSelectedShapeByIndex(0));
 
@@ -453,19 +454,19 @@ public class DrawingController {
 
 		String command = cmd.toString();
 		stringCommandsToWriteToFile.add(command);
-		frame.addToListModel(cmd);
+		frame.getNorthToolbar().addToListModel(cmd);
 		cmd.execute();
 		commandList.add(cmd);
 		commandPointer = cmd;
 
-		if (!frame.getBtnUndo().isEnabled()) {
-			frame.getBtnUndo().setEnabled(true);
+		if (!frame.getNorthToolbar().getBtnUndo().isEnabled()) {
+			frame.getNorthToolbar().getBtnUndo().setEnabled(true);
 		}
 
 		frame.repaint();
 	}
 
-	void clickedModify() {
+	public void clickedModify() {
 		if (selectedShapes.getNumberOfSelectedShapes() == 1) {
 			if (selectedShapes.getSelectedShapeByIndex(0) instanceof Point) {
 				Point p = (Point) selectedShapes.getSelectedShapeByIndex(0);
@@ -612,7 +613,7 @@ public class DrawingController {
 		}
 	}
 
-	void clickedSave() {
+	public void clickedSave() {
 		SaveSerializedDrawing ssd = new SaveSerializedDrawing(this);
 		SavingManager sm = new SavingManager(ssd);
 		File file = getFile();
@@ -622,7 +623,7 @@ public class DrawingController {
 		}
 	}
 
-	void clickedSaveFile() {
+	public void clickedSaveFile() {
 		SaveCommandsToTextFile scttf = new SaveCommandsToTextFile(this);
 		SavingManager sm = new SavingManager(scttf);
 		File file = getFile();
@@ -645,14 +646,14 @@ public class DrawingController {
 		return null;
 	}
 
-	void clickedNextLine() {
+	public void clickedNextLine() {
 		if (readLineFromFile < stringCommandsFromFile.size()) {
 			makeCommand(stringCommandsFromFile.get(readLineFromFile));
 			readLineFromFile++;
 		}
 	}
 
-	void clickedOpen() {
+	public void clickedOpen() {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Choose a file");
@@ -682,7 +683,7 @@ public class DrawingController {
 		}
 	}
 
-	void clickedOpenFile() {
+	public void clickedOpenFile() {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new java.io.File("C:\\Users\\andje\\Desktop\\RIS"));
 		fc.setDialogTitle("Choose a file");
@@ -709,24 +710,24 @@ public class DrawingController {
 		}
 	}
 
-	void clickedBorderColor() {
+	public void clickedBorderColor() {
 		Color colorOfBorder = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 
 		if (colorOfBorder != null) {
 			borderColor = colorOfBorder;
 		}
 
-		frame.getBtnBorderColor().setBackground(borderColor);
+		frame.getSouthToolbar().getBtnBorderColor().setBackground(borderColor);
 	}
 
-	void clickedAreaColor() {
+	public void clickedAreaColor() {
 		Color colorOfArea = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
 
 		if (colorOfArea != null) {
 			areaColor = colorOfArea;
 		}
 
-		frame.getBtnAreaColor().setBackground(areaColor);
+		frame.getSouthToolbar().getBtnAreaColor().setBackground(areaColor);
 	}
 
 	private void makeCommand(String line) {

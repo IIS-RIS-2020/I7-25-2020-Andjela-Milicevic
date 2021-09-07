@@ -2,8 +2,8 @@ package observer;
 
 import static org.junit.Assert.*;
 import org.junit.*;
+import frame.DrawingFrame;
 import javax.swing.JToggleButton;
-import mvc.DrawingFrame;
 
 public class ButtonObserverTests {
 	private ButtonObserver buttonObserver;
@@ -18,12 +18,12 @@ public class ButtonObserverTests {
 	@Before
 	public void setUp() {
 		frame = new DrawingFrame();
-		modifyButton = frame.getBtnModify();
-		deleteButton = frame.getBtnDelete();
-		bringToBackButton = frame.getBtnBringToBack();
-		bringToTopButton = frame.getBtnBringToTop();
-		toFrontButton = frame.getBtnToFront();
-		toBackButton = frame.getBtnToBack();
+		modifyButton = frame.getNorthToolbar().getBtnModify();
+		deleteButton = frame.getNorthToolbar().getBtnDelete();
+		bringToBackButton = frame.getNorthToolbar().getBtnBringToBack();
+		bringToTopButton = frame.getNorthToolbar().getBtnBringToTop();
+		toFrontButton = frame.getNorthToolbar().getBtnToFront();
+		toBackButton = frame.getNorthToolbar().getBtnToBack();
 		buttonObserver = new ButtonObserver(frame);
 		buttonObserver.addButton(modifyButton);
 		buttonObserver.addButton(deleteButton);

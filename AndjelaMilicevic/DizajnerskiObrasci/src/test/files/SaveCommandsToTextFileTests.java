@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.util.stream.Collectors;
 import org.junit.rules.TemporaryFolder;
 import command.CmdAdd;
+import frame.DrawingFrame;
 import geometry.Point;
 
 public class SaveCommandsToTextFileTests {

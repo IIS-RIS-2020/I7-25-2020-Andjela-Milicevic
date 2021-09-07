@@ -2,7 +2,8 @@ package observer;
 
 import java.util.*;
 import javax.swing.JToggleButton;
-import mvc.DrawingFrame;
+
+import frame.DrawingFrame;
 
 public class ButtonObserver implements Observer {
 	private ArrayList<JToggleButton> buttons = new ArrayList<>();
@@ -42,12 +43,14 @@ public class ButtonObserver implements Observer {
 		while (iterator.hasNext()) {
 			JToggleButton button = iterator.next();
 
-			if (button.equals(frame.getBtnModify())) {
+			if (button.equals(frame.getNorthToolbar().getBtnModify())) {
 				button.setEnabled(true);
-			} else if (button.equals(frame.getBtnDelete())) {
+			} else if (button.equals(frame.getNorthToolbar().getBtnDelete())) {
 				button.setEnabled(true);
-			} else if (button.equals(frame.getBtnBringToBack()) || button.equals(frame.getBtnBringToTop())
-					|| button.equals(frame.getBtnToFront()) || button.equals(frame.getBtnToBack())) {
+			} else if (button.equals(frame.getNorthToolbar().getBtnBringToBack())
+					|| button.equals(frame.getNorthToolbar().getBtnBringToTop())
+					|| button.equals(frame.getNorthToolbar().getBtnToFront())
+					|| button.equals(frame.getNorthToolbar().getBtnToBack())) {
 				button.setEnabled(true);
 			}
 		}
@@ -59,12 +62,14 @@ public class ButtonObserver implements Observer {
 		while (iterator.hasNext()) {
 			JToggleButton button = iterator.next();
 
-			if (button.equals(frame.getBtnModify())) {
+			if (button.equals(frame.getNorthToolbar().getBtnModify())) {
 				button.setEnabled(false);
-			} else if (button.equals(frame.getBtnDelete())) {
+			} else if (button.equals(frame.getNorthToolbar().getBtnDelete())) {
 				button.setEnabled(true);
-			} else if (button.equals(frame.getBtnBringToBack()) || button.equals(frame.getBtnBringToTop())
-					|| button.equals(frame.getBtnToFront()) || button.equals(frame.getBtnToBack())) {
+			} else if (button.equals(frame.getNorthToolbar().getBtnBringToBack())
+					|| button.equals(frame.getNorthToolbar().getBtnBringToTop())
+					|| button.equals(frame.getNorthToolbar().getBtnToFront())
+					|| button.equals(frame.getNorthToolbar().getBtnToBack())) {
 				button.setEnabled(false);
 			}
 		}

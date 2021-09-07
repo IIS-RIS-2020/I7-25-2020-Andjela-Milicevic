@@ -5,7 +5,7 @@ import java.util.ListIterator;
 import javax.swing.JPanel;
 import geometry.Shape;
 
-class DrawingView extends JPanel {
+public class DrawingView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private DrawingModel model = new DrawingModel();
 

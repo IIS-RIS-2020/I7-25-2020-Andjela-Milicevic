@@ -5,6 +5,8 @@ import org.junit.*;
 import mvc.*;
 import static org.junit.Assert.assertEquals;
 import org.junit.rules.TemporaryFolder;
+
+import frame.DrawingFrame;
 import geometry.Point;
 
 public class SaveSerializedDrawingTests {

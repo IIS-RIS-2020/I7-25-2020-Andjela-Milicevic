@@ -1,6 +1,8 @@
 package mvc;
 
 import javax.swing.WindowConstants;
+
+import frame.DrawingFrame;
 import observer.ButtonObserver;
 
 public class DrawingApplication {
@@ -15,12 +17,12 @@ public class DrawingApplication {
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		ButtonObserver observer = new ButtonObserver(frame);
-		observer.addButton(frame.getBtnDelete());
-		observer.addButton(frame.getBtnModify());
-		observer.addButton(frame.getBtnBringToBack());
-		observer.addButton(frame.getBtnBringToTop());
-		observer.addButton(frame.getBtnToBack());
-		observer.addButton(frame.getBtnToFront());
+		observer.addButton(frame.getNorthToolbar().getBtnDelete());
+		observer.addButton(frame.getNorthToolbar().getBtnModify());
+		observer.addButton(frame.getNorthToolbar().getBtnBringToBack());
+		observer.addButton(frame.getNorthToolbar().getBtnBringToTop());
+		observer.addButton(frame.getNorthToolbar().getBtnToBack());
+		observer.addButton(frame.getNorthToolbar().getBtnToFront());
 		controller.getCollectionOfSelectedShapes().addObserver(observer);
 	}
 }

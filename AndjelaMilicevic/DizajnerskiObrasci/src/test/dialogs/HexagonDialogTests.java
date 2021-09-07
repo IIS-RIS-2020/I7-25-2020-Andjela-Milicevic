@@ -16,8 +16,8 @@ public class HexagonDialogTests {
 
 	@Test
 	public void testBtnOkClicked() {
-		dialogHexagon.setTxtCenterX("1");
-		dialogHexagon.setTxtCenterY("2");
+		dialogHexagon.setTxtXcoordinate("1");
+		dialogHexagon.setTxtYcoordinate("2");
 		dialogHexagon.setTxtRadius("3");
 		dialogHexagon.getOkButton().doClick();
 		assertTrue(dialogHexagon.isOk());

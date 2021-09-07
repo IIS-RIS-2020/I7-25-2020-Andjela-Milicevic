@@ -16,8 +16,8 @@ public class PointDialogTests {
 
 	@Test
 	public void testBtnOkClicked() {
-		dialogPoint.setTxtCoordinateX("1");
-		dialogPoint.setTxtCoordinateY("2");
+		dialogPoint.setTxtXcoordinate("1");
+		dialogPoint.setTxtYcoordinate("2");
 		dialogPoint.getOkButton().doClick();
 		assertTrue(dialogPoint.isOk());
 		assertFalse(dialogPoint.isVisible());

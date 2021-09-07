@@ -16,8 +16,8 @@ public class LineDialogTests {
 
 	@Test
 	public void testBtnOkClicked() {
-		dialogLine.setTxtStartX("1");
-		dialogLine.setTxtStartY("2");
+		dialogLine.setTxtXcoordinate("1");
+		dialogLine.setTxtYcoordinate("2");
 		dialogLine.setTxtEndX("3");
 		dialogLine.setTxtEndY("2");
 		dialogLine.getOkButton().doClick();

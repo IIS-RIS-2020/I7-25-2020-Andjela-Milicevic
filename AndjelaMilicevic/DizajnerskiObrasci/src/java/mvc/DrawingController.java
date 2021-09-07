@@ -34,8 +34,8 @@ public class DrawingController {
 	void mouseClickedOnPanel(MouseEvent e) {
 		if (frame.getTglBtnPoint()) {
 			PointDialog pd = new PointDialog();
-			pd.setTxtCoordinateX(Integer.toString(e.getX()));
-			pd.setTxtCoordinateY(Integer.toString(e.getY()));
+			pd.setTxtXcoordinate(Integer.toString(e.getX()));
+			pd.setTxtYcoordinate(Integer.toString(e.getY()));
 			pd.setTxtCoordinateXeditable(false);
 			pd.setTxtCoordinateYeditable(false);
 			pd.setVisible(true);
@@ -44,7 +44,7 @@ public class DrawingController {
 				clickedPoint = new Point();
 				clickedPoint.setXcoordinate(e.getX());
 				clickedPoint.setYcoordinate(e.getY());
-				clickedPoint.setBorderColor(getBorderColor(pd.getColor()));
+				clickedPoint.setBorderColor(getBorderColor(pd.getBorderColor()));
 				CmdAdd cmd = new CmdAdd(clickedPoint, model);
 				executeCommand(cmd);
 			}
@@ -56,18 +56,18 @@ public class DrawingController {
 			} else {
 				Line l = new Line(clickedPoint, new Point(e.getX(), e.getY()));
 				LineDialog ld = new LineDialog();
-				ld.setTxtStartXeditable(false);
-				ld.setTxtStartYeditable(false);
+				ld.setTxtCoordinateXeditable(false);
+				ld.setTxtCoordinateYeditable(false);
 				ld.setTxtEndXeditable(false);
 				ld.setTxtEndYeditable(false);
-				ld.setTxtStartX(Integer.toString(l.getStartPoint().getXcoordinate()));
-				ld.setTxtStartY(Integer.toString(l.getStartPoint().getYcoordinate()));
+				ld.setTxtXcoordinate(null);
+				ld.setTxtYcoordinate(null);
 				ld.setTxtEndX(Integer.toString(l.getEndPoint().getXcoordinate()));
 				ld.setTxtEndY(Integer.toString(l.getEndPoint().getYcoordinate()));
 				ld.setVisible(true);
 
 				if (ld.isOk()) {
-					l.setBorderColor(getBorderColor(ld.getColorLine()));
+					l.setBorderColor(getBorderColor(ld.getBorderColor()));
 					CmdAdd cmd = new CmdAdd(l, model);
 					executeCommand(cmd);
 				}
@@ -78,17 +78,17 @@ public class DrawingController {
 		} else if (frame.getTglBtnCircle()) {
 			Point center = new Point(e.getX(), e.getY());
 			CircleDialog cd = new CircleDialog();
-			cd.setTxtCenterX(Integer.toString(center.getXcoordinate()));
-			cd.setTxtCenterY(Integer.toString(center.getYcoordinate()));
-			cd.setTxtCenterXeditable(false);
-			cd.setTxtCenterYeditable(false);
+			cd.setTxtXcoordinate(Integer.toString(center.getXcoordinate()));
+			cd.setTxtYcoordinate(Integer.toString(center.getYcoordinate()));
+			cd.setTxtCoordinateXeditable(false);
+			cd.setTxtCoordinateYeditable(false);
 			cd.setVisible(true);
 
 			if (cd.isOk()) {
 				int radius = Integer.parseInt(cd.getTxtRadius());
 				Circle c = new Circle(center, radius);
-				c.setAreaColor(getAreaColor(cd.getColorIn()));
-				c.setBorderColor(getBorderColor(cd.getColorOut()));
+				c.setAreaColor(getAreaColor(cd.getBorderColor()));
+				c.setBorderColor(getBorderColor(cd.getAreaColor()));
 				CmdAdd cmd = new CmdAdd(c, model);
 				executeCommand(cmd);
 			}
@@ -99,16 +99,16 @@ public class DrawingController {
 			RectangleDialog rd = new RectangleDialog();
 			rd.setTxtXcoordinate(Integer.toString(upperLeft.getXcoordinate()));
 			rd.setTxtYcoordinate(Integer.toString(upperLeft.getYcoordinate()));
-			rd.setTxtCoordXeditable(false);
-			rd.setTxtCoordYeditable(false);
+			rd.setTxtCoordinateXeditable(false);
+			rd.setTxtCoordinateYeditable(false);
 			rd.setVisible(true);
 
 			if (rd.isOk()) {
 				int height = Integer.parseInt(rd.getTxtHeight());
 				int width = Integer.parseInt(rd.getTxtWidth());
 				Rectangle rect = new Rectangle(upperLeft, width, height);
-				rect.setAreaColor(getAreaColor(rd.getColorIn()));
-				rect.setBorderColor(getBorderColor(rd.getColorOut()));
+				rect.setAreaColor(getAreaColor(rd.getBorderColor()));
+				rect.setBorderColor(getBorderColor(rd.getAreaColor()));
 				CmdAdd cmd = new CmdAdd(rect, model);
 				executeCommand(cmd);
 			}
@@ -117,18 +117,18 @@ public class DrawingController {
 		} else if (frame.getTglBtnDonut()) {
 			Point center = new Point(e.getX(), e.getY());
 			DonutDialog dd = new DonutDialog();
-			dd.setTxtCentеrX(Integer.toString(center.getXcoordinate()));
-			dd.setTxtCentеrY(Integer.toString(center.getYcoordinate()));
-			dd.setTxtCenterXeditable(false);
-			dd.setTxtCentеrYеditable(false);
+			dd.setTxtXcoordinate(Integer.toString(center.getXcoordinate()));
+			dd.setTxtYcoordinate(Integer.toString(center.getYcoordinate()));
+			dd.setTxtCoordinateXeditable(false);
+			dd.setTxtCoordinateYeditable(false);
 			dd.setVisible(true);
 
 			if (dd.isOk()) {
 				int radius = Integer.parseInt(dd.getTxtRadius());
 				int innerRadius = Integer.parseInt(dd.getTxtInnerRadius());
 				Donut d = new Donut(center, radius, innerRadius);
-				d.setBorderColor(getBorderColor(dd.getColorOut()));
-				d.setAreaColor(getAreaColor(dd.getColorIn()));
+				d.setBorderColor(getBorderColor(dd.getAreaColor()));
+				d.setAreaColor(getAreaColor(dd.getAreaColor()));
 				CmdAdd cmd = new CmdAdd(d, model);
 				executeCommand(cmd);
 			}
@@ -137,17 +137,17 @@ public class DrawingController {
 		} else if (frame.getTglBtnHexagon()) {
 			Point center = new Point(e.getX(), e.getY());
 			HexagonDialog hd = new HexagonDialog();
-			hd.setTxtCenterX(Integer.toString(center.getXcoordinate()));
-			hd.setTxtCenterY(Integer.toString(center.getYcoordinate()));
-			hd.setTxtCenterXeditable(false);
-			hd.setTxtCenterYeditable(false);
+			hd.setTxtXcoordinate(Integer.toString(center.getXcoordinate()));
+			hd.setTxtYcoordinate(Integer.toString(center.getYcoordinate()));
+			hd.setTxtCoordinateXeditable(false);
+			hd.setTxtCoordinateYeditable(false);
 			hd.setVisible(true);
 
 			if (hd.isOk()) {
 				int radius = Integer.parseInt(hd.getTxtRadius());
 				HexagonAdapter hex = new HexagonAdapter(center, radius);
-				hex.setAreaColor(getAreaColor(hd.getColorIn()));
-				hex.setBorderColor(getBorderColor(hd.getColorOut()));
+				hex.setAreaColor(getAreaColor(hd.getAreaColor()));
+				hex.setBorderColor(getBorderColor(hd.getAreaColor()));
 				CmdAdd cmd = new CmdAdd(hex, model);
 				executeCommand(cmd);
 			}
@@ -470,16 +470,16 @@ public class DrawingController {
 			if (selectedShapes.getSelectedShapeByIndex(0) instanceof Point) {
 				Point p = (Point) selectedShapes.getSelectedShapeByIndex(0);
 				PointDialog pd = new PointDialog();
-				pd.setTxtCoordinateX(Integer.toString(p.getXcoordinate()));
-				pd.setTxtCoordinateY(Integer.toString(p.getYcoordinate()));
-				pd.setColor(p.getBorderColor());
+				pd.setTxtXcoordinate(Integer.toString(p.getXcoordinate()));
+				pd.setTxtYcoordinate(Integer.toString(p.getYcoordinate()));
+				pd.setBorderColor(p.getBorderColor());
 				pd.setVisible(true);
 
 				if (pd.isOk()) {
 					Point newPoint = new Point();
-					newPoint.setXcoordinate(Integer.parseInt(pd.getTxtCoordinateX()));
-					newPoint.setYcoordinate(Integer.parseInt(pd.getTxtCoordinateY()));
-					newPoint.setBorderColor(pd.getColor());
+					newPoint.setXcoordinate(Integer.parseInt(pd.getXcoordinate()));
+					newPoint.setYcoordinate(Integer.parseInt(pd.getYcoordinate()));
+					newPoint.setBorderColor(pd.getBorderColor());
 					newPoint.setSelected(true);
 					CmdModifyPoint cmd = new CmdModifyPoint(p, newPoint);
 					addRemoveSelectedExecute(cmd);
@@ -488,20 +488,20 @@ public class DrawingController {
 			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Line) {
 				Line l = (Line) selectedShapes.getSelectedShapeByIndex(0);
 				LineDialog ld = new LineDialog();
-				ld.setTxtStartX(Integer.toString(l.getStartPoint().getXcoordinate()));
-				ld.setTxtStartY(Integer.toString(l.getStartPoint().getYcoordinate()));
+				ld.setTxtXcoordinate(Integer.toString(l.getStartPoint().getXcoordinate()));
+				ld.setTxtYcoordinate(Integer.toString(l.getStartPoint().getYcoordinate()));
 				ld.setTxtEndX(Integer.toString(l.getEndPoint().getXcoordinate()));
 				ld.setTxtEndY(Integer.toString(l.getEndPoint().getYcoordinate()));
-				ld.setColorLine(l.getBorderColor());
+				ld.setBorderColor(l.getBorderColor());
 				ld.setVisible(true);
 
 				if (ld.isOk()) {
 					Line newLine = new Line();
 					newLine.setStartPoint(
-							new Point(Integer.parseInt(ld.getTxtStartX()), Integer.parseInt(ld.getTxtStartY())));
+							new Point(Integer.parseInt(ld.getXcoordinate()), Integer.parseInt(ld.getYcoordinate())));
 					newLine.setEndPoint(
 							new Point(Integer.parseInt(ld.getTxtEndX()), Integer.parseInt(ld.getTxtEndY())));
-					newLine.setBorderColor(ld.getColorLine());
+					newLine.setBorderColor(ld.getBorderColor());
 					newLine.setSelected(true);
 					CmdModifyLine cmd = new CmdModifyLine(l, newLine);
 					addRemoveSelectedExecute(cmd);
@@ -514,20 +514,20 @@ public class DrawingController {
 				rd.setTxtYcoordinate(Integer.toString(r.getUpperLeftPoint().getYcoordinate()));
 				rd.setTxtHeight(Integer.toString(r.getHeight()));
 				rd.setTxtWidth(Integer.toString(r.getWidth()));
-				rd.setColorIn(r.getAreaColor());
-				rd.setColorOut(r.getBorderColor());
+				rd.setBorderColor(r.getAreaColor());
+				rd.setAreaColor(r.getBorderColor());
 				rd.setVisible(true);
 
 				if (rd.isOk()) {
 					Rectangle newRect = new Rectangle();
 
-					newRect.setUpperLeftPoint(new Point(Integer.parseInt(rd.getTxtXcoordinate()),
-							Integer.parseInt(rd.getTxtYcoordinate())));
+					newRect.setUpperLeftPoint(
+							new Point(Integer.parseInt(rd.getXcoordinate()), Integer.parseInt(rd.getYcoordinate())));
 
 					newRect.setHeight(Integer.parseInt(rd.getTxtHeight()));
 					newRect.setWidth(Integer.parseInt(rd.getTxtWidth()));
-					newRect.setAreaColor(rd.getColorIn());
-					newRect.setBorderColor(rd.getColorOut());
+					newRect.setAreaColor(rd.getBorderColor());
+					newRect.setBorderColor(rd.getAreaColor());
 					newRect.setSelected(true);
 					CmdModifyRectangle cmd = new CmdModifyRectangle(r, newRect);
 					addRemoveSelectedExecute(cmd);
@@ -536,24 +536,24 @@ public class DrawingController {
 			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Donut) {
 				Donut d = (Donut) selectedShapes.getSelectedShapeByIndex(0);
 				DonutDialog dd = new DonutDialog();
-				dd.setTxtCentеrX(Integer.toString(d.getCenter().getXcoordinate()));
-				dd.setTxtCentеrY(Integer.toString(d.getCenter().getYcoordinate()));
+				dd.setTxtXcoordinate(Integer.toString(d.getCenter().getXcoordinate()));
+				dd.setTxtYcoordinate(Integer.toString(d.getCenter().getYcoordinate()));
 				dd.setTxtInnerRadius(Integer.toString(d.getInnerRadius()));
 				dd.setTxtRadius(Integer.toString(d.getRadius()));
-				dd.setColorIn(d.getAreaColor());
-				dd.setColorOut(d.getBorderColor());
+				dd.setAreaColor(d.getAreaColor());
+				dd.setAreaColor(d.getBorderColor());
 				dd.setVisible(true);
 
 				if (dd.isOk()) {
 					Donut newDonut = new Donut();
 
 					newDonut.setCenter(
-							new Point(Integer.parseInt(dd.getTxtCentеrX()), Integer.parseInt(dd.getTxtCentеrY())));
+							new Point(Integer.parseInt(dd.getXcoordinate()), Integer.parseInt(dd.getYcoordinate())));
 
 					newDonut.setRadius(Integer.parseInt(dd.getTxtRadius()));
 					newDonut.setInnerRadius(Integer.parseInt(dd.getTxtInnerRadius()));
-					newDonut.setBorderColor(dd.getColorOut());
-					newDonut.setAreaColor(dd.getColorIn());
+					newDonut.setBorderColor(dd.getAreaColor());
+					newDonut.setAreaColor(dd.getAreaColor());
 					newDonut.setSelected(true);
 					CmdModifyDonut cmd = new CmdModifyDonut(d, newDonut);
 					addRemoveSelectedExecute(cmd);
@@ -562,22 +562,22 @@ public class DrawingController {
 			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof Circle) {
 				Circle c = (Circle) selectedShapes.getSelectedShapeByIndex(0);
 				CircleDialog cd = new CircleDialog();
-				cd.setTxtCenterX(Integer.toString(c.getCenter().getXcoordinate()));
-				cd.setTxtCenterY(Integer.toString(c.getCenter().getYcoordinate()));
+				cd.setTxtXcoordinate(Integer.toString(c.getCenter().getXcoordinate()));
+				cd.setTxtYcoordinate(Integer.toString(c.getCenter().getYcoordinate()));
 				cd.setTxtRadius(Integer.toString(c.getRadius()));
-				cd.setColorIn(c.getAreaColor());
-				cd.setColorOut(c.getBorderColor());
+				cd.setBorderColor(c.getAreaColor());
+				cd.setAreaColor(c.getBorderColor());
 				cd.setVisible(true);
 
 				if (cd.isOk()) {
 					Circle newCircle = new Circle();
 
 					newCircle.setCenter(
-							new Point(Integer.parseInt(cd.getTxtCenterX()), Integer.parseInt(cd.getTxtCenterY())));
+							new Point(Integer.parseInt(cd.getXcoordinate()), Integer.parseInt(cd.getYcoordinate())));
 
 					newCircle.setRadius(Integer.parseInt(cd.getTxtRadius()));
-					newCircle.setAreaColor(cd.getColorIn());
-					newCircle.setBorderColor(cd.getColorOut());
+					newCircle.setAreaColor(cd.getBorderColor());
+					newCircle.setBorderColor(cd.getAreaColor());
 					newCircle.setSelected(true);
 					CmdModifyCircle cmd = new CmdModifyCircle(c, newCircle);
 					addRemoveSelectedExecute(cmd);
@@ -586,21 +586,21 @@ public class DrawingController {
 			} else if (selectedShapes.getSelectedShapeByIndex(0) instanceof HexagonAdapter) {
 				HexagonAdapter h = (HexagonAdapter) selectedShapes.getSelectedShapeByIndex(0);
 				HexagonDialog hd = new HexagonDialog();
-				hd.setTxtCenterX(Integer.toString(h.getCenter().getXcoordinate()));
-				hd.setTxtCenterY(Integer.toString(h.getCenter().getYcoordinate()));
+				hd.setTxtXcoordinate(Integer.toString(h.getCenter().getXcoordinate()));
+				hd.setTxtYcoordinate(Integer.toString(h.getCenter().getYcoordinate()));
 				hd.setTxtRadius(Integer.toString(h.getRadius()));
-				hd.setColorIn(h.getAreaColor());
-				hd.setColorOut(h.getBorderColor());
+				hd.setAreaColor(h.getAreaColor());
+				hd.setAreaColor(h.getBorderColor());
 				hd.setVisible(true);
 
 				if (hd.isOk()) {
-					Point center = new Point(Integer.parseInt(hd.getTxtCenterX()),
-							Integer.parseInt(hd.getTxtCenterY()));
+					Point center = new Point(Integer.parseInt(hd.getXcoordinate()),
+							Integer.parseInt(hd.getYcoordinate()));
 
 					int radius = Integer.parseInt(hd.getTxtRadius());
 					HexagonAdapter newHex = new HexagonAdapter(center, radius);
-					newHex.setAreaColor(hd.getColorIn());
-					newHex.setBorderColor(hd.getColorOut());
+					newHex.setAreaColor(hd.getAreaColor());
+					newHex.setBorderColor(hd.getAreaColor());
 					newHex.setSelected(true);
 					CmdModifyHexagon cmd = new CmdModifyHexagon(h, newHex);
 					addRemoveSelectedExecute(cmd);

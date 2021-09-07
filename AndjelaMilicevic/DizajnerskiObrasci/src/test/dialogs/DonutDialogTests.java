@@ -16,8 +16,8 @@ public class DonutDialogTests {
 
 	@Test
 	public void testBtnOkClicked() {
-		dialogDonut.setTxtCentеrX("1");
-		dialogDonut.setTxtCentеrY("2");
+		dialogDonut.setTxtXcoordinate("1");
+		dialogDonut.setTxtYcoordinate("2");
 		dialogDonut.setTxtRadius("3");
 		dialogDonut.setTxtInnerRadius("2");
 		dialogDonut.getOkButton().doClick();

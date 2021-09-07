@@ -16,8 +16,8 @@ public class CircleDialogTests {
 
 	@Test
 	public void testBtnOkClicked() {
-		dialogCircle.setTxtCenterX("1");
-		dialogCircle.setTxtCenterY("2");
+		dialogCircle.setTxtXcoordinate("1");
+		dialogCircle.setTxtYcoordinate("2");
 		dialogCircle.setTxtRadius("3");
 		dialogCircle.getOkButton().doClick();
 		assertTrue(dialogCircle.isOk());

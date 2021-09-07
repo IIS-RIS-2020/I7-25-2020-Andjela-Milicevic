@@ -7,18 +7,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-public class DonutDialog extends JDialog {
+public class DonutDialog extends SurfaceShapeDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel pnlDonut = new JPanel();
-	private JTextField txtCenterX;
-	private JTextField txtCenterY;
 	private JTextField txtInnerRadius;
 	private JTextField txtRadius;
-	private Color colorIn;
-	private Color colorOut;
-	private boolean isOk;
-	private JButton okButton;
-	private JButton cancelButton;
 
 	public static void main(String[] arguments) {
 		try {
@@ -43,35 +36,11 @@ public class DonutDialog extends JDialog {
 		JLabel lblInnerRadius = new JLabel("Unutrašnji radijus");
 		JLabel lblOutterRadius = new JLabel("Spoljašnji radijus");
 
-		txtCenterX = new JTextField();
-		txtCenterX.setColumns(10);
-
-		txtCenterY = new JTextField();
-		txtCenterY.setColumns(10);
-
 		txtInnerRadius = new JTextField();
 		txtInnerRadius.setColumns(10);
 
 		txtRadius = new JTextField();
 		txtRadius.setColumns(10);
-
-		JButton btnColorIn = new JButton("Boja unutrašnjosti");
-
-		btnColorIn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				colorIn = JColorChooser.showDialog(null, "Izaberite boju", Color.WHITE);
-			}
-		});
-
-		JButton btnColorOut = new JButton("Boja ivice");
-
-		btnColorOut.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				colorOut = JColorChooser.showDialog(null, "Izaberite boju", Color.BLACK);
-			}
-		});
 
 		GroupLayout gl_pnlDonut = new GroupLayout(pnlDonut);
 
@@ -83,29 +52,31 @@ public class DonutDialog extends JDialog {
 								.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addComponent(lblYcenter)
 										.addGroup(gl_pnlDonut.createParallelGroup(Alignment.TRAILING)
 												.addComponent(lblOutterRadius).addComponent(lblInnerRadius)
-												.addComponent(btnColorIn)))))
+												.addComponent(getBtnAreaColor())))))
 				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlDonut
 						.createSequentialGroup().addGap(77)
 						.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtCenterY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								.addComponent(getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCenterX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								.addComponent(getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtInnerRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_pnlDonut.createSequentialGroup().addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(btnColorOut)))
+								.addComponent(btnBorderColor)))
 				.addContainerGap(87, Short.MAX_VALUE)));
 
 		gl_pnlDonut.setVerticalGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlDonut
 				.createSequentialGroup().addGap(23)
 				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(lblXcenter).addComponent(
-						txtCenterX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
 				.addGap(18)
 				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(lblYcenter).addComponent(
-						txtCenterY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
 				.addGap(18)
 				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_pnlDonut.createSequentialGroup().addComponent(lblInnerRadius).addGap(18)
@@ -115,8 +86,9 @@ public class DonutDialog extends JDialog {
 										GroupLayout.PREFERRED_SIZE)
 								.addGap(18).addComponent(txtRadius, GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-				.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE).addGroup(gl_pnlDonut
-						.createParallelGroup(Alignment.BASELINE).addComponent(btnColorIn).addComponent(btnColorOut))
+				.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(getBtnAreaColor())
+						.addComponent(btnBorderColor))
 				.addGap(19)));
 
 		pnlDonut.setLayout(gl_pnlDonut);
@@ -126,14 +98,12 @@ public class DonutDialog extends JDialog {
 
 			getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("Potvrdi");
-
-				okButton.addActionListener(new ActionListener() {
+				getOkButton().addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent event) {
 						try {
-							Integer.parseInt(getTxtCentеrX());
-							Integer.parseInt(getTxtCentеrY());
+							Integer.parseInt(getXcoordinate());
+							Integer.parseInt(getYcoordinate());
 
 							if (Integer.parseInt(getTxtRadius()) < 0 || Integer.parseInt(getTxtInnerRadius()) < 0) {
 								JOptionPane.showMessageDialog(new JFrame(),
@@ -145,7 +115,7 @@ public class DonutDialog extends JDialog {
 											"Neispravan unos. Spoljašnji radijus mora biti veći od unutrašnjeg.",
 											"Greška!", JOptionPane.ERROR_MESSAGE);
 								} else {
-									setOk(true);
+									setIsOk(true);
 								}
 							}
 
@@ -163,56 +133,13 @@ public class DonutDialog extends JDialog {
 					}
 				});
 
-				okButton.setActionCommand("OK");
-				buttonPanel.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				buttonPanel.add(getOkButton());
+				getRootPane().setDefaultButton(getOkButton());
 			}
 			{
-				cancelButton = new JButton("Poništi");
-
-				cancelButton.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent event) {
-						dispose();
-					}
-				});
-
-				cancelButton.setActionCommand("Cancel");
-				buttonPanel.add(cancelButton);
+				buttonPanel.add(getCancelButton());
 			}
 		}
-	}
-
-	public Color getColorIn() {
-		return colorIn;
-	}
-
-	public void setColorIn(Color colorIn) {
-		this.colorIn = colorIn;
-	}
-
-	public Color getColorOut() {
-		return colorOut;
-	}
-
-	public void setColorOut(Color colorOut) {
-		this.colorOut = colorOut;
-	}
-
-	public String getTxtCentеrX() {
-		return txtCenterX.getText();
-	}
-
-	public void setTxtCentеrX(String centerX) {
-		txtCenterX.setText(centerX);
-	}
-
-	public String getTxtCentеrY() {
-		return txtCenterY.getText();
-	}
-
-	public void setTxtCentеrY(String centerY) {
-		txtCenterY.setText(centerY);
 	}
 
 	public String getTxtInnerRadius() {
@@ -231,35 +158,11 @@ public class DonutDialog extends JDialog {
 		txtRadius.setText(radius);
 	}
 
-	public boolean isOk() {
-		return isOk;
-	}
-
-	public void setOk(boolean isOk) {
-		this.isOk = isOk;
-	}
-
-	public void setTxtCenterXeditable(boolean value) {
-		txtCenterX.setEditable(value);
-	}
-
-	public void setTxtCentеrYеditable(boolean value) {
-		txtCenterY.setEditable(value);
-	}
-
 	public void setTxtRadiusEditable(boolean value) {
 		txtRadius.setEditable(value);
 	}
 
 	public void setTxtInnerRadiusXеditable(boolean value) {
 		txtInnerRadius.setEditable(value);
-	}
-
-	public JButton getOkButton() {
-		return okButton;
-	}
-
-	public JButton getCancelButton() {
-		return cancelButton;
 	}
 }

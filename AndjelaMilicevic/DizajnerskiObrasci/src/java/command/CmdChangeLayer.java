@@ -7,15 +7,15 @@ import mvc.DrawingModel;
 public class CmdChangeLayer implements Command, Serializable {
 	private static final long serialVersionUID = 1L;
 	private Shape shape;
-	private int oldIndex;
-	private int newIndex;
 	private DrawingModel model;
+	private int newIndex;
+	private int oldIndex;
 
 	public CmdChangeLayer(Shape shape, DrawingModel model, int newIndex) {
-		oldIndex = model.getShapes().indexOf(shape);
-		this.newIndex = newIndex;
 		this.shape = shape;
 		this.model = model;
+		this.newIndex = newIndex;
+		oldIndex = model.getShapes().indexOf(shape);
 	}
 
 	@Override

@@ -5,9 +5,9 @@ import org.junit.*;
 import geometry.Point;
 
 public class SelectedShapesTests {
-	private SelectedShapes selectedShapes;
 	private Observer firstObserver;
 	private Observer secondObserver;
+	private SelectedShapes selectedShapes;
 
 	@Before
 	public void setUp() {

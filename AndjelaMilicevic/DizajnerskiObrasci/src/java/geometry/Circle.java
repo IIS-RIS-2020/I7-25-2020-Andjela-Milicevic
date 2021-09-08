@@ -4,18 +4,18 @@ import java.awt.*;
 
 public class Circle extends AreaShape implements Cloneable {
 	private static final long serialVersionUID = 1L;
-	private int radius;
 	private Point center = new Point();
+	private int radius;
 
 	public Circle() {
 	}
 
 	public Circle(Point center, int radius) {
-		this.radius = radius;
 		this.center = center;
+		this.radius = radius;
 	}
 
-	public Circle(int radius, Point center, boolean selected, Color borderColor, Color areaColor) {
+	public Circle(Point center, int radius, boolean selected, Color borderColor, Color areaColor) {
 		this(center, radius);
 		setSelected(selected);
 		setBorderColor(borderColor);
@@ -89,7 +89,7 @@ public class Circle extends AreaShape implements Cloneable {
 	public String toString() {
 		String selected;
 
-		if (this.isSelected()) {
+		if (isSelected()) {
 			selected = "selected";
 		} else {
 			selected = "unselected";
@@ -108,9 +108,9 @@ public class Circle extends AreaShape implements Cloneable {
 	public int compareTo(Object object) {
 		if (object instanceof Circle) {
 			return (radius - ((Circle) object).getRadius());
-		} else {
-			return 0;
 		}
+
+		return 0;
 	}
 
 	@Override
@@ -126,19 +126,19 @@ public class Circle extends AreaShape implements Cloneable {
 		}
 	}
 
-	public int getRadius() {
-		return radius;
-	}
-
 	public Point getCenter() {
 		return center;
 	}
 
-	public void setRadius(int radius) {
-		this.radius = radius;
-	}
-
 	public void setCenter(Point center) {
 		this.center = center;
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 }

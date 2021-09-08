@@ -40,40 +40,44 @@ public class LineDialog extends ShapeDialog {
 
 		GroupLayout gl_pnlLine = new GroupLayout(pnlLine);
 
-		gl_pnlLine.setHorizontalGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlLine
-				.createSequentialGroup().addGap(53)
-				.addGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING).addComponent(getLblXCoord())
-						.addComponent(getLblYCoord()).addComponent(lblXcoordinateEnd).addComponent(lblYcoordinateEnd))
-				.addGap(46)
-				.addGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING).addComponent(getBtnBorderColor())
-						.addComponent(txtEndY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtEndX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addContainerGap(94, Short.MAX_VALUE)));
+		gl_pnlLine
+				.setHorizontalGroup(
+						gl_pnlLine.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_pnlLine.createSequentialGroup().addGap(53)
+										.addGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING)
+												.addComponent(getLblXcoordinate()).addComponent(getLblYcoordinate())
+												.addComponent(lblXcoordinateEnd).addComponent(lblYcoordinateEnd))
+										.addGap(46)
+										.addGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING)
+												.addComponent(getBtnBorderColor())
+												.addComponent(txtEndY, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(txtEndX, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addContainerGap(94, Short.MAX_VALUE)));
 
-		gl_pnlLine.setVerticalGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlLine
-				.createSequentialGroup().addGap(26)
-				.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(getLblXCoord()).addComponent(
-						getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(getLblYCoord()).addComponent(
-						getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(gl_pnlLine
-						.createParallelGroup(Alignment.BASELINE).addComponent(lblXcoordinateEnd).addComponent(txtEndX,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblYcoordinateEnd)
-						.addComponent(txtEndY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(18).addComponent(getBtnBorderColor()).addContainerGap(18, Short.MAX_VALUE)));
+		gl_pnlLine.setVerticalGroup(gl_pnlLine.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnlLine.createSequentialGroup().addGap(26)
+						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(getLblXcoordinate())
+								.addComponent(getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(getLblYcoordinate())
+								.addComponent(getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblXcoordinateEnd)
+								.addComponent(txtEndX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(gl_pnlLine.createParallelGroup(Alignment.BASELINE).addComponent(lblYcoordinateEnd)
+								.addComponent(txtEndY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18).addComponent(getBtnBorderColor()).addContainerGap(18, Short.MAX_VALUE)));
 
 		pnlLine.setLayout(gl_pnlLine);
 		{
@@ -125,11 +129,11 @@ public class LineDialog extends ShapeDialog {
 		txtEndY.setText(endY);
 	}
 
-	public void setTxtEndYeditable(boolean value) {
-		txtEndY.setEditable(value);
-	}
-
 	public void setTxtEndXeditable(boolean value) {
 		txtEndX.setEditable(value);
+	}
+
+	public void setTxtEndYeditable(boolean value) {
+		txtEndY.setEditable(value);
 	}
 }

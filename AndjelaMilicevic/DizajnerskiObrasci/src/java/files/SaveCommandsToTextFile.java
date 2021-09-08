@@ -2,7 +2,7 @@ package files;
 
 import java.io.*;
 import java.util.Iterator;
-import mvc.DrawingController;
+import mvc.controller.DrawingController;
 
 public class SaveCommandsToTextFile implements SavingStrategy {
 	private DrawingController controller;

@@ -6,10 +6,10 @@ import java.awt.*;
 import org.junit.*;
 
 public class PointTests {
-	private Graphics graphics;
 	private int xCoordinate;
 	private int yCoordinate;
 	private Color borderColor;
+	private Graphics graphics;
 	private Point point;
 
 	@Before
@@ -17,8 +17,8 @@ public class PointTests {
 		xCoordinate = 1;
 		yCoordinate = 2;
 		borderColor = Color.BLACK;
-		point = new Point(xCoordinate, yCoordinate, false, borderColor);
 		graphics = mock(Graphics.class);
+		point = new Point(xCoordinate, yCoordinate, false, borderColor);
 	}
 
 	@Test

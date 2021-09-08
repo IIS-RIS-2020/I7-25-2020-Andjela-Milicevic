@@ -1,15 +1,12 @@
 package dialogs;
 
+import java.awt.event.*;
+import javax.swing.*;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-
-public abstract class SurfaceShapeDialog extends ShapeDialog {
+abstract class SurfaceShapeDialog extends ShapeDialog {
 	private static final long serialVersionUID = 1L;
-	JButton btnAreaColor;
+	private JButton btnAreaColor;
 	private Color areaColor;
 
 	public SurfaceShapeDialog() {

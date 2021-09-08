@@ -3,6 +3,7 @@ package files;
 import mvc.*;
 import java.io.*;
 import org.junit.*;
+import mvc.controller.DrawingController;
 import static org.junit.Assert.assertEquals;
 import java.awt.Color;
 import java.util.stream.Collectors;
@@ -12,10 +13,10 @@ import frame.DrawingFrame;
 import geometry.Point;
 
 public class SaveCommandsToTextFileTests {
-	private DrawingController controller;
-	private File file;
 	private DrawingModel model;
+	private DrawingController controller;
 	private SaveCommandsToTextFile saveCommands;
+	private File file;
 	private static BufferedReader reader;
 
 	@Rule
@@ -25,10 +26,13 @@ public class SaveCommandsToTextFileTests {
 	public void setUp() throws IOException {
 		model = new DrawingModel();
 		controller = new DrawingController(model, new DrawingFrame());
+
 		controller.getStringCommandsToWriteToFile()
 				.add(new CmdAdd(new Point(1, 1, false, Color.BLACK), model).toString());
+
 		controller.getStringCommandsToWriteToFile()
 				.add(new CmdAdd(new Point(1, 2, false, Color.YELLOW), model).toString());
+
 		saveCommands = new SaveCommandsToTextFile(controller);
 	}
 
@@ -37,6 +41,7 @@ public class SaveCommandsToTextFileTests {
 		file = tempFolder.newFile("");
 		saveCommands.saveFile(file);
 		reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
+
 		assertEquals(controller.getStringCommandsToWriteToFile().toString(),
 				"[" + reader.lines().collect(Collectors.joining(", ")) + "]");
 	}
@@ -46,6 +51,7 @@ public class SaveCommandsToTextFileTests {
 		file = tempFolder.newFile("file.txt");
 		saveCommands.saveFile(file);
 		reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
+
 		assertEquals(controller.getStringCommandsToWriteToFile().toString(),
 				"[" + reader.lines().collect(Collectors.joining(", ")) + "]");
 	}

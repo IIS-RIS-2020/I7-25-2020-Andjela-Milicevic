@@ -1,12 +1,12 @@
 package files;
 
 import java.io.*;
-import mvc.DrawingController;
+import mvc.controller.FileController;
 
 public class SaveSerializedDrawing implements SavingStrategy {
-	private DrawingController controller;
+	private FileController controller;
 
-	public SaveSerializedDrawing(DrawingController controller) {
+	public SaveSerializedDrawing(FileController controller) {
 		this.controller = controller;
 	}
 

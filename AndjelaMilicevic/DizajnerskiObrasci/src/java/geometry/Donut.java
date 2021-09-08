@@ -97,17 +97,17 @@ public class Donut extends Circle implements Cloneable {
 				+ "), FillColor(" + getAreaColor().getRGB() + "), " + selected;
 	}
 
-	private double area() {
-		return getRadius() * getRadius() * Math.PI - innerRadius * innerRadius * Math.PI;
-	}
-
 	@Override
 	public int compareTo(Object object) {
 		if (object instanceof Donut) {
 			return (int) (((Donut) object).area() - area());
-		} else {
-			return 0;
 		}
+
+		return 0;
+	}
+
+	private double area() {
+		return getRadius() * getRadius() * Math.PI - innerRadius * innerRadius * Math.PI;
 	}
 
 	@Override

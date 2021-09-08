@@ -4,18 +4,19 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import mvc.*;
+import mvc.controller.DrawingController;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
 
 public class DrawingFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPanel;
 	private DrawingView view;
-	private DrawingController controller;
 	private final JScrollPane scrollPane;
 	private final ButtonGroup buttonGroup;
 	private NorthToolbar northToolbar;
 	private SouthToolbar southToolbar;
+	private JPanel contentPanel;
+	private DrawingController controller;
 
 	public DrawingFrame() {
 		view = new DrawingView();
@@ -72,7 +73,10 @@ public class DrawingFrame extends JFrame {
 
 	public void setDrawingController(DrawingController controller) {
 		this.controller = controller;
-		northToolbar.setController(controller);
-		southToolbar.setController(controller);
+
+		northToolbar.setController(controller, controller.getFileController(), controller.getModifyShapeController(),
+				controller.getOptionsController());
+
+		southToolbar.setController(controller.getOptionsController());
 	}
 }

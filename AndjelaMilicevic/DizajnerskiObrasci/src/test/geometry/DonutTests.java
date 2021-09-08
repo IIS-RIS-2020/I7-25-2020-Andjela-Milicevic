@@ -7,13 +7,13 @@ import org.junit.*;
 import java.awt.geom.*;
 
 public class DonutTests {
-	private Graphics2D graphics;
 	private int xCoordinate;
 	private int yCoordinate;
 	private int outerRadius;
 	private int innerRadius;
 	private Color borderColor;
 	private Color fillColor;
+	private Graphics2D graphics;
 	private Donut donut;
 	private Area area;
 

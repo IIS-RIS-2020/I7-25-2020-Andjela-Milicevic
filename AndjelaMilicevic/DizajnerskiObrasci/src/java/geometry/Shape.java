@@ -25,19 +25,19 @@ public abstract class Shape implements Moveable, Comparable<Object>, Serializabl
 		return this.selected;
 	}
 
-	protected Color getSelectionColor() {
-		return Color.BLUE;
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 	public Color getBorderColor() {
 		return borderColor;
 	}
 
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
-
 	public void setBorderColor(Color borderColor) {
 		this.borderColor = borderColor;
+	}
+
+	protected Color getSelectionColor() {
+		return Color.BLUE;
 	}
 }

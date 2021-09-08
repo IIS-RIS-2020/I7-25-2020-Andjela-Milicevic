@@ -6,13 +6,13 @@ import java.awt.*;
 import org.junit.*;
 
 public class CircleTests {
-	private Graphics graphics;
 	private int xCoordinate;
 	private int yCoordinate;
 	private int radius;
 	private Color borderColor;
 	private Color fillColor;
 	private Point center;
+	private Graphics graphics;
 	private Circle circle;
 
 	@Before
@@ -23,8 +23,8 @@ public class CircleTests {
 		borderColor = Color.BLACK;
 		fillColor = Color.WHITE;
 		center = new Point(xCoordinate, yCoordinate, false, borderColor);
-		circle = new Circle(radius, center, false, borderColor, fillColor);
 		graphics = mock(Graphics.class);
+		circle = new Circle(center, radius, false, borderColor, fillColor);
 	}
 
 	@Test

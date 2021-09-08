@@ -6,9 +6,9 @@ import geometry.Rectangle;
 public class CmdModifyRectangle extends CmdModify implements Command, Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public CmdModifyRectangle(Rectangle oldRect, Rectangle newRect) {
-		oldState = oldRect;
-		newState = newRect;
+	public CmdModifyRectangle(Rectangle oldRectangle, Rectangle newRectangle) {
+		oldState = oldRectangle;
+		newState = newRectangle;
 		originalState = new Rectangle();
 		originalState.setFields(oldState);
 	}

@@ -2,20 +2,15 @@ package observer;
 
 import java.util.*;
 import javax.swing.JToggleButton;
-
-import frame.DrawingFrame;
+import frame.NorthToolbar;
 
 public class ButtonObserver implements Observer {
 	private ArrayList<JToggleButton> buttons = new ArrayList<>();
-	private DrawingFrame frame;
 	private Iterator<JToggleButton> iterator;
+	private NorthToolbar toolbar;
 
-	public ButtonObserver(DrawingFrame drawingFrame) {
-		this.frame = drawingFrame;
-	}
-
-	public void addButton(JToggleButton btn) {
-		buttons.add(btn);
+	public ButtonObserver(NorthToolbar toolbar) {
+		this.toolbar = toolbar;
 	}
 
 	@Override
@@ -43,14 +38,12 @@ public class ButtonObserver implements Observer {
 		while (iterator.hasNext()) {
 			JToggleButton button = iterator.next();
 
-			if (button.equals(frame.getNorthToolbar().getBtnModify())) {
+			if (button.equals(toolbar.getBtnModify())) {
 				button.setEnabled(true);
-			} else if (button.equals(frame.getNorthToolbar().getBtnDelete())) {
+			} else if (button.equals(toolbar.getBtnDelete())) {
 				button.setEnabled(true);
-			} else if (button.equals(frame.getNorthToolbar().getBtnBringToBack())
-					|| button.equals(frame.getNorthToolbar().getBtnBringToTop())
-					|| button.equals(frame.getNorthToolbar().getBtnToFront())
-					|| button.equals(frame.getNorthToolbar().getBtnToBack())) {
+			} else if (button.equals(toolbar.getBtnBringToBack()) || button.equals(toolbar.getBtnBringToTop())
+					|| button.equals(toolbar.getBtnToFront()) || button.equals(toolbar.getBtnToBack())) {
 				button.setEnabled(true);
 			}
 		}
@@ -62,16 +55,18 @@ public class ButtonObserver implements Observer {
 		while (iterator.hasNext()) {
 			JToggleButton button = iterator.next();
 
-			if (button.equals(frame.getNorthToolbar().getBtnModify())) {
+			if (button.equals(toolbar.getBtnModify())) {
 				button.setEnabled(false);
-			} else if (button.equals(frame.getNorthToolbar().getBtnDelete())) {
+			} else if (button.equals(toolbar.getBtnDelete())) {
 				button.setEnabled(true);
-			} else if (button.equals(frame.getNorthToolbar().getBtnBringToBack())
-					|| button.equals(frame.getNorthToolbar().getBtnBringToTop())
-					|| button.equals(frame.getNorthToolbar().getBtnToFront())
-					|| button.equals(frame.getNorthToolbar().getBtnToBack())) {
+			} else if (button.equals(toolbar.getBtnBringToBack()) || button.equals(toolbar.getBtnBringToTop())
+					|| button.equals(toolbar.getBtnToFront()) || button.equals(toolbar.getBtnToBack())) {
 				button.setEnabled(false);
 			}
 		}
+	}
+
+	public void addButton(JToggleButton button) {
+		buttons.add(button);
 	}
 }

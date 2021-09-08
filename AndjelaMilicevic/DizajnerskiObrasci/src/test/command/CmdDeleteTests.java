@@ -1,11 +1,9 @@
 package command;
 
 import static org.junit.Assert.*;
-
-import java.awt.Color;
-
 import org.junit.*;
 import geometry.*;
+import java.awt.Color;
 import mvc.DrawingModel;
 
 public class CmdDeleteTests {

@@ -36,32 +36,32 @@ public class CircleDialog extends SurfaceShapeDialog {
 
 		GroupLayout gl_pnlCircle = new GroupLayout(pnlCircle);
 
-		gl_pnlCircle.setHorizontalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnlCircle.createSequentialGroup().addGap(51)
-						.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_pnlCircle.createSequentialGroup().addComponent(getBtnAreaColor())
-										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btnBorderColor))
-								.addGroup(gl_pnlCircle.createSequentialGroup()
-										.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
-												.addComponent(getLblXCoord()).addComponent(getLblYCoord())
-												.addComponent(lblRadius))
-										.addGap(56)
-										.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
-												.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-						.addContainerGap(123, Short.MAX_VALUE)));
+		gl_pnlCircle.setHorizontalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlCircle
+				.createSequentialGroup().addGap(51)
+				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_pnlCircle.createSequentialGroup().addComponent(getBtnAreaColor())
+								.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btnBorderColor))
+						.addGroup(gl_pnlCircle.createSequentialGroup()
+								.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
+										.addComponent(getLblXcoordinate()).addComponent(getLblYcoordinate())
+										.addComponent(lblRadius))
+								.addGap(56)
+								.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
+										.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+				.addContainerGap(123, Short.MAX_VALUE)));
 
 		gl_pnlCircle.setVerticalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pnlCircle.createSequentialGroup().addGap(30)
-						.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(getLblXCoord())
+						.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(getLblXcoordinate())
 								.addComponent(getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
-						.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(getLblYCoord())
+						.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(getLblYcoordinate())
 								.addComponent(getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(34)
@@ -97,7 +97,7 @@ public class CircleDialog extends SurfaceShapeDialog {
 							dispose();
 						} catch (NumberFormatException exception) {
 							JOptionPane.showMessageDialog(new JFrame(),
-									"Neispravan unos podataka.Proverite da li su sva polja popunjena brojnim vrednostima!",
+									"Neispravan unos podataka. Proverite da li su sva polja popunjena brojnim vrednostima!",
 									"Greška", JOptionPane.WARNING_MESSAGE);
 						} catch (Exception exception) {
 							JOptionPane.showMessageDialog(new JFrame(), "Vrednost poluprečnika mora da bude pozitivna!",

@@ -6,13 +6,13 @@ import java.awt.*;
 import org.junit.*;
 
 public class LineTests {
-	private Graphics graphics;
 	int xCoordinateOfStartPoint;
 	int yCoordinateOfStartPoint;
 	int xCoordinateOfEndPoint;
 	int yCoordinateOfEndPoint;
 	Color borderColor;
-	String slectedd;
+	String selected;
+	private Graphics graphics;
 	private Line line;
 
 	@Before
@@ -31,6 +31,7 @@ public class LineTests {
 	public void testDrawShapeNotSelected() {
 		line.draw(graphics);
 		verify(graphics).setColor(borderColor);
+
 		verify(graphics).drawLine(xCoordinateOfStartPoint, yCoordinateOfStartPoint, xCoordinateOfEndPoint,
 				yCoordinateOfEndPoint);
 	}
@@ -106,5 +107,4 @@ public class LineTests {
 				+ line.getEndPoint().getYcoordinate() + ") " + "BorderColor(" + borderColor.getRGB() + "), " + selected,
 				line.toString());
 	}
-
 }

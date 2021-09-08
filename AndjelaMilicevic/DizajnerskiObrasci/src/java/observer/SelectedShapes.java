@@ -3,10 +3,9 @@ package observer;
 import java.util.*;
 import geometry.Shape;
 
-// TODO tests
 public class SelectedShapes implements Subject {
-	private ArrayList<Shape> selectedShapes = new ArrayList<>();
 	private ArrayList<Observer> observers = new ArrayList<>();
+	private ArrayList<Shape> selectedShapes = new ArrayList<>();
 
 	@Override
 	public void notifyObservers() {
@@ -25,10 +24,6 @@ public class SelectedShapes implements Subject {
 	@Override
 	public void removeObserver(Observer observer) {
 		observers.remove(observer);
-	}
-
-	public ArrayList<Shape> getSelectedShapes() {
-		return selectedShapes;
 	}
 
 	public void addSelectedShape(Shape shape) {
@@ -52,5 +47,9 @@ public class SelectedShapes implements Subject {
 
 	public Shape getSelectedShapeByIndex(int indexOfShape) {
 		return selectedShapes.get(indexOfShape);
+	}
+
+	public ArrayList<Shape> getSelectedShapes() {
+		return selectedShapes;
 	}
 }

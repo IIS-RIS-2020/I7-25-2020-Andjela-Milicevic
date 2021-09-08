@@ -45,8 +45,8 @@ public class RectangleDialog extends SurfaceShapeDialog {
 				.addGroup(gl_pnlRectangleDialog.createSequentialGroup().addGap(39)
 						.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.TRAILING).addComponent(lblWidth)
 								.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.LEADING)
-										.addComponent(getLblXCoord()).addComponent(lblHeight)
-										.addComponent(getLblYCoord()).addComponent(btnBorderColor)))
+										.addComponent(getLblXcoordinate()).addComponent(lblHeight)
+										.addComponent(getLblYcoordinate()).addComponent(btnBorderColor)))
 						.addGap(42)
 						.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.LEADING)
 								.addComponent(txtHeight, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
@@ -72,12 +72,12 @@ public class RectangleDialog extends SurfaceShapeDialog {
 								.addComponent(lblHeight))
 						.addGap(26)
 						.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.BASELINE)
-								.addComponent(getLblXCoord()).addComponent(getTxtXcoordinate(),
+								.addComponent(getLblXcoordinate()).addComponent(getTxtXcoordinate(),
 										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
 						.addGroup(gl_pnlRectangleDialog.createParallelGroup(Alignment.BASELINE)
-								.addComponent(getLblYCoord()).addComponent(getTxtYcoordinate(),
+								.addComponent(getLblYcoordinate()).addComponent(getTxtYcoordinate(),
 										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
@@ -129,14 +129,6 @@ public class RectangleDialog extends SurfaceShapeDialog {
 		}
 	}
 
-	public void setTxtHeightEditable(boolean value) {
-		txtHeight.setEditable(value);
-	}
-
-	public void setTxtWidthEditable(boolean value) {
-		txtWidth.setEditable(value);
-	}
-
 	public String getTxtWidth() {
 		return txtWidth.getText();
 	}
@@ -151,5 +143,13 @@ public class RectangleDialog extends SurfaceShapeDialog {
 
 	public void setTxtHeight(String height) {
 		txtHeight.setText(height);
+	}
+
+	public void setTxtHeightEditable(boolean value) {
+		txtHeight.setEditable(value);
+	}
+
+	public void setTxtWidthEditable(boolean value) {
+		txtWidth.setEditable(value);
 	}
 }

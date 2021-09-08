@@ -2,7 +2,7 @@ package geometry;
 
 import java.awt.*;
 
-abstract class AreaShape extends Shape {
+public abstract class AreaShape extends Shape {
 	private static final long serialVersionUID = 1L;
 	private Color areaColor;
 

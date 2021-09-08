@@ -2,15 +2,14 @@ package command;
 
 import geometry.Shape;
 
-//TODO tests
-public abstract class CmdModify {
+public class CmdModify {
 	protected Shape oldState;
 	protected Shape newState;
 	protected Shape originalState;
 
-	public Object redo() {
-		if (oldState.isSelected() != newState.isSelected()) {
-			if (newState.isSelected()) {
+	public Object undo() {
+		if (oldState.isSelected() != originalState.isSelected()) {
+			if (originalState.isSelected()) {
 				return true;
 			}
 
@@ -20,9 +19,9 @@ public abstract class CmdModify {
 		return null;
 	}
 
-	public Object undo() {
-		if (oldState.isSelected() != originalState.isSelected()) {
-			if (originalState.isSelected()) {
+	public Object redo() {
+		if (oldState.isSelected() != newState.isSelected()) {
+			if (newState.isSelected()) {
 				return true;
 			}
 

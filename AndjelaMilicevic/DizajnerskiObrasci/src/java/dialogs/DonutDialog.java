@@ -30,9 +30,6 @@ public class DonutDialog extends SurfaceShapeDialog {
 		setModal(true);
 		getContentPane().add(pnlDonut, BorderLayout.CENTER);
 
-		JLabel lblXcenter = new JLabel("X koordinata centra");
-		JLabel lblYcenter = new JLabel("Y koordinata centra");
-
 		JLabel lblInnerRadius = new JLabel("Unutrašnji radijus");
 		JLabel lblOutterRadius = new JLabel("Spoljašnji radijus");
 
@@ -47,9 +44,10 @@ public class DonutDialog extends SurfaceShapeDialog {
 		gl_pnlDonut.setHorizontalGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlDonut
 				.createSequentialGroup()
 				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_pnlDonut.createSequentialGroup().addGap(41).addComponent(lblXcenter))
+						.addGroup(gl_pnlDonut.createSequentialGroup().addGap(41).addComponent(getLblXcoordinate()))
 						.addGroup(gl_pnlDonut.createSequentialGroup().addGap(43)
-								.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addComponent(lblYcenter)
+								.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
+										.addComponent(getLblYcoordinate())
 										.addGroup(gl_pnlDonut.createParallelGroup(Alignment.TRAILING)
 												.addComponent(lblOutterRadius).addComponent(lblInnerRadius)
 												.addComponent(getBtnAreaColor())))))
@@ -68,28 +66,28 @@ public class DonutDialog extends SurfaceShapeDialog {
 								.addComponent(btnBorderColor)))
 				.addContainerGap(87, Short.MAX_VALUE)));
 
-		gl_pnlDonut.setVerticalGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlDonut
-				.createSequentialGroup().addGap(23)
-				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(lblXcenter).addComponent(
-						getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(lblYcenter).addComponent(
-						getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_pnlDonut.createSequentialGroup().addComponent(lblInnerRadius).addGap(18)
-								.addComponent(lblOutterRadius))
-						.addGroup(gl_pnlDonut.createSequentialGroup()
-								.addComponent(txtInnerRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(18).addComponent(txtRadius, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-				.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-				.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(getBtnAreaColor())
-						.addComponent(btnBorderColor))
-				.addGap(19)));
+		gl_pnlDonut.setVerticalGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnlDonut.createSequentialGroup().addGap(23)
+						.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(getLblXcoordinate())
+								.addComponent(getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(getLblYcoordinate())
+								.addComponent(getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(gl_pnlDonut.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_pnlDonut.createSequentialGroup().addComponent(lblInnerRadius).addGap(18)
+										.addComponent(lblOutterRadius))
+								.addGroup(gl_pnlDonut.createSequentialGroup()
+										.addComponent(txtInnerRadius, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addGap(18).addComponent(txtRadius, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+						.addGroup(gl_pnlDonut.createParallelGroup(Alignment.BASELINE).addComponent(getBtnAreaColor())
+								.addComponent(btnBorderColor))
+						.addGap(19)));
 
 		pnlDonut.setLayout(gl_pnlDonut);
 		{
@@ -158,11 +156,11 @@ public class DonutDialog extends SurfaceShapeDialog {
 		txtRadius.setText(radius);
 	}
 
-	public void setTxtRadiusEditable(boolean value) {
-		txtRadius.setEditable(value);
-	}
-
 	public void setTxtInnerRadiusXеditable(boolean value) {
 		txtInnerRadius.setEditable(value);
+	}
+
+	public void setTxtRadiusEditable(boolean value) {
+		txtRadius.setEditable(value);
 	}
 }

@@ -2,8 +2,7 @@ package frame;
 
 import java.awt.event.*;
 import javax.swing.*;
-
-import mvc.DrawingController;
+import mvc.controller.*;
 
 public class NorthToolbar {
 	private JToolBar toolBar = new JToolBar();
@@ -14,124 +13,120 @@ public class NorthToolbar {
 	private JToggleButton tglBtnCircle = new JToggleButton("Circle");
 	private JToggleButton tglBtnRectangle = new JToggleButton("Rectangle");
 	private JToggleButton tglBtnDonut = new JToggleButton("Donut");
-	private JToggleButton tglBtnModify = new JToggleButton("Modify");
-	private JToggleButton tglBtnSelect = new JToggleButton("Select");
-	private JToggleButton tglBtnDelete = new JToggleButton("Delete");
 	private JToggleButton tglBtnHexagon = new JToggleButton("Hexagon");
-	private JToggleButton tglBtnBringToBack = new JToggleButton("Bring to back");
-	private JToggleButton tglBtnRedo = new JToggleButton("Redo");
-	private JToggleButton tglBtnBringToTop = new JToggleButton("Bring to top");
+	private JToggleButton tglBtnSelect = new JToggleButton("Select");
+	private JToggleButton tglBtnModify = new JToggleButton("Modify");
+	private JToggleButton tglBtnDelete = new JToggleButton("Delete");
 	private JToggleButton tglBtnUndo = new JToggleButton("Undo");
-	private JToggleButton tglBtnToFront = new JToggleButton("To front");
+	private JToggleButton tglBtnRedo = new JToggleButton("Redo");
+	private JToggleButton tglBtnBringToBack = new JToggleButton("Bring to back");
+	private JToggleButton tglBtnBringToTop = new JToggleButton("Bring to top");
 	private JToggleButton tglBtnToBack = new JToggleButton("To back");
+	private JToggleButton tglBtnToFront = new JToggleButton("To front");
 	private JToggleButton tglBtnSave = new JToggleButton("Save");
 	private JToggleButton tglBtnSaveFile = new JToggleButton("Save file");
 	private JToggleButton tglBtnOpen = new JToggleButton("Open");
 	private JToggleButton tglBtnOpenFile = new JToggleButton("Open file");
 	private JToggleButton tglBtnNextLine = new JToggleButton("Next line");
+	private OptionsController optionsController;
+	private FileController fileController;
+	private ModifyShapeController modifyShapeController;
 	private DrawingController controller;
 
-	public NorthToolbar(JScrollPane scrollPane, ButtonGroup buttonGroup) {
+	NorthToolbar(JScrollPane scrollPane, ButtonGroup buttonGroup) {
 		listOfCommands.setModel(listModel);
 		scrollPane.setViewportView(listOfCommands);
 
 		toolBar.add(tglBtnPoint);
 		toolBar.add(tglBtnLine);
 		toolBar.add(tglBtnCircle);
-		toolBar.add(tglBtnDonut);
 		toolBar.add(tglBtnRectangle);
+		toolBar.add(tglBtnDonut);
 		toolBar.add(tglBtnHexagon);
 		toolBar.add(tglBtnSelect);
 		toolBar.add(tglBtnModify);
 		toolBar.add(tglBtnDelete);
-		toolBar.add(tglBtnToBack);
-		toolBar.add(tglBtnBringToBack);
-		toolBar.add(tglBtnToFront);
-		toolBar.add(tglBtnBringToTop);
 		toolBar.add(tglBtnUndo);
 		toolBar.add(tglBtnRedo);
-		toolBar.add(tglBtnOpenFile);
-		toolBar.add(tglBtnNextLine);
+		toolBar.add(tglBtnBringToBack);
+		toolBar.add(tglBtnBringToTop);
+		toolBar.add(tglBtnToBack);
+		toolBar.add(tglBtnToFront);
+		toolBar.add(tglBtnSave);
 		toolBar.add(tglBtnSaveFile);
 		toolBar.add(tglBtnOpen);
-		toolBar.add(tglBtnSave);
+		toolBar.add(tglBtnOpenFile);
+		toolBar.add(tglBtnNextLine);
 
 		buttonGroup.add(tglBtnPoint);
 		buttonGroup.add(tglBtnLine);
 		buttonGroup.add(tglBtnCircle);
-		buttonGroup.add(tglBtnDonut);
 		buttonGroup.add(tglBtnRectangle);
+		buttonGroup.add(tglBtnDonut);
 		buttonGroup.add(tglBtnHexagon);
 		buttonGroup.add(tglBtnSelect);
 		buttonGroup.add(tglBtnModify);
-		buttonGroup.add(tglBtnSave);
 		buttonGroup.add(tglBtnDelete);
-		buttonGroup.add(tglBtnToBack);
-		buttonGroup.add(tglBtnBringToBack);
-		buttonGroup.add(tglBtnToFront);
-		buttonGroup.add(tglBtnBringToTop);
 		buttonGroup.add(tglBtnUndo);
 		buttonGroup.add(tglBtnRedo);
-		buttonGroup.add(tglBtnOpenFile);
-		buttonGroup.add(tglBtnNextLine);
-		buttonGroup.add(tglBtnSaveFile);
+		buttonGroup.add(tglBtnBringToBack);
+		buttonGroup.add(tglBtnBringToTop);
+		buttonGroup.add(tglBtnToBack);
+		buttonGroup.add(tglBtnToFront);
 		buttonGroup.add(tglBtnOpen);
+		buttonGroup.add(tglBtnOpenFile);
+		buttonGroup.add(tglBtnSave);
+		buttonGroup.add(tglBtnSaveFile);
+		buttonGroup.add(tglBtnNextLine);
 
 		tglBtnModify.setEnabled(false);
 		tglBtnDelete.setEnabled(false);
-		tglBtnToBack.setEnabled(false);
 		tglBtnBringToBack.setEnabled(false);
-		tglBtnToFront.setEnabled(false);
 		tglBtnBringToTop.setEnabled(false);
+		tglBtnToBack.setEnabled(false);
+		tglBtnToFront.setEnabled(false);
 		tglBtnUndo.setEnabled(false);
 		tglBtnRedo.setEnabled(false);
-
-		tglBtnSave.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				controller.clickedSave();
-			}
-		});
 
 		tglBtnModify.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				controller.clickedModify();
+				modifyShapeController.clickedModify();
 			}
 		});
 
 		tglBtnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				controller.clickedDelete();
-			}
-		});
-
-		tglBtnToBack.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				controller.clickedToBack();
+				optionsController.clickedDelete();
 			}
 		});
 
 		tglBtnBringToBack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				controller.clickedBringToBack();
-			}
-		});
-
-		tglBtnToFront.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				controller.clickedToFront();
+				optionsController.clickedBringToBack();
 			}
 		});
 
 		tglBtnBringToTop.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				controller.clickedBringToTop();
+				optionsController.clickedBringToTop();
+			}
+		});
+
+		tglBtnToBack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				optionsController.clickedToBack();
+			}
+		});
+
+		tglBtnToFront.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				optionsController.clickedToFront();
 			}
 		});
 
@@ -149,89 +144,44 @@ public class NorthToolbar {
 			}
 		});
 
-		tglBtnOpenFile.addActionListener(new ActionListener() {
+		tglBtnOpen.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				controller.clickedOpenFile();
+				fileController.clickedOpen();
 			}
 		});
 
-		tglBtnNextLine.addActionListener(new ActionListener() {
+		tglBtnOpenFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				controller.clickedNextLine();
+				fileController.clickedOpenFile();
+			}
+		});
+
+		tglBtnSave.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				fileController.clickedSave();
 			}
 		});
 
 		tglBtnSaveFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				controller.clickedSaveFile();
+				fileController.clickedSaveFile();
 			}
 		});
 
-		tglBtnOpen.addActionListener(new ActionListener() {
+		tglBtnNextLine.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				controller.clickedOpen();
+				fileController.clickedNextLine();
 			}
 		});
 	}
 
 	public void addToListModel(Object object) {
 		listModel.addElement(object);
-	}
-
-	public boolean getTglBtnPoint() {
-		return tglBtnPoint.isSelected();
-	}
-
-	public boolean getTglBtnLine() {
-		return tglBtnLine.isSelected();
-	}
-
-	public boolean getTglBtnRectangle() {
-		return tglBtnRectangle.isSelected();
-	}
-
-	public boolean getTglBtnCircle() {
-		return tglBtnCircle.isSelected();
-	}
-
-	public boolean getTglBtnDonut() {
-		return tglBtnDonut.isSelected();
-	}
-
-	public boolean getTglBtnSelected() {
-		return tglBtnSelect.isSelected();
-	}
-
-	public boolean getTglBtnModify() {
-		return tglBtnModify.isSelected();
-	}
-
-	public boolean getTglBtnDelete() {
-		return tglBtnDelete.isSelected();
-	}
-
-	public boolean getTglBtnHexagon() {
-		return tglBtnHexagon.isSelected();
-	}
-
-	public boolean getTglBtnUndo() {
-		return tglBtnUndo.isSelected();
-	}
-
-	public boolean getTglBtnRedo() {
-		return tglBtnRedo.isSelected();
-	}
-
-	public JToggleButton getBtnUndo() {
-		return this.tglBtnUndo;
-	}
-
-	public JToggleButton getBtnRedo() {
-		return this.tglBtnRedo;
 	}
 
 	public JToggleButton getTglBtnSave() {
@@ -246,24 +196,28 @@ public class NorthToolbar {
 		return tglBtnDelete;
 	}
 
-	public JToggleButton getBtnToFront() {
-		return tglBtnToFront;
-	}
-
-	public JToggleButton getBtnToBack() {
-		return tglBtnToBack;
+	public JToggleButton getBtnBringToBack() {
+		return tglBtnBringToBack;
 	}
 
 	public JToggleButton getBtnBringToTop() {
 		return tglBtnBringToTop;
 	}
 
-	public JToggleButton getBtnBringToBack() {
-		return tglBtnBringToBack;
+	public JToggleButton getBtnToBack() {
+		return tglBtnToBack;
 	}
 
-	public JToggleButton getTglBtnSaveFile() {
-		return tglBtnSaveFile;
+	public JToggleButton getBtnToFront() {
+		return tglBtnToFront;
+	}
+
+	public boolean getTglBtnUndo() {
+		return tglBtnUndo.isSelected();
+	}
+
+	public boolean getTglBtnRedo() {
+		return tglBtnRedo.isSelected();
 	}
 
 	public JToggleButton getTglBtnOpen() {
@@ -274,15 +228,67 @@ public class NorthToolbar {
 		return tglBtnOpenFile;
 	}
 
+	public JToggleButton getTglBtnSaveFile() {
+		return tglBtnSaveFile;
+	}
+
 	public JToggleButton getTglBtnNextLine() {
 		return tglBtnNextLine;
+	}
+
+	public boolean getTglBtnPoint() {
+		return tglBtnPoint.isSelected();
+	}
+
+	public boolean getTglBtnLine() {
+		return tglBtnLine.isSelected();
+	}
+
+	public boolean getTglBtnCircle() {
+		return tglBtnCircle.isSelected();
+	}
+
+	public boolean getTglBtnRectangle() {
+		return tglBtnRectangle.isSelected();
+	}
+
+	public boolean getTglBtnDonut() {
+		return tglBtnDonut.isSelected();
+	}
+
+	public boolean getTglBtnHexagon() {
+		return tglBtnHexagon.isSelected();
+	}
+
+	public boolean getTglBtnSelected() {
+		return tglBtnSelect.isSelected();
+	}
+
+	public boolean getTglBtnModify() {
+		return tglBtnModify.isSelected();
+	}
+
+	public boolean getTglBtnDelete() {
+		return tglBtnDelete.isSelected();
+	}
+
+	public JToggleButton getBtnUndo() {
+		return this.tglBtnUndo;
+	}
+
+	public JToggleButton getBtnRedo() {
+		return this.tglBtnRedo;
 	}
 
 	public JToolBar getToolBar() {
 		return toolBar;
 	}
 
-	public void setController(DrawingController controller) {
+	void setController(DrawingController controller, FileController fileController,
+			ModifyShapeController modifyShapeController, OptionsController optionsController) {
 		this.controller = controller;
+		this.fileController = fileController;
+		this.modifyShapeController = modifyShapeController;
+		this.optionsController = optionsController;
 	}
 }

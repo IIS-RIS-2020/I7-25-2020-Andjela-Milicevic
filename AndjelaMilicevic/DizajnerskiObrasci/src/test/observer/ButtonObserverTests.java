@@ -6,14 +6,14 @@ import frame.DrawingFrame;
 import javax.swing.JToggleButton;
 
 public class ButtonObserverTests {
-	private ButtonObserver buttonObserver;
+	private DrawingFrame frame;
 	private JToggleButton modifyButton;
 	private JToggleButton deleteButton;
 	private JToggleButton bringToBackButton;
 	private JToggleButton bringToTopButton;
 	private JToggleButton toFrontButton;
 	private JToggleButton toBackButton;
-	private DrawingFrame frame;
+	private ButtonObserver buttonObserver;
 
 	@Before
 	public void setUp() {
@@ -24,7 +24,7 @@ public class ButtonObserverTests {
 		bringToTopButton = frame.getNorthToolbar().getBtnBringToTop();
 		toFrontButton = frame.getNorthToolbar().getBtnToFront();
 		toBackButton = frame.getNorthToolbar().getBtnToBack();
-		buttonObserver = new ButtonObserver(frame);
+		buttonObserver = new ButtonObserver(frame.getNorthToolbar());
 		buttonObserver.addButton(modifyButton);
 		buttonObserver.addButton(deleteButton);
 		buttonObserver.addButton(bringToBackButton);

@@ -8,10 +8,6 @@ public class DrawingModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Shape> shapes = new ArrayList<>();
 
-	public List<Shape> getShapes() {
-		return shapes;
-	}
-
 	public void addShape(Shape shape) {
 		shapes.add(shape);
 	}
@@ -26,5 +22,9 @@ public class DrawingModel implements Serializable {
 
 	public int getIndexOfShape(Shape shape) {
 		return shapes.indexOf(shape);
+	}
+
+	public List<Shape> getShapes() {
+		return shapes;
 	}
 }

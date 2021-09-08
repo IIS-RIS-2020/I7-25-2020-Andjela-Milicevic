@@ -3,7 +3,6 @@ package command;
 import java.util.*;
 import java.io.Serializable;
 
-//TODO tests
 public class CmdDeleteAll implements Command, Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<CmdDelete> listOfDeleteCommands = new ArrayList<>();
@@ -30,20 +29,6 @@ public class CmdDeleteAll implements Command, Serializable {
 			deleteCommand = iterator.next();
 			deleteCommand.unexecute();
 		}
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder compositionOfStrings = new StringBuilder("");
-		Iterator<CmdDelete> iterator = listOfDeleteCommands.iterator();
-		compositionOfStrings.append(iterator.next().toString());
-
-		while (iterator.hasNext()) {
-			compositionOfStrings.append(";");
-			compositionOfStrings.append(iterator.next().toString());
-		}
-
-		return compositionOfStrings.toString();
 	}
 
 	private void sortByIndex() {
@@ -77,6 +62,20 @@ public class CmdDeleteAll implements Command, Serializable {
 					array[j] = array[j + 1];
 					array[j + 1] = temp;
 				}
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder compositionOfStrings = new StringBuilder("");
+		Iterator<CmdDelete> iterator = listOfDeleteCommands.iterator();
+		compositionOfStrings.append(iterator.next().toString());
+
+		while (iterator.hasNext()) {
+			compositionOfStrings.append(";");
+			compositionOfStrings.append(iterator.next().toString());
+		}
+
+		return compositionOfStrings.toString();
 	}
 
 	public void addDeletedCommand(CmdDelete command) {

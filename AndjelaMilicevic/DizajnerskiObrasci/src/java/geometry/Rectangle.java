@@ -108,17 +108,17 @@ public class Rectangle extends AreaShape implements Cloneable {
 		upperLeftPoint.moveBy(xCoordinate, yCoordinate);
 	}
 
-	private double area() {
-		return height * width;
-	}
-
 	@Override
 	public int compareTo(Object object) {
 		if (object instanceof Rectangle) {
 			return (int) (((Rectangle) object).area() - area());
-		} else {
-			return 0;
 		}
+
+		return 0;
+	}
+
+	private double area() {
+		return height * width;
 	}
 
 	@Override
@@ -127,19 +127,8 @@ public class Rectangle extends AreaShape implements Cloneable {
 			Rectangle rectangle = (Rectangle) shape;
 			upperLeftPoint.setXcoordinate(rectangle.getUpperLeftPoint().getXcoordinate());
 			upperLeftPoint.setYcoordinate(rectangle.getUpperLeftPoint().getYcoordinate());
-
-			try {
-				height = rectangle.getHeight();
-			} catch (Exception exceptionHeight) {
-				exceptionHeight.printStackTrace();
-			}
-
-			try {
-				width = rectangle.getWidth();
-			} catch (Exception exceptionWidth) {
-				exceptionWidth.printStackTrace();
-			}
-
+			height = rectangle.getHeight();
+			width = rectangle.getWidth();
 			setSelected(rectangle.isSelected());
 			setBorderColor(rectangle.getBorderColor());
 			setAreaColor(rectangle.getAreaColor());
@@ -150,20 +139,20 @@ public class Rectangle extends AreaShape implements Cloneable {
 		return upperLeftPoint;
 	}
 
-	public int getHeight() {
-		return height;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
 	public void setUpperLeftPoint(Point upperLeftPoint) {
 		this.upperLeftPoint = upperLeftPoint;
 	}
 
+	public int getHeight() {
+		return height;
+	}
+
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 
 	public void setWidth(int width) {

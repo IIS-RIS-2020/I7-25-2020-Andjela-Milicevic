@@ -1,24 +1,21 @@
 package frame;
 
+import java.awt.event.*;
+import javax.swing.*;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-
-import mvc.DrawingController;
+import mvc.controller.OptionsController;
 
 public class SouthToolbar {
-	private JToolBar toolbar = new JToolBar();
-	private JButton btnAreaColor = new JButton("");
-	private JButton btnBorderColor = new JButton("");
-	private DrawingController controller;
+	private JToolBar toolbar;
+	private JButton btnAreaColor;
+	private JButton btnBorderColor;
+	private OptionsController controller;
 
-	public SouthToolbar(JScrollPane scrollPane, ButtonGroup buttonGroup) {
+	SouthToolbar(JScrollPane scrollPane, ButtonGroup buttonGroup) {
+		toolbar = new JToolBar();
+		btnAreaColor = new JButton("");
+		btnBorderColor = new JButton("");
+
 		toolbar.add(btnAreaColor);
 		toolbar.add(btnBorderColor);
 		toolbar.add(new JLabel("Area color"));
@@ -46,6 +43,10 @@ public class SouthToolbar {
 		});
 	}
 
+	public JToolBar getToolBar() {
+		return toolbar;
+	}
+
 	public JButton getBtnAreaColor() {
 		return btnAreaColor;
 	}
@@ -54,11 +55,7 @@ public class SouthToolbar {
 		return btnBorderColor;
 	}
 
-	public JToolBar getToolBar() {
-		return toolbar;
-	}
-
-	public void setController(DrawingController controller) {
+	public void setController(OptionsController controller) {
 		this.controller = controller;
 	}
 }

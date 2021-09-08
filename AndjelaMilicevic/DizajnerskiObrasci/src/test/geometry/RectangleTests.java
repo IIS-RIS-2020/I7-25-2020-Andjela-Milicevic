@@ -6,13 +6,13 @@ import java.awt.*;
 import org.junit.*;
 
 public class RectangleTests {
-	private Graphics graphics;
 	private int xCoordinate;
 	private int yCoordinate;
 	private int height;
 	private int width;
 	private Color borderColor;
 	private Color fillColor;
+	private Graphics graphics;
 	private Rectangle rectangle;
 
 	@Before

@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import java.awt.*;
 import org.junit.*;
-
 import hexagon.Hexagon;
 
 public class HexagonTests {

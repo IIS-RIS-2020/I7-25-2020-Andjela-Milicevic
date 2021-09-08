@@ -34,20 +34,8 @@ public class HexagonAdapter extends AreaShape {
 	@Override
 	public void draw(Graphics graphics) {
 		hexagon.setSelected(isSelected());
-
-		if (getAreaColor() != null) {
-			hexagon.setAreaColor(getAreaColor());
-		} else {
-			Color color = new Color(0f, 0f, 0f, 0f);
-			hexagon.setAreaColor(color);
-		}
-
-		if (getBorderColor() != null) {
-			hexagon.setBorderColor(getBorderColor());
-		} else {
-			hexagon.setBorderColor(Color.BLACK);
-		}
-
+		hexagon.setAreaColor(getAreaColor());
+		hexagon.setBorderColor(getBorderColor());
 		hexagon.paint(graphics);
 	}
 
@@ -132,20 +120,20 @@ public class HexagonAdapter extends AreaShape {
 		return hexagon;
 	}
 
-	public Point getCenter() {
-		return center;
-	}
-
-	public int getRadius() {
-		return radius;
-	}
-
 	public void setHexagon(Hexagon hexagon) {
 		this.hexagon = hexagon;
 	}
 
+	public Point getCenter() {
+		return center;
+	}
+
 	public void setCenter(Point center) {
 		this.center = center;
+	}
+
+	public int getRadius() {
+		return radius;
 	}
 
 	public void setRadius(int radius) {

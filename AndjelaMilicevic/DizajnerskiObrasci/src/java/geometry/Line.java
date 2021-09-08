@@ -33,7 +33,6 @@ public class Line extends Shape implements Cloneable {
 			graphics.setColor(Color.BLUE);
 			drawSelection(graphics);
 		}
-
 	}
 
 	@Override
@@ -90,7 +89,6 @@ public class Line extends Shape implements Cloneable {
 		return "Line:StartPoint(" + startPoint.getXcoordinate() + "," + startPoint.getYcoordinate() + ") EndPoint("
 				+ endPoint.getXcoordinate() + "," + endPoint.getYcoordinate() + ") " + "BorderColor("
 				+ getBorderColor().getRGB() + "), " + selected;
-
 	}
 
 	@Override
@@ -103,9 +101,9 @@ public class Line extends Shape implements Cloneable {
 	public int compareTo(Object object) {
 		if (object instanceof Line) {
 			return (int) (calculateLength() - ((Line) object).calculateLength());
-		} else {
-			return 0;
 		}
+
+		return 0;
 	}
 
 	@Override
@@ -125,12 +123,12 @@ public class Line extends Shape implements Cloneable {
 		return startPoint;
 	}
 
-	public Point getEndPoint() {
-		return endPoint;
-	}
-
 	public void setStartPoint(Point startPoint) {
 		this.startPoint = startPoint;
+	}
+
+	public Point getEndPoint() {
+		return endPoint;
 	}
 
 	public void setEndPoint(Point endPoint) {

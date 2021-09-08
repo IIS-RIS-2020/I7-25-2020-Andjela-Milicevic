@@ -2,9 +2,7 @@ package command;
 
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
-
 import java.awt.Color;
-
 import geometry.Point;
 import mvc.DrawingModel;
 

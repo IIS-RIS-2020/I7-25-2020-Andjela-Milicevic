@@ -29,8 +29,6 @@ public class HexagonDialog extends SurfaceShapeDialog {
 		getContentPane().add(pnlHexagon, BorderLayout.CENTER);
 		setModal(true);
 
-		JLabel lblXcenter = new JLabel("X koordinata centra");
-		JLabel lblYcenter = new JLabel("Y koordinata centra");
 		JLabel lblRadius = new JLabel("Dužina poluprečnika");
 
 		txtRadius = new JTextField();
@@ -44,8 +42,9 @@ public class HexagonDialog extends SurfaceShapeDialog {
 						.addGroup(gl_pnlCircle.createSequentialGroup().addComponent(getBtnAreaColor())
 								.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(getBtnBorderColor()))
 						.addGroup(gl_pnlCircle.createSequentialGroup()
-								.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addComponent(lblXcenter)
-										.addComponent(lblYcenter).addComponent(lblRadius))
+								.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
+										.addComponent(getLblXcoordinate()).addComponent(getLblYcoordinate())
+										.addComponent(lblRadius))
 								.addGap(56)
 								.addGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
 										.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
@@ -56,22 +55,23 @@ public class HexagonDialog extends SurfaceShapeDialog {
 												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 				.addContainerGap(123, Short.MAX_VALUE)));
 
-		gl_pnlCircle.setVerticalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlCircle
-				.createSequentialGroup().addGap(30)
-				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblXcenter).addComponent(
-						getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblYcenter).addComponent(
-						getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addGap(34)
-				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblRadius).addComponent(
-						txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-				.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(getBtnAreaColor())
-						.addComponent(getBtnBorderColor()))
-				.addGap(26)));
+		gl_pnlCircle.setVerticalGroup(gl_pnlCircle.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnlCircle.createSequentialGroup().addGap(30)
+						.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(getLblXcoordinate())
+								.addComponent(getTxtXcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(getLblYcoordinate())
+								.addComponent(getTxtYcoordinate(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(34)
+						.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(lblRadius)
+								.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+						.addGroup(gl_pnlCircle.createParallelGroup(Alignment.BASELINE).addComponent(getBtnAreaColor())
+								.addComponent(getBtnBorderColor()))
+						.addGap(26)));
 
 		pnlHexagon.setLayout(gl_pnlCircle);
 		{

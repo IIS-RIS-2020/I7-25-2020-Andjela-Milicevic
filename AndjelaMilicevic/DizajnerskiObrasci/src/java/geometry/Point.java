@@ -98,9 +98,9 @@ public class Point extends Shape implements Cloneable {
 		if (object instanceof Point) {
 			Point point = (Point) object;
 			return (int) (point.calculateDistance(0, 0) - calculateDistance(0, 0));
-		} else {
-			return 0;
 		}
+
+		return 0;
 	}
 
 	@Override
@@ -118,12 +118,12 @@ public class Point extends Shape implements Cloneable {
 		return xCoordinate;
 	}
 
-	public int getYcoordinate() {
-		return yCoordinate;
-	}
-
 	public void setXcoordinate(int xCoordinate) {
 		this.xCoordinate = xCoordinate;
+	}
+
+	public int getYcoordinate() {
+		return yCoordinate;
 	}
 
 	public void setYcoordinate(int yCoordinate) {

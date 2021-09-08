@@ -3,16 +3,16 @@ package files;
 import java.io.*;
 import org.junit.*;
 import mvc.*;
+import mvc.controller.DrawingController;
 import static org.junit.Assert.assertEquals;
 import org.junit.rules.TemporaryFolder;
-
 import frame.DrawingFrame;
 import geometry.Point;
 
 public class SaveSerializedDrawingTests {
+	private DrawingModel model;
 	private DrawingController controller;
 	private SaveSerializedDrawing saveDrawing;
-	private DrawingModel model;
 	private static ObjectInputStream inputStream;
 
 	@Rule
@@ -24,7 +24,7 @@ public class SaveSerializedDrawingTests {
 		model.addShape(new Point(1, 2));
 		model.addShape(new Point(3, 4));
 		controller = new DrawingController(model, new DrawingFrame());
-		saveDrawing = new SaveSerializedDrawing(controller);
+		saveDrawing = new SaveSerializedDrawing(controller.getFileController());
 	}
 
 	@Test(expected = IOException.class)
